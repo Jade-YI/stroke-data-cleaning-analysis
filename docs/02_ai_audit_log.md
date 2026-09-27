@@ -73,4 +73,16 @@ Ce document recense les principales utilisations de l’IA dans le projet. L’I
 
 ---
 
+## AI-006 · 2026-09-27 · Code / exploration des données
 
+**Source :** GPT — vérification des valeurs incohérentes ou improbables.
+**Demande :** Générer un code pour examiner les valeurs potentiellement incohérentes.
+**Réponse :** Vérification basée uniquement sur le minimum et le maximum.
+**Vérification :** Le minimum et le maximum ne permettent pas d’évaluer la distribution globale des variables.
+**Constat :** ⚠️ Analyse correcte mais incomplète.
+**Impact :** Léger, sur l’exploration des données.
+**Décision :** Ajout de la médiane et des quartiles pour mieux décrire la distribution.
+**Preuve :** docs/stroke_multivariable_analysis.qmd
+**Leçon :** Les valeurs extrêmes seules ne suffisent pas pour décrire une distribution.
+
+---

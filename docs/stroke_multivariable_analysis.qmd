@@ -32,12 +32,9 @@ recommandations STROBE [@vonElm2007strobe].
 
 ## Objectifs de l'analyse
 
-L'accident vasculaire cérébral (AVC) est un problème majeur de santé publique, à la fois par sa mortalité et par les séquelles qu'il entraîne. Identifier les facteurs associés à sa survenue permet de mieux cibler la prévention.
+Objectif principal : étudier les facteurs *associés* à la présence d’un antécédent d’AVC chez les adultes de ce jeu de données.
 
 ## Méthode
-
-Cette analyse suit les recommandations STROBE pour le rapport des 
-études observationnelles [von Elm et al., 2007].
 
 L'analyse repose sur une régression logistique multivariée standard, avec l'AVC (oui/non) comme variable dépendante. Les résultats seront exprimés sous forme d'*odds ratios* (OR) ajustés, accompagnés de leur intervalle de confiance à 95 %.
 
@@ -63,7 +60,7 @@ Les données proviennent du jeu de données public *Stroke Prediction Dataset*, 
 #| label: import-donnees
 
 donnees <- read_csv(
-  "healthcare-dataset-stroke-data.csv",
+  "../data/raw/healthcare-dataset-stroke-data.csv",
   na = c("", "NA", "N/A")
 )
 
@@ -123,7 +120,7 @@ L'AVC concerne `r n_avc` individus sur `r n_total`, soit `r scales::percent(prop
 
 **Comparaison avec la prévalence nationale.** À titre de repère, Santé publique France estime la prévalence de l'AVC dans la population adulte française à 2,0 % en 2022, soit environ 1 086 795 cas prévalents [@spf2025avc]. La proportion observée dans notre échantillon (`r scales::percent(prop_avc, accuracy = 0.1)`, IC 95 % `r scales::percent(ic_avc[1], accuracy = 0.1)`–`r scales::percent(ic_avc[2], accuracy = 0.1)`) est très supérieure à ce repère national, et l'intervalle de confiance ne le recouvre pas.
 
-Cet écart doit toutefois être interprété avec prudence : l'indicateur de Santé publique France est une *prévalence* en population générale adulte au 1ᵉʳ janvier 2023, tandis que la variable `stroke` de notre jeu de données porte sur un échantillon dont le mode de constitution n'est pas documenté et qui inclut également des enfants. Les deux quantités ne sont donc pas strictement comparables terme à terme. Cela dit, l'ampleur de l'écart (plus du double) suggère fortement que l'échantillon n'a pas été prélevé au hasard dans la population générale, et probablement sur-représente les cas d'AVC (échantillonnage cas-témoins ou similaire). En conséquence, les résultats de cette analyse doivent être interprétés comme des associations internes à cet échantillon, et non extrapolés en population générale sans précaution.
+Cet écart doit toutefois être interprété avec prudence : l'indicateur de Santé publique France est une *prévalence* en population générale adulte au 1ᵉʳ janvier 2023, tandis que la variable `stroke` de notre jeu de données porte sur un échantillon dont le mode de constitution n'est pas documenté et qui inclut également des enfants. Les deux quantités ne sont donc pas strictement comparables terme à terme. Cela dit, cet écart confirme que cet échantillon ne peut pas être considéré comme représentatif de la population générale française ; le mécanisme exact de sélection ne peut toutefois pas être déterminé à partir des informations disponibles.
 
 # Évaluation initiale de la qualité des données
 
@@ -153,14 +150,15 @@ Seule la variable `bmi` comporte des valeurs manquantes au sens strict (codées 
 #| label: valeurs-improbables
 
 donnees |>
-  summarise(
-    `Âge min` = min(age),
-    `Âge max` = max(age),
-    `BMI min` = min(bmi, na.rm = TRUE),
-    `BMI max` = max(bmi, na.rm = TRUE),
-    `Glycémie min` = min(avg_glucose_level),
-    `Glycémie max` = max(avg_glucose_level)
-  ) |>
+  reframe(across(
+    c(age, bmi, avg_glucose_level),
+    ~ c(min(.x, na.rm = TRUE),
+        quantile(.x, 0.25, na.rm = TRUE),
+        median(.x, na.rm = TRUE),
+        quantile(.x, 0.75, na.rm = TRUE),
+        max(.x, na.rm = TRUE))
+  )) |>
+  mutate(Statistique = c("Min", "Q1", "Médiane", "Q3", "Max"), .before = 1) |>
   knitr::kable(digits = 1)
 ```
 
