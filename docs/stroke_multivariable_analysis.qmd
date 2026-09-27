@@ -1,5 +1,5 @@
 ---
-title: "Facteurs associés à l'accident vasculaire cérébral chez les adultes : une analyse multivariée avec imputations multiples"
+title: "Facteurs associés à l'accident vasculaire cérébral chez les adultes : une analyse multivariée"
 subtitle: "Analyse transversale du jeu de données de prédiction des AVC de Kaggle"
 author: "Jiahui YI / Jade YI"
 date: "2026-09-20"
@@ -26,12 +26,16 @@ execute:
   message: false
 ---
 # Introduction et objectifs
+
 Cette analyse observationnelle est rapportée conformément aux 
 recommandations STROBE [@vonElm2007strobe].
+
 ## Objectifs de l'analyse
+
 L'accident vasculaire cérébral (AVC) est un problème majeur de santé publique, à la fois par sa mortalité et par les séquelles qu'il entraîne. Identifier les facteurs associés à sa survenue permet de mieux cibler la prévention.
 
 ## Méthode
+
 Cette analyse suit les recommandations STROBE pour le rapport des 
 études observationnelles [von Elm et al., 2007].
 

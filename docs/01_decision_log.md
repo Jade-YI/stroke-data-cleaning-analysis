@@ -135,3 +135,20 @@ Le modèle principal est ajusté après exclusion de ces 5 observations.
 **Statut :** Retenue
 
 ---
+## DEC-008 — 2026-09-27
+
+**Étape :** Traitement des valeurs manquantes de bmi
+
+**Décision :**
+L’imputation multiple initialement envisagée est abandonnée. Les valeurs manquantes de bmi seront remplacées par la médiane.
+
+**Justification :**
+L’imputation multiple nécessite des choix méthodologiques et une validation plus avancés. Compte tenu du cadre de ce projet, une méthode plus simple et facilement reproductible a été retenue. L’imputation médiane permet de conserver les observations tout en limitant l’influence des valeurs extrêmes.
+
+**Limite :**
+Cette méthode ne tient pas compte de l’incertitude liée aux valeurs imputées et peut réduire artificiellement la variabilité de bmi.
+
+**Statut :** Retenue
+
+⸻
+
