@@ -104,4 +104,19 @@ Justification :
 
 Statut : Prévue — à confirmer avant l’analyse multivariable.
 
+---
+
+DEC-006 — 2026-09-26
+
+Étape : Tableau descriptif — comparaison selon l’AVC
+
+Décision :
+add_p() utilise par défaut le test de Wilcoxon pour les variables continues. Le test t de Student a été choisi à la place, en conservant la présentation en moyenne (ET).
+
+Justification :
+Compte tenu de la grande taille de l’échantillon, le test t est relativement robuste aux écarts à la normalité. Ce choix est également cohérent avec la présentation des variables continues et leur utilisation dans le modèle de régression.
+
+Statut : Retenue
+
+---
 
