@@ -2,7 +2,7 @@
 title: "Facteurs associés à l'accident vasculaire cérébral chez les adultes : une analyse multivariée avec imputations multiples"
 subtitle: "Analyse transversale du jeu de données de prédiction des AVC de Kaggle"
 author: "Jiahui YI / Jade YI"
-date: "20/09/2026"
+date: "2026-09-20"
 bibliography: references.bib
 lang: fr
 
@@ -25,39 +25,36 @@ execute:
   warning: false
   message: false
 ---
-
 # Introduction et objectifs
-
+Cette analyse observationnelle est rapportée conformément aux 
+recommandations STROBE [@vonElm2007strobe].
 ## Objectifs de l'analyse
-
 L'accident vasculaire cérébral (AVC) est un problème majeur de santé publique, à la fois par sa mortalité et par les séquelles qu'il entraîne. Identifier les facteurs associés à sa survenue permet de mieux cibler la prévention.
 
 ## Méthode
+Cette analyse suit les recommandations STROBE pour le rapport des 
+études observationnelles [von Elm et al., 2007].
 
 L'analyse repose sur une régression logistique multivariée standard, avec l'AVC (oui/non) comme variable dépendante. Les résultats seront exprimés sous forme d'*odds ratios* (OR) ajustés, accompagnés de leur intervalle de confiance à 95 %.
 
 Il s'agit d'une analyse observationnelle : les associations mises en évidence ne permettent pas, à elles seules, de conclure à un lien causal.# Introduction et objectifs
 
 # Source des données
-
 ```{r}
 #| label: setup
 #| include: false
 
 library(tidyverse)
-library(tidyverse)
 library(gtsummary)
 library(broom)
 library(ggdag)
 ```
-
 Les données proviennent du jeu de données public *Stroke Prediction Dataset*, diffusé sur la plateforme Kaggle (fichier `healthcare-dataset-stroke-data.csv`). Chaque ligne correspond à un individu, décrit par :
 
 - des caractéristiques démographiques (âge, sexe, statut marital, type d'emploi, lieu de résidence) ;
 - des caractéristiques cliniques (hypertension, maladie cardiaque, glycémie moyenne, indice de masse corporelle) ;
 - un comportement (statut tabagique) ;
 - la survenue ou non d'un AVC.
-
 ```{r}
 #| label: import-donnees
 
@@ -69,7 +66,6 @@ donnees <- read_csv(
 ```
 
 ## Structure initiale
-
 ```{r}
 #| label: structure-dimensions
 
@@ -79,11 +75,9 @@ n_non   <- n_total - n_avc
 prop_avc <- n_avc / n_total
 ic_avc  <- binom.test(n_avc, n_total)$conf.int
 ```
-
 Le fichier brut contient `r n_total` individus et `r ncol(donnees)` variables. Chaque `id` est-il unique ? `r if (anyDuplicated(donnees$id) == 0) "Oui" else "Non"`.
 
 ### Répartition de l'AVC
-
 ```{r}
 #| label: repartition-avc
 
@@ -448,9 +442,7 @@ ggplot(resultats_modele, aes(x = estimate, y = fct_reorder(term, estimate))) +
 
 Ce graphe formalise le raisonnement qui a guidé la sélection des variables d'ajustement : l'âge est traité comme un facteur de confusion central, susceptible d'expliquer une partie des associations brutes observées pour l'hypertension, la maladie cardiaque, le statut marital et le type d'emploi. Les résultats du modèle ajusté (tableau 2) sont cohérents avec cette structure : les associations portées uniquement par l'âge (statut marital, type d'emploi) disparaissent après ajustement, tandis que celles ayant une composante propre (hypertension, glycémie) persistent, au moins partiellement.
 
-
 # Discussion
-
 ## Confrontation aux hypothèses
 
 **Âge (H1).** L'association prédite se confirme et reste la plus forte du modèle (OR = 1,08 par année, p < 0,001). Elle persiste après ajustement, comme prévu.
@@ -474,7 +466,6 @@ Ce graphe formalise le raisonnement qui a guidé la sélection des variables d'a
 **Genre (H10).** Aucune différence significative entre hommes et femmes n'est observée dans le modèle ajusté (OR = 1,04, p = 0,8). L'hypothèse d'un effet médié par le tabagisme n'a donc pas lieu d'être testée, faute d'association de départ à expliquer.
 
 ## Limites
-
 La proportion d'AVC dans cet échantillon (4,9 %) est très supérieure à la prévalence nationale française (2,0 %), ce qui suggère un mode d'échantillonnage non aléatoire. Les résultats doivent donc être interprétés comme des associations internes à cet échantillon, sans extrapolation à la population générale.
 
 Le traitement des valeurs manquantes du BMI par imputation simple (médiane) constitue une autre limite : cette méthode réduit artificiellement la variance de la variable, ce qui peut conduire à sous-estimer son rôle réel.
@@ -482,5 +473,4 @@ Le traitement des valeurs manquantes du BMI par imputation simple (médiane) con
 Enfin, le caractère transversal des données ne permet pas d'établir de séquence temporelle entre les facteurs étudiés et la survenue de l'AVC, ce qui limite toute interprétation causale.
 
 # Conclusion
-
 Parmi les facteurs étudiés, l'âge, l'hypertension et la glycémie moyenne restent indépendamment associés à l'AVC après ajustement. Les associations observées pour la maladie cardiaque et le statut matrimonial dans l'analyse brute s'expliquent en grande partie par l'âge. L'IMC, le tabagisme, le type d'emploi, le type de résidence et le genre ne montrent pas d'association indépendante dans cet échantillon.
