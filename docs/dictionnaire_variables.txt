@@ -1,0 +1,79 @@
+DICTIONNAIRE DES VARIABLES
+Projet : Facteurs associés à l'AVC — analyse multivariée
+============================================================
+
+VARIABLES BRUTES (jeu de données original)
+------------------------------------------------------------
+
+id                  | Identifiant unique de l'individu
+                    | Type : numérique, unique
+
+gender              | Sexe de l'individu
+                    | Modalités : Male, Female, Other*
+                    | *Other exclu de l'analyse (effectif = 1)
+
+age                 | Âge de l'individu
+                    | Unité : années
+                    | Note : valeurs non entières chez les < 2 ans (fraction d'année)
+
+hypertension        | Présence d'hypertension artérielle
+                    | Modalités : 0 = Non, 1 = Oui
+
+heart_disease       | Présence d'une maladie cardiaque
+                    | Modalités : 0 = Non, 1 = Oui
+
+ever_married        | A déjà été marié(e)
+                    | Modalités : Yes, No
+
+work_type           | Type d'emploi
+                    | Modalités : Private, Self-employed, Govt_job,
+                    |             children, Never_worked**
+                    | **Never_worked exclu (non pertinent en population adulte)
+
+Residence_type      | Lieu de résidence
+                    | Modalités : Urban, Rural
+
+avg_glucose_level   | Glycémie moyenne
+                    | Unité : mg/dL
+
+bmi                 | Indice de masse corporelle
+                    | Unité : kg/m²
+                    | Note : valeurs manquantes présentes (NA)
+
+smoking_status      | Statut tabagique
+                    | Modalités : never smoked, formerly smoked,
+                    |             smokes, Unknown***
+                    | ***Unknown = donnée manquante fonctionnelle,
+                    |    conservée comme catégorie à part entière
+
+stroke              | Survenue d'un AVC (variable dépendante)
+                    | Modalités : 0 = Non, 1 = Oui
+
+
+VARIABLES DÉRIVÉES (créées lors de la préparation des données)
+------------------------------------------------------------
+
+bmi_wins            | BMI écrêté (winsorisé)
+                    | Construction : bmi ramené aux 2,5e et 97,5e
+                    |   percentiles ; NA imputés par la médiane
+                    |   avant écrêtement
+                    | Usage : analyse principale
+
+glucose_10          | Glycémie moyenne, échelle par 10 mg/dL
+                    | Construction : avg_glucose_level / 10
+                    | Usage : analyse de sensibilité (interprétabilité de l'OR)
+
+donnees_adultes     | Population analytique
+                    | Construction : donnees filtré sur
+                    |   age >= 18, gender != "Other",
+                    |   work_type != "Never_worked"
+
+
+RECODAGES APPLIQUÉS
+------------------------------------------------------------
+
+stroke              0/1 → facteur "Non"/"Oui"
+hypertension        0/1 → facteur "Non"/"Oui"
+heart_disease       0/1 → facteur "Non"/"Oui"
+gender              droplevels() après exclusion de "Other"
+work_type           droplevels() après exclusion de "Never_worked"
