@@ -46,7 +46,7 @@ Ce document recense les principales utilisations de l’IA dans le projet. L’I
 
 ---
  
- ### AI-004 · 2026-09-22 · Type : code / présentation
+## AI-004 · 2026-09-22 · Type : code / présentation
 
 * **Source :** GPT — analyse des valeurs manquantes.
 * **Ce que j’ai demandé / l’IA a fait :** Générer le code pour résumer les valeurs manquantes.
@@ -59,5 +59,18 @@ Ce document recense les principales utilisations de l’IA dans le projet. L’I
 
 ---
 
+## AI-005 · 2026-09-26 · Code / visualisation
+
+**Source :** GPT — génération du DAG.
+**Demande :** Générer le code pour représenter le DAG des hypothèses.
+**Réponse :** Utilisation de ggdag() avec text = FALSE.
+**Vérification :** Le graphique affichait de gros points noirs qui masquaient les variables. Après vérification, text = FALSE ne supprime pas les nœuds dessinés par défaut avec geom_dag_point().
+**Constat :** ⚠️ Le code fonctionnait, mais la visualisation était incorrecte.
+**Impact :** Aucun sur l’analyse ; uniquement sur la présentation.
+**Décision :** Remplacement de ggdag() par ggplot() + geom_dag_edges() + geom_dag_label_repel() afin de conserver uniquement les étiquettes et les flèches.
+**Preuve :** docs/stroke_multivariable_analysis.qmd
+**Leçon :** Vérifier les couches graphiques ajoutées par défaut par les fonctions utilisées.
+
+---
 
 
