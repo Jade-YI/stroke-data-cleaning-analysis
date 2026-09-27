@@ -88,35 +88,50 @@ Le modèle définitif ne sera établi qu’après l’évaluation de la qualité
 
 ---
 
-##DEC-005 — 2026-09-22
+## DEC-005 — 2026-09-22
 
-Étape : Traitement des valeurs manquantes et extrêmes
+**Étape :** Traitement des valeurs manquantes et extrêmes
 
-Décision :
+**Décision :**
 Les NA de bmi sont conservés pour le moment, sans imputation.
 
 Les valeurs extrêmes de bmi seront d’abord conservées. Une analyse de sensibilité sera ensuite réalisée en excluant les valeurs hors des percentiles 2,5–97,5 %.
 
 Les mineurs seront exclus de l’analyse principale.
 
-Justification :
+**Justification :**
 Éviter de supprimer ou modifier des données avant d’évaluer leur impact. L’analyse principale sera limitée aux adultes ; la justification de ce choix reste à préciser.
 
-Statut : Prévue — à confirmer avant l’analyse multivariable.
+**Statut :** Prévue — à confirmer avant l’analyse multivariable.
 
 ---
 
-DEC-006 — 2026-09-26
+## DEC-006 — 2026-09-26
 
-Étape : Tableau descriptif — comparaison selon l’AVC
+**Étape :** Tableau descriptif — comparaison selon l’AVC
 
-Décision :
+**Décision :**
 add_p() utilise par défaut le test de Wilcoxon pour les variables continues. Le test t de Student a été choisi à la place, en conservant la présentation en moyenne (ET).
 
-Justification :
+**Justification :**
 Compte tenu de la grande taille de l’échantillon, le test t est relativement robuste aux écarts à la normalité. Ce choix est également cohérent avec la présentation des variables continues et leur utilisation dans le modèle de régression.
 
-Statut : Retenue
+**Statut :** Retenue
 
 ---
+## DEC-007 — 2026-09-26
 
+**Étape :** Modèle multivariable — variable work_type
+
+**Décision :**
+Les 5 individus de la catégorie Never_worked ont été exclus de l’analyse.
+
+**Justification :**
+Cette catégorie ne contient que 5 individus et conduit à une estimation instable (OR = 0,00, IC non estimable). Son effectif est insuffisant pour obtenir une estimation interprétable.
+
+**Conséquence :**
+Le modèle principal est ajusté après exclusion de ces 5 observations.
+
+**Statut :** Retenue
+
+---
