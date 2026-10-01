@@ -150,5 +150,21 @@ Cette méthode ne tient pas compte de l’incertitude liée aux valeurs imputée
 
 **Statut :** Retenue
 
-⸻
+---
+##DEC-009 — 2026-10-01
+
+**Étape : **Répartition de l’AVC dans le fichier brut
+
+**Décision :**
+L’IC à 95 % autour de la prévalence a été supprimé. Seule la proportion d’AVC observée dans l’échantillon est présentée.
+
+**Justification :**
+Cette section décrit la composition du fichier et non une estimation de la prévalence dans la population générale. Un IC à 95 % pourrait suggérer une inférence qui n’est pas justifiée par ce jeu de données.
+
+**Statut :** Retenue
+
+---
+
+
+
 

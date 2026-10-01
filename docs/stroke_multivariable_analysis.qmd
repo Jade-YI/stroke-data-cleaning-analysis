@@ -78,7 +78,7 @@ ic_avc  <- binom.test(n_avc, n_total)$conf.int
 ```
 Le fichier brut contient `r n_total` individus et `r ncol(donnees)` variables. Chaque `id` est-il unique ? `r if (anyDuplicated(donnees$id) == 0) "Oui" else "Non"`.
 
-### Répartition de l'AVC
+### ### Répartition de l'AVC dans le fichier brut
 ```{r}
 #| label: repartition-avc
 
@@ -116,7 +116,7 @@ donnees |>
   theme_minimal()
 ```
 
-L'AVC concerne `r n_avc` individus sur `r n_total`, soit `r scales::percent(prop_avc, accuracy = 0.1)` (IC à 95 % : `r scales::percent(ic_avc[1], accuracy = 0.1)` à `r scales::percent(ic_avc[2], accuracy = 0.1)`). Le rapport est d'environ `r round(n_non / n_avc, 1)` individus sans AVC pour un individu avec AVC.
+L'AVC concerne `r n_avc` individus sur `r n_total`, soit `r scales::percent(prop_avc, accuracy = 0.1)`  Le rapport est d'environ `r round(n_non / n_avc, 1)` individus sans AVC pour un individu avec AVC.
 
 **Comparaison avec la prévalence nationale.** À titre de repère, Santé publique France estime la prévalence de l'AVC dans la population adulte française à 2,0 % en 2022, soit environ 1 086 795 cas prévalents [@spf2025avc]. La proportion observée dans notre échantillon (`r scales::percent(prop_avc, accuracy = 0.1)`, IC 95 % `r scales::percent(ic_avc[1], accuracy = 0.1)`–`r scales::percent(ic_avc[2], accuracy = 0.1)`) est très supérieure à ce repère national, et l'intervalle de confiance ne le recouvre pas.
 
@@ -195,7 +195,14 @@ donnees_adultes <- donnees_adultes |>
 
 n_exclus_age    <- sum(donnees$age < 18)
 n_exclus_gender <- sum(donnees$age >= 18 & donnees$gender == "Other")
+n_exclus_never_worked<- sum(donnees$work_type=="Never_worked")
 n_analyse       <- nrow(donnees_adultes)
+
+tibble::tibble(
+  Étape = c("Âge < 18", "Genre = Other", "Never worked", "Échantillon final"),
+  `Nombre exclus / retenu` = c(n_exclus_age, n_exclus_gender, n_exclus_never_worked, n_analyse)
+) |>
+  knitr::kable()
 ```
 
 Sur les `r nrow(donnees)` individus du fichier initial, `r n_exclus_age` sont exclus pour âge inférieur à 18 ans et `r n_exclus_gender` pour la catégorie `gender = "Other"`, soit une population analytique de `r n_analyse` individus.
