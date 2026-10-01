@@ -32,13 +32,13 @@ recommandations STROBE [@vonElm2007strobe].
 
 ## Objectifs de l'analyse
 
-Objectif principal : étudier les facteurs *associés* à la présence d’un antécédent d’AVC chez les adultes de ce jeu de données.
+L’objectif principal est d’étudier les facteurs associés à la présence d’un antécédent d’AVC chez les adultes de ce jeu de données.
 
 ## Méthode
 
 L'analyse repose sur une régression logistique multivariée standard, avec l'AVC (oui/non) comme variable dépendante. Les résultats seront exprimés sous forme d'*odds ratios* (OR) ajustés, accompagnés de leur intervalle de confiance à 95 %.
 
-Il s'agit d'une analyse observationnelle : les associations mises en évidence ne permettent pas, à elles seules, de conclure à un lien causal.# Introduction et objectifs
+Il s'agit d'une analyse observationnelle : les associations mises en évidence ne permettent pas, à elles seules, de conclure à un lien causal.
 
 # Source des données
 ```{r}
@@ -55,7 +55,7 @@ Les données proviennent du jeu de données public *Stroke Prediction Dataset*, 
 - des caractéristiques démographiques (âge, sexe, statut marital, type d'emploi, lieu de résidence) ;
 - des caractéristiques cliniques (hypertension, maladie cardiaque, glycémie moyenne, indice de masse corporelle) ;
 - un comportement (statut tabagique) ;
-- la survenue ou non d'un AVC.
+- la présence ou non d’un antécédent d’AVC.
 ```{r}
 #| label: import-donnees
 
@@ -74,11 +74,10 @@ n_total <- nrow(donnees)
 n_avc   <- sum(donnees$stroke == 1)
 n_non   <- n_total - n_avc
 prop_avc <- n_avc / n_total
-ic_avc  <- binom.test(n_avc, n_total)$conf.int
 ```
 Le fichier brut contient `r n_total` individus et `r ncol(donnees)` variables. Chaque `id` est-il unique ? `r if (anyDuplicated(donnees$id) == 0) "Oui" else "Non"`.
 
-### ### Répartition de l'AVC dans le fichier brut
+### Répartition de l'AVC dans le fichier brut
 ```{r}
 #| label: repartition-avc
 
@@ -126,8 +125,6 @@ Cette proportion décrit uniquement la composition du jeu de données
 brut et ne constitue pas une estimation de la prévalence de l'AVC
 dans une population définie.
 
-Cet écart doit toutefois être interprété avec prudence : l'indicateur de Santé publique France est une *prévalence* en population générale adulte au 1ᵉʳ janvier 2023, tandis que la variable `stroke` de notre jeu de données porte sur un échantillon dont le mode de constitution n'est pas documenté et qui inclut également des enfants. Les deux quantités ne sont donc pas strictement comparables terme à terme. Cela dit, cet écart confirme que cet échantillon ne peut pas être considéré comme représentatif de la population générale française ; le mécanisme exact de sélection ne peut toutefois pas être déterminé à partir des informations disponibles.
-
 # Évaluation initiale de la qualité des données
 
 ## Valeurs manquantes
@@ -167,8 +164,7 @@ donnees |>
   mutate(Statistique = c("Min", "Q1", "Médiane", "Q3", "Max"), .before = 1) |>
   knitr::kable(digits = 1)
 ```
-
-L'examen des étendues ne révèle pas de valeur aberrante évidente (âge négatif, BMI ou glycémie nul, etc.). Deux points méritent toutefois d'être signalés :
+L’examen de la distribution des variables quantitatives ne révèle pas de valeur impossible évidente ne révèle pas de valeur impossible évidente (âge négatif, BMI ou glycémie nul, etc.). Deux points méritent toutefois d'être signalés :
 
 - **Âges non entiers.** `r sum(donnees$age != round(donnees$age))` individus ont un âge non entier, tous âgés de moins de 2 ans. Il s'agit vraisemblablement d'un encodage de l'âge en fraction d'année chez les nourrissons, et non d'une erreur de saisie.
 - **BMI extrême.** La valeur maximale de BMI (`r max(donnees$bmi, na.rm = TRUE)`) est cliniquement très élevée. Cette valeur sera examinée individuellement lors de la préparation des données, sans être exclue à ce stade.
