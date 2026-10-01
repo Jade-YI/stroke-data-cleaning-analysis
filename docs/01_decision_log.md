@@ -164,7 +164,22 @@ Cette section décrit la composition du fichier et non une estimation de la pré
 **Statut :** Retenue
 
 ---
+##DEC-010 — 2026-10-01
 
+**Étape:** Prévalence de l’AVC chez les adultes
+
+**Décision :**
+Deux populations sont distinguées pour le calcul de la prévalence :
+
+* brut : tous les individus adultes du fichier initial ;
+* donnees_adultes : population analytique finale, après exclusion de gender = "Other" et work_type = "Never_worked".
+
+**Justification :**
+Cette distinction permet de séparer la composition du fichier brut de celle de la population effectivement utilisée dans les analyses.
+
+**Statut : ** Retenue
+
+---
 
 
 
