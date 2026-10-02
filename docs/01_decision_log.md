@@ -180,6 +180,22 @@ Cette distinction permet de séparer la composition du fichier brut de celle de 
 **Statut : ** Retenue
 
 ---
+##DEC-011 — 2026-10-02
 
+**Étape :** Traitement des valeurs extrêmes de bmi
+
+**Décision :**
+L’analyse principale utilisera les valeurs originales de bmi, avec imputation médiane uniquement pour les valeurs manquantes.
+
+La version winsorisée aux percentiles 2,5 % et 97,5 % sera utilisée uniquement en analyse de sensibilité.
+
+**Justification :**
+Les valeurs élevées de bmi peuvent correspondre à une obésité réelle et potentiellement associée à l’AVC. Elles ne doivent donc pas être considérées automatiquement comme des valeurs aberrantes.
+
+L’analyse de sensibilité permettra de vérifier si les valeurs extrêmes influencent les résultats.
+
+**Statut :** Retenue — remplace la stratégie précédente utilisant le BMI winsorisé dans l’analyse principale.
+
+---
 
 
