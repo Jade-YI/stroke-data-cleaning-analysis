@@ -214,12 +214,9 @@ tibble::tibble(
   Étape = c("Fichier initial", "Âge < 18", "Genre = Other",
             "Never worked", "Échantillon final"),
   Exclus   = c(NA, n_exclus_age, n_exclus_gender, n_exclus_never_worked, NA),
-  Restants = c(n_total,
-               n_total - n_exclus_age,
-               n_total - n_exclus_age - n_exclus_gender,
-               n_analyse,
-               n_analyse)
-) |>
+  Restants = c(n_total, n_total - n_exclus_age,
+               n_total - n_exclus_age - n_exclus_gender,n_analyse,
+               n_analyse)) |>
   knitr::kable(
     col.names = c("Étape", "Nombre exclu", "Effectif restant"),
     format.args = list(big.mark = " ")
