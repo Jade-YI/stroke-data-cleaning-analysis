@@ -128,3 +128,17 @@ Ce document recense les principales utilisations de l’IA dans le projet. L’I
 **Leçon :** Pour une variable binaire, une seule modalité peut suffire lorsque l’autre est directement déductible.
 
 ---
+
+##AI-010 · 2026-10-03 · Méthode / interprétation
+
+**Source :** Claude — interprétation du modèle de régression logistique.
+**Demande :** Vérifier l’interprétation des résultats du modèle glm.
+**Réponse :** Pour avg_glucose_level, l’OR était calculé pour une augmentation de 1 mg/dL (OR = 1,00 ; IC 95 % 1,00–1,01 ; p < 0,001), une unité trop faible pour rendre l’association facilement interprétable.
+**Vérification :** Une variation de 1 mg/dL est cliniquement faible et conduit à un OR arrondi très proche de 1, malgré une association statistiquement significative.
+**Constat :** ⚠️ Le modèle était correct, mais l’échelle utilisée limitait fortement l’interprétation du résultat.
+**Impact :** Modéré. L’échelle initiale rendait le résultat du Tableau 2 peu informatif et affectait son interprétation dans la suite de l’analyse.
+**Décision :** Recalcul de l’OR pour une augmentation de 10 mg/dL afin d’obtenir une mesure plus interprétable, sans modifier le modèle sous-jacent.
+**Preuve :** docs/stroke_multivariable_analysis.qmd
+**Leçon :** L’unité d’une variable continue doit être choisie de façon à produire une mesure d’association interprétable.
+
+---
