@@ -614,11 +614,17 @@ La confrontation porte principalement sur les associations entre chaque variable
 **Sexe (H10).** Contrairement à l’association attendue, aucune association entre le sexe et la présence d’un antécédent d’AVC n’est statistiquement mise en évidence après ajustement (OR = 1,04 pour les hommes par rapport aux femmes ; IC95 % : 0,78–1,38). Le rôle hypothétique du tabagisme dans cette relation n’a pas été spécifiquement évalué ; aucune analyse de médiation n’a été réalisée, compte tenu notamment de l’incertitude sur la temporalité des variables.
 
 ## Limites
-La proportion d'AVC dans cet échantillon (`r scales::percent(prop_avc_adultes, accuracy = 0.1)`) est très supérieure à la prévalence nationale française (2,0 %), ce qui suggère un mode d'échantillonnage non aléatoire. Les résultats doivent donc être interprétés comme des associations internes à cet échantillon, sans extrapolation à la population générale.
 
-Le traitement des valeurs manquantes du BMI par imputation simple (médiane) constitue une autre limite : cette méthode réduit artificiellement la variance de la variable, ce qui peut conduire à sous-estimer son rôle réel.
+**Temporalité des mesures** La date de survenue de l’AVC et le moment de mesure des autres variables ne sont pas renseignés. La séquence temporelle ne peut donc pas être établie, ce qui exclut toute interprétation causale.
 
-Enfin, le caractère transversal des données ne permet pas d'établir de séquence temporelle entre les facteurs étudiés et la survenue de l'AVC, ce qui limite toute interprétation causale.
+**Définition et mesure des variables** Les modalités de définition ou de mesure de plusieurs variables, notamment l’AVC, l’hypertension, les maladies cardiaques et la glycémie, sont insuffisamment documentées. Des erreurs de classification ou de mesure ne peuvent donc pas être exclues.
+
+**Représentativité de l’échantillon** La population source, le mode d’échantillonnage et les modalités de recrutement ne sont pas documentés. La proportion d’antécédents d’AVC ne peut donc pas être interprétée comme une prévalence en population générale, et la généralisation des résultats reste limitée.
+
+**Données manquantes de l’IMC** Les valeurs manquantes ont été remplacées par la médiane, une méthode qui réduit artificiellement la variabilité et ne tient pas compte de l’incertitude liée à l’imputation. Les estimations concernant l’IMC peuvent donc en être affectées.
+
+**Confusion résiduelle** L’ajustement étant limité aux variables disponibles, l’influence de facteurs non mesurés ne peut pas être exclue.
 
 # Conclusion
-Dans cet échantillon, l’âge, l’hypertension et la glycémie moyenne restent associés au statut AVC après ajustement pour les covariables incluses dans le modèle. Les différences observées pour la maladie cardiaque et le statut matrimonial dans les analyses descriptives sont fortement atténuées après ajustement, notamment pour l’âge. Aucune association statistiquement mise en évidence n’est observée pour l’IMC, le tabagisme, le type d’emploi, le lieu de résidence ou le sexe. Compte tenu du caractère transversal des données, de l’absence d’information sur l’échantillonnage et de la temporalité incertaine des variables, ces résultats doivent être interprétés comme des associations internes à cet échantillon et non comme des effets causaux ou des estimations directement généralisables à une population cible.
+
+Dans cet échantillon, l’âge, l’hypertension et la glycémie moyenne restent associés à la présence d’un antécédent d’AVC après ajustement sur les covariables incluses dans le modèle. Les associations observées pour la maladie cardiaque et le statut matrimonial dans les analyses descriptives sont fortement atténuées après ajustement sur les covariables incluses dans le modèle. Aucune association statistiquement mise en évidence n’est retrouvée pour l’IMC, le tabagisme, le type d’emploi, le lieu de résidence ou le sexe. Compte tenu du caractère transversal des données, de l’absence d’information sur l’échantillonnage et de la temporalité incertaine des variables, ces résultats doivent être interprétés comme des associations internes à cet échantillon et non comme des effets causaux ou des estimations directement généralisables à une population cible.
