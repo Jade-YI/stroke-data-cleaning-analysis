@@ -86,3 +86,19 @@ Ce document recense les principales utilisations de l’IA dans le projet. L’I
 **Leçon :** Les valeurs extrêmes seules ne suffisent pas pour décrire une distribution.
 
 ---
+
+##AI-007 · 2026-10-03 · Code / présentation
+
+**Source :** Claude — tableau de la population analytique.
+**Demande :** Générer le code résumant les étapes de sélection de la population analytique.
+**Réponse :** Tableau avec une seule colonne "Nombre exclus / retenu" regroupant les effectifs exclus et l’effectif final.
+**Vérification :** Le code était correct, mais cette colonne mélangeait deux informations différentes et rendait la lecture ambiguë.
+**Constat :** ⚠️ Résultat correct mais présentation peu claire.
+**Impact :** Aucun sur l’analyse ; uniquement sur la présentation.
+**Décision :** Séparation en deux colonnes, "Nombre exclu" et "Effectif restant", avec ajout de l’effectif initial pour rendre les étapes de sélection plus lisibles.
+**Preuve :** docs/stroke_multivariable_analysis.qmd
+**Leçon :** Vérifier que la structure d’un tableau distingue clairement les informations présentées.
+
+---
+
+
