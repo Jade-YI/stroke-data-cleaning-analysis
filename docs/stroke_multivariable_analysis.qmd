@@ -379,6 +379,10 @@ donnees_adultes |>
       bmi ~ "IMC (kg/m²)",
       smoking_status ~ "Statut tabagique"
     ),
+    value = list(
+      hypertension  ~ "Oui",
+      heart_disease ~ "Oui"
+    ),
     statistic = list(
       all_continuous()  ~ "{mean} ({sd})",
       all_categorical() ~ "{n} ({p}%)"
@@ -479,18 +483,18 @@ Les estimations obtenues avec le BMI écrêté sont comparables à celles du mod
 
 etiquettes <- c(
   age  = "Âge",
-  genderHomme = "Sexe : Homme",
+  genderMale  = "Sexe : Homme",
   hypertensionOui = "Hypertension",
   heart_diseaseOui = "Maladie cardiaque",
-  ever_marriedOui = "Déjà marié(e)",
-  `work_typeSecteur privé` = "Emploi : Privé",
-  work_typeIndépendant = "Emploi : Indépendant",
-  Residence_typeUrbaine = "Résidence : Urbaine",
+  ever_marriedYes = "Déjà marié(e)",
+  work_typePrivate = "Emploi : Privé",
+  `work_typeSelf-employed` = "Emploi : Indépendant",
+  Residence_typeUrban = "Résidence : Urbaine",
   avg_glucose_level = "Glycémie moyenne",
   bmi   = "IMC",
-  `smoking_statusJamais fumé` = "Tabac : jamais fumé",
-  `smoking_statusFumeur actuel` = "Tabac : fumeur actuel",
-  smoking_statusInconnu = "Tabac : inconnu"
+  `smoking_statusnever smoked` = "Tabac : jamais fumé",
+  smoking_statussmokes  = "Tabac : fumeur actuel",
+  smoking_statusUnknown  = "Tabac : inconnu"
 )
 
 resultats_modele <- tidy(modele_principal, exponentiate = TRUE, conf.int = TRUE) |>

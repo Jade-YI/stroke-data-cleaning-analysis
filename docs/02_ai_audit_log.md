@@ -114,3 +114,17 @@ Ce document recense les principales utilisations de l’IA dans le projet. L’I
 **Leçon :** Vérifier les libellés générés automatiquement à partir des données.
 
 ---
+
+##AI-009 · 2026-10-03 · Code / présentation
+
+**Source :** Claude — génération du Tableau 1.
+**Demande :** Générer le code du tableau descriptif selon le statut d’AVC.
+**Réponse :** Les deux modalités "Oui" et "Non" étaient affichées pour les variables binaires comme l’hypertension et la maladie cardiaque.
+**Vérification :** Pour ces variables binaires, afficher les deux modalités était redondant et alourdissait le tableau.
+**Constat :** ⚠️ Résultats corrects, mais présentation trop détaillée.
+**Impact :** Aucun sur les résultats ; uniquement sur la présentation.
+**Décision :** Affichage uniquement de la modalité "Oui" avec value = list(hypertension ~ "Oui", heart_disease ~ "Oui").
+**Preuve :** docs/stroke_multivariable_analysis.qmd
+**Leçon :** Pour une variable binaire, une seule modalité peut suffire lorsque l’autre est directement déductible.
+
+---
