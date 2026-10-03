@@ -411,16 +411,48 @@ modele_principal <- glm(
   family = binomial(link = "logit")
 )
 
-tbl_regression(modele_principal, exponentiate = TRUE) |>
-  modify_header(label ~ "**Variable**") |>
+tbl_regression(
+  modele_principal,
+  exponentiate = TRUE,
+  label = list(
+    age               ~ "Âge (années)",
+    gender            ~ "Sexe",
+    hypertension      ~ "Hypertension",
+    heart_disease     ~ "Maladie cardiaque",
+    ever_married      ~ "Déjà marié(e)",
+    work_type         ~ "Type d'emploi",
+    Residence_type    ~ "Lieu de résidence",
+    avg_glucose_level ~ "Glycémie moyenne (mg/dL)",
+    bmi               ~ "IMC (kg/m²)",
+    smoking_status    ~ "Statut tabagique"
+  )
+) |>
+  modify_column_merge(
+    pattern = "[{conf.low} - {conf.high}]",
+    rows = !is.na(conf.low)
+  ) |>
+  modify_header(
+    label    ~ "**Variable**",
+    estimate ~ "**OR**",
+    conf.low ~ "**IC 95 %**",
+    p.value  ~ "**p**"
+  ) |>
+  remove_abbreviation() |>
+  modify_footnote_header(
+    footnote = "OR = odds ratio ajusté ; IC = intervalle de confiance.",
+    columns = c(estimate, conf.low)
+  ) |>
+  modify_source_note(
+    "Modèle ajusté pour l'âge, le sexe, l'hypertension, la maladie cardiaque, le statut marital, le type d'emploi, le lieu de résidence, la glycémie moyenne, l'IMC et le statut tabagique."
+  ) |>
   modify_caption("**Tableau 2.** Odds ratios ajustés (IC 95%) de l'association avec l'AVC")
 ```
 
-Après ajustement, l'âge (`OR = 1.08` par année, IC 95 % 1.07–1.09, p < 0,001), l'hypertension (`OR = 1.49`, IC 95 % 1.07–2.05, p = 0,015) et la glycémie moyenne (`OR = 1.00` par mg/dL, IC 95 % 1.00–1.01, p < 0,001) sont significativement et indépendamment associées à l'AVC.
+Après ajustement, l’âge (`OR = 1.08`par année, IC à 95 % : 1,07–1,09 ; p < 0,001), l’hypertension (`OR = 1.49`, IC à 95 % : 1,07–2,05 ; p = 0,015) et la glycémie moyenne (`OR = 1.00` par mg/dL, IC à 95 % : 1,00–1,01 ; p < 0,001) étaient significativement associés à la présence d’un antécédent d’AVC.
 
-Les autres covariables ne sont pas significativement associées à l'AVC dans ce modèle ajusté : le sexe, la maladie cardiaque, le statut marital, le type d'emploi, le lieu de résidence, l'IMC et le statut tabagique.
+Les autres covariables n’étaient pas significativement associées à la présence d’un antécédent d’AVC dans le modèle ajusté : le sexe, la maladie cardiaque, le statut marital, le type d’emploi, le lieu de résidence, l’IMC et le statut tabagique.
 
-La maladie cardiaque, significativement associée à l'AVC en     analyse descriptive et comparaisons bivariées (tableau 1), ne l'est plus après ajustement (`OR = 1.32`, IC 95 % 0.90–1.90, p = 0.15). Cette atténuation suggère que l'association observée en univariée est en partie expliquée par l'âge, les patients porteurs d'une maladie cardiaque étant en moyenne plus âgés.
+La maladie cardiaque, significativement associée à la présence d’un antécédent d’AVC dans les comparaisons bivariées (tableau 1), ne l’était plus après ajustement (OR = 1,32 ; IC à 95 % : 0,90–1,90 ; p = 0,15). Cette atténuation de l’association après ajustement pourrait notamment s’expliquer par l’effet de l’âge, les participants présentant une maladie cardiaque étant en moyenne plus âgés.
 
 **Cas particulier de la glycémie moyenne.** Bien que statistiquement significatif, l'OR de `avg_glucose_level` est très proche de 1 (1,00 par unité de mg/dL). Cela reflète l'échelle de la variable : un écart de 1 mg/dL est cliniquement négligeable, alors qu'un écart de 20 ou 30 mg/dL est cliniquement pertinent. L'ampleur réelle de l'effet est donc sous-estimée visuellement par cet OR unitaire.
 
@@ -457,8 +489,32 @@ modele_bmi_wins <- glm(
   family = binomial(link = "logit")
 )
 
-tbl_regression(modele_bmi_wins, exponentiate = TRUE) |>
-  modify_header(label ~ "**Variable**") |>
+tbl_regression(
+  modele_bmi_wins,
+  exponentiate = TRUE,
+  label = list(
+    age               ~ "Âge (années)",
+    gender            ~ "Sexe",
+    hypertension      ~ "Hypertension",
+    heart_disease     ~ "Maladie cardiaque",
+    ever_married      ~ "Déjà marié(e)",
+    work_type         ~ "Type d'emploi",
+    Residence_type    ~ "Lieu de résidence",
+    avg_glucose_level ~ "Glycémie moyenne (mg/dL)",
+    bmi_wins          ~ "IMC écrêté (kg/m²)",
+    smoking_status    ~ "Statut tabagique"
+  )
+) |>
+  modify_column_merge(
+    pattern = "[{conf.low} - {conf.high}]",
+    rows = !is.na(conf.low)
+  ) |>
+  modify_header(
+    label    ~ "**Variable**",
+    estimate ~ "**OR**",
+    conf.low ~ "**IC 95 %**",
+    p.value  ~ "**p**"
+  ) |>
   modify_caption("**Tableau 3.** Modèle avec IMC écrêté (analyse de sensibilité)")
 ```
 
