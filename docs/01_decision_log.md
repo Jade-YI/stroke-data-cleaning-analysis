@@ -198,4 +198,18 @@ L’analyse de sensibilité permettra de vérifier si les valeurs extrêmes infl
 
 ---
 
+##DEC-012 — 2026-10-03
 
+**Étape :** Interprétation du DAG
+
+**Décision :**
+Le DAG ne sera pas utilisé comme outil d’identification causale. Il sera présenté comme une représentation conceptuelle des relations hypothétiques entre les variables.
+
+**Justification :**
+La temporalité des données n’est pas connue : l’AVC correspond à un antécédent, tandis que le BMI, la glycémie, le tabagisme ou l’hypertension peuvent avoir été mesurés après l’AVC. De plus, la proportion d’AVC est élevée par rapport aux données françaises, suggérant une possible sélection de l’échantillon, et les valeurs manquantes de bmi sont fréquentes.
+
+Ces limites ne permettent pas de soutenir une interprétation causale robuste.
+
+**Statut :** Retenue
+
+---
