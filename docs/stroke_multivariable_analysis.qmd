@@ -548,24 +548,24 @@ Les estimations obtenues avec le BMI écrêté sont comparables à celles du mod
 
 ```{r}
 #| label: foret-modele-principal
-#| fig-cap: "Odds ratios ajustés (IC 95%) du modèle principal"
+#| fig-cap: "Odds ratios ajustés (IC 95 %) du modèle principal"
 #| fig-width: 7
 #| fig-height: 6
 
 etiquettes <- c(
-  age  = "Âge",
-  genderMale  = "Sexe : Homme",
-  hypertensionOui = "Hypertension",
+  age  = "Âge (par année)",
+  genderHomme   = "Sexe : Homme",
+  hypertensionOui  = "Hypertension",
   heart_diseaseOui = "Maladie cardiaque",
-  ever_marriedYes = "Déjà marié(e)",
-  work_typePrivate = "Emploi : Privé",
-  `work_typeSelf-employed` = "Emploi : Indépendant",
-  Residence_typeUrban = "Résidence : Urbaine",
-  avg_glucose_level = "Glycémie moyenne",
-  bmi   = "IMC",
-  `smoking_statusnever smoked` = "Tabac : jamais fumé",
-  smoking_statussmokes  = "Tabac : fumeur actuel",
-  smoking_statusUnknown  = "Tabac : inconnu"
+  ever_marriedOui  = "Déjà marié(e)",
+  `work_typeSecteur privé` = "Emploi : Secteur privé",
+  work_typeIndépendant = "Emploi : Indépendant",
+  Residence_typeUrbaine  = "Résidence : Urbaine",
+  glucose_10  = "Glycémie moyenne (par + 10 mg/dL)",
+  bmi  = "IMC (par kg/m²)",
+  `smoking_statusJamais fumé` = "Tabac : jamais fumé",
+  `smoking_statusFumeur actuel` = "Tabac : fumeur actuel",
+  smoking_statusInconnu = "Tabac : inconnu"
 )
 
 resultats_modele <- tidy(modele_principal, exponentiate = TRUE, conf.int = TRUE) |>
@@ -577,37 +577,41 @@ ggplot(resultats_modele, aes(x = estimate, y = fct_reorder(term, estimate))) +
   geom_pointrange(aes(xmin = conf.low, xmax = conf.high)) +
   scale_x_log10() +
   labs(
-    x = "Odds ratio (échelle log)",
+    x = "Odds ratio ajusté (échelle logarithmique)",
     y = NULL,
-    title = "Facteurs associés à l'AVC (modèle ajusté)"
+    title = "Facteurs associés à l'AVC (modèle ajusté)",
+    caption = "Points : OR ajustés ; barres : IC à 95 %. Référence : OR = 1."
   ) +
   theme_minimal()
 ```
 
-Le schéma conceptuel met l'âge au centre des relations hypothétiques. Les résultats du modèle ajusté (tableau 2) sont compatibles avec cette lecture : les associations observées en analyse brute pour la maladie cardiaque et le statut marital sont fortement atténuées après ajustement, et aucune association n'est retrouvée pour le type d'emploi, tandis que celle de l'hypertension persiste de façon atténuée. Cette lecture reste descriptive : elle ne démontre pas que l'âge est un facteur de confusion au sens causal, et ne permet pas d'interpréter les autres coefficients comme des effets.
+La figure X présente graphiquement les OR ajustés et leurs IC à 95 %. Les estimations concernant l’âge, l’hypertension et la glycémie moyenne se situent au-dessus de 1 avec des intervalles de confiance n’incluant pas 1, tandis que les IC des autres covariables incluent 1.
 
 # Discussion
+
 ## Confrontation aux hypothèses
 
-**Âge (H1).** L'association prédite se confirme et reste la plus forte du modèle (OR = 1,08 par année, p < 0,001). Elle persiste après ajustement, comme prévu.
+La confrontation porte principalement sur les associations entre chaque variable et l’antécédent d’AVC. Les autres relations représentées dans le schéma conceptuel n’ont pas été spécifiquement évaluées.
 
-**Hypertension (H2).** L'association reste significative après ajustement (OR = 1,49, p = 0,015), mais son intensité diminue par rapport à l'analyse brute. L'hypothèse d'une atténuation partielle par l'âge se vérifie, sans disparition complète de l'effet.
+**Âge (H1).**  L’association attendue est observée : l’âge est positivement associé à la présence d’un antécédent d’AVC après ajustement sur les autres variables du modèle (OR = 1,08 par année ; IC95 % : 1,07–1,09).
 
-**Glycémie moyenne (H3).** L'association prédite se confirme. Exprimé par unité de mg/dL, l'OR est très proche de 1, ce qui reflète l'échelle de la variable plutôt qu'une absence d'effet réel : un écart de 1 mg/dL est cliniquement négligeable, alors qu'un écart plus important (par exemple 10 mg/dL) l'est davantage. Exprimé sur cette échelle, l'effet reste significatif mais modeste, sans permettre de conclure sur les mécanismes sous-jacents (âge, IMC, hypertension).
+**Hypertension (H2).** L’association attendue est observée : l’hypertension est associée à des odds plus élevées de présenter un antécédent d’AVC après ajustement sur les autres variables du modèle (OR = 1,49 ; IC95 % : 1,07–2,05). 
 
-**IMC (H4).** Contrairement à la prédiction, aucune association significative n'est observée, ni avec le BMI brut ni avec le BMI écrêté — les deux versions donnent des résultats quasi identiques (analyse de sensibilité). L'hypothèse d'un effet propre de l'IMC sur l'AVC, indépendamment de l'hypertension et de la glycémie, n'est pas soutenue par ces données. Une relation non linéaire, évoquée comme possibilité en H4, n'a pas été testée ici et pourrait expliquer en partie cette absence d'effet.
+**Glycémie moyenne (H3).** L’association attendue est observée : une glycémie moyenne plus élevée est associée à des odds plus élevées de présenter un antécédent d’AVC après ajustement sur les autres variables du modèle (OR = 1,04 par + de 10 mg/dL ; IC95 % : 1,02–1,07).
 
-**Tabagisme (H5).** Aucune des catégories n'est significativement associée à l'AVC après ajustement. L'hypothèse d'un effet propre du tabagisme n'est pas confirmée dans ce modèle.
+**IMC (H4).** Contrairement à l’association attendue, aucune association entre l’IMC et la présence d’un antécédent d’AVC n’est statistiquement mise en évidence dans le modèle ajusté (OR = 1.00 par kg/m²; IC95% :	0.98 - 1.02). Les estimations sont très proches avec l’IMC non écrêté dans l’analyse principale et l’IMC écrêté dans l’analyse de sensibilité. Une éventuelle relation non linéaire, envisagée dans l’hypothèse initiale, n’a pas été explorée et ne peut donc pas être exclue.
 
-**Type d'emploi (H6).** Conformément à la prédiction, aucune association forte ne persiste après ajustement. Cette variable se confirme comme peu informative pour expliquer l'AVC une fois l'âge pris en compte.
+**Tabagisme (H5).** Contrairement à l’association attendue, aucune association entre le statut tabagique et la présence d’un antécédent d’AVC n’est statistiquement mise en évidence après ajustement. Par rapport aux anciens fumeurs, les estimations pour les personnes n’ayant jamais fumé (OR = 0,82 ; IC95 % : 0,58–1,16) et les fumeurs actuels (OR = 1,12 ; IC95 % : 0,73–1,70) sont imprécises et compatibles avec une absence d’association.
 
-**Type de résidence (H7).** Aucune association observée, ni en brut ni en ajusté, conformément à la prédiction.
+**Type d'emploi (H6).** Conformément à l’hypothèse formulée, aucune association entre le type d’emploi et la présence d’un antécédent d’AVC n’est statistiquement mise en évidence après ajustement. Par rapport à la fonction publique, les estimations pour le secteur privé (OR = 1,16 ; IC95 % : 0,78–1,76) et le travail indépendant (OR = 0,79 ; IC95 % : 0,51–1,27) présentent des intervalles de confiance incluant 1.
 
-**Statut matrimonial (H8).** L'hypothèse se confirme : l'association observée en analyse univariée disparaît après ajustement sur l'âge (OR = 0,82, p = 0,4). Cela illustre bien le phénomène anticipé d'une association trompeuse portée par l'âge.
+**Lieu de résidence (H7).** Conformément à l’hypothèse formulée, aucune association entre le lieu de résidence et la présence d’un antécédent d’AVC n’est statistiquement mise en évidence après ajustement (OR = 1,09 pour une résidence urbaine par rapport à une résidence rurale ; IC95 % : 0,83–1,43).
 
-**Maladie cardiaque (H9).** L'association prédite comme forte s'atténue nettement après ajustement et devient non significative (OR = 1,32, p = 0,15). L'hypothèse prévoyait une atténuation partielle mais un effet résiduel important ; ce n'est pas ce qui est observé ici, l'âge semblant expliquer une grande partie de l'association brute — les patients porteurs d'une maladie cardiaque étant en moyenne plus âgés.
+**Statut matrimonial (H8).** Conformément à l’hypothèse formulée, l’association observée en analyse univariée n’est plus mise en évidence après ajustement sur les autres variables du modèle (OR = 0,82 pour les personnes déjà mariées par rapport aux personnes jamais mariées ; IC95 % : 0,53–1,30). Cette atténuation est compatible avec l’hypothèse d’un rôle de l’âge dans l’association observée en analyse univariée, sans permettre de l’attribuer spécifiquement à celui-ci.
 
-**Genre (H10).** Aucune différence significative entre hommes et femmes n'est observée dans le modèle ajusté (OR = 1,04, p = 0,8). L'hypothèse d'un effet médié par le tabagisme n'a donc pas lieu d'être testée, faute d'association de départ à expliquer.
+**Maladie cardiaque (H9).** Contrairement à l’hypothèse formulée, l’association entre la maladie cardiaque et la présence d’un antécédent d’AVC n’est plus statistiquement mise en évidence après ajustement sur les autres variables du modèle (OR = 1,32 ; IC95 % : 0,90–1,90). L’estimation reste toutefois orientée vers des odds plus élevées d’antécédent d’AVC chez les personnes présentant une maladie cardiaque, mais avec une incertitude importante. L’atténuation par rapport à l’analyse univariée est compatible avec le rôle de l’âge envisagé dans le schéma conceptuel, sans permettre d’attribuer spécifiquement cette variation à l’âge.
+
+**Sexe (H10).** Contrairement à l’association attendue, aucune association entre le sexe et la présence d’un antécédent d’AVC n’est statistiquement mise en évidence après ajustement (OR = 1,04 pour les hommes par rapport aux femmes ; IC95 % : 0,78–1,38). Le rôle hypothétique du tabagisme dans cette relation n’a pas été spécifiquement évalué ; aucune analyse de médiation n’a été réalisée, compte tenu notamment de l’incertitude sur la temporalité des variables.
 
 ## Limites
 La proportion d'AVC dans cet échantillon (`r scales::percent(prop_avc_adultes, accuracy = 0.1)`) est très supérieure à la prévalence nationale française (2,0 %), ce qui suggère un mode d'échantillonnage non aléatoire. Les résultats doivent donc être interprétés comme des associations internes à cet échantillon, sans extrapolation à la population générale.

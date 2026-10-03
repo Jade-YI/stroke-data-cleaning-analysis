@@ -33,7 +33,9 @@ Je m’attends à ce que cette association reste importante après ajustement su
 
 Je prévois que les personnes ayant des antécédents d’hypertension présenteront une probabilité d’AVC plus élevée que les personnes sans hypertension.
 
-Je m’attends à une association relativement forte dans l’analyse brute. Cependant, cette association pourrait diminuer après ajustement sur l’âge, car l’hypertension et l’AVC sont tous les deux plus fréquents chez les personnes âgées.
+Je m’attends à une association relativement forte dans l’analyse brute. Cette association pourrait toutefois diminuer dans le modèle ajusté, notamment en raison des relations de l’hypertension avec l’âge, l’IMC et le niveau moyen de glucose.
+
+Je prévois néanmoins que l’hypertension restera associée à la présence d’un AVC après ajustement sur les autres caractéristiques incluses dans le modèle.
 
 ### H3 — Niveau moyen de glucose
 
