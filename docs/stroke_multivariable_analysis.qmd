@@ -264,6 +264,7 @@ donnees_adultes <- donnees_adultes |>
       bmi > seuil_haut ~ seuil_haut,
       TRUE ~ bmi
     ),
+    glucose_10 = avg_glucose_level / 10,
     stroke        = factor(stroke, levels = c(0, 1), labels = c("Non", "Oui")),
     hypertension  = factor(hypertension, levels = c(0, 1), labels = c("Non", "Oui")),
     heart_disease = factor(heart_disease, levels = c(0, 1), labels = c("Non", "Oui")),
@@ -363,7 +364,7 @@ donnees_adultes |>
   select(
     stroke, age, gender, hypertension, heart_disease,
     ever_married, work_type, Residence_type,
-    avg_glucose_level, bmi, smoking_status
+    glucose_10, bmi, smoking_status
   ) |>
   tbl_summary(
     by = stroke,
@@ -375,7 +376,7 @@ donnees_adultes |>
       ever_married ~ "Déjà marié(e)",
       work_type ~ "Type d'emploi",
       Residence_type ~ "Lieu de résidence",
-      avg_glucose_level  ~ "Glycémie moyenne (mg/dL)",
+      glucose_10  ~ "Glycémie moyenne (10mg/dL)",
       bmi ~ "IMC (kg/m²)",
       smoking_status ~ "Statut tabagique"
     ),
@@ -406,7 +407,7 @@ Un modèle de régression logistique multivariée est ajusté, avec la survenue 
 
 modele_principal <- glm(
   stroke ~ age + gender + hypertension + heart_disease + ever_married +
-    work_type + Residence_type + avg_glucose_level + bmi + smoking_status,
+    work_type + Residence_type + glucose_10 + bmi + smoking_status,
   data = donnees_adultes,
   family = binomial(link = "logit")
 )
@@ -422,7 +423,7 @@ tbl_regression(
     ever_married      ~ "Déjà marié(e)",
     work_type         ~ "Type d'emploi",
     Residence_type    ~ "Lieu de résidence",
-    avg_glucose_level ~ "Glycémie moyenne (mg/dL)",
+    glucose_10 ~ "Glycémie moyenne (par +10 mg/dL)",
     bmi               ~ "IMC (kg/m²)",
     smoking_status    ~ "Statut tabagique"
   )
@@ -448,74 +449,88 @@ tbl_regression(
   modify_caption("**Tableau 2.** Odds ratios ajustés (IC 95%) de l'association avec l'AVC")
 ```
 
-Après ajustement, l’âge (`OR = 1.08`par année, IC à 95 % : 1,07–1,09 ; p < 0,001), l’hypertension (`OR = 1.49`, IC à 95 % : 1,07–2,05 ; p = 0,015) et la glycémie moyenne (`OR = 1.00` par mg/dL, IC à 95 % : 1,00–1,01 ; p < 0,001) étaient significativement associés à la présence d’un antécédent d’AVC.
+Après ajustement, l’âge (OR = 1,08 par année ; IC à 95 % : 1,07–1,09 ; p < 0,001), l’hypertension (OR = 1,49 ; IC à 95 % : 1,07–2,05 ; p = 0,015) et la glycémie moyenne (OR = 1,04 par augmentation de 10 mg/dL ; IC à 95 % : 1,02–1,07 ; p < 0,001) étaient significativement associés à la présence d’un antécédent d’AVC.
 
-Les autres covariables n’étaient pas significativement associées à la présence d’un antécédent d’AVC dans le modèle ajusté : le sexe, la maladie cardiaque, le statut marital, le type d’emploi, le lieu de résidence, l’IMC et le statut tabagique.
-
-La maladie cardiaque, significativement associée à la présence d’un antécédent d’AVC dans les comparaisons bivariées (tableau 1), ne l’était plus après ajustement (OR = 1,32 ; IC à 95 % : 0,90–1,90 ; p = 0,15). Cette atténuation de l’association après ajustement pourrait notamment s’expliquer par l’effet de l’âge, les participants présentant une maladie cardiaque étant en moyenne plus âgés.
-
-**Cas particulier de la glycémie moyenne.** Bien que statistiquement significatif, l'OR de `avg_glucose_level` est très proche de 1 (1,00 par unité de mg/dL). Cela reflète l'échelle de la variable : un écart de 1 mg/dL est cliniquement négligeable, alors qu'un écart de 20 ou 30 mg/dL est cliniquement pertinent. L'ampleur réelle de l'effet est donc sous-estimée visuellement par cet OR unitaire.
-
-```{r}
-#| label: modele-glucose-echelle
-
-donnees_adultes <- donnees_adultes |>
-  mutate(glucose_10 = avg_glucose_level / 10)
-
-modele_glucose <- glm(
-  stroke ~ age + gender + hypertension + heart_disease + ever_married +
-    work_type + Residence_type + glucose_10 + bmi + smoking_status,
-  data = donnees_adultes,
-  family = binomial(link = "logit")
-)
-
-or_glucose <- exp(coef(modele_glucose)["glucose_10"])
-ic_glucose <- exp(confint.default(modele_glucose)["glucose_10", ])
-```
-
-Exprimé pour une augmentation de 10 mg/dL, l'effet de la glycémie moyenne devient plus interprétable : OR = `r round(or_glucose, 2)` (IC 95 % `r round(ic_glucose[1], 2)`–`r round(ic_glucose[2], 2)`). Les coefficients des autres covariables sont strictement identiques à ceux du modèle principal, seule l'échelle de `avg_glucose_level` étant modifiée.
+Aucune association statistiquement significative n’était observée pour les autres covariables. En particulier, l’association observée entre la maladie cardiaque et l’antécédent d’AVC dans les comparaisons bivariées n’était plus significative après ajustement (OR = 1,32 ; IC à 95 % : 0,90–1,90 ; p = 0,15).
 
 ## Analyse de sensibilité : écrêtement du BMI
 
 Afin de vérifier que les résultats ne sont pas portés par les valeurs extrêmes de BMI, le modèle principal est reproduit à l'identique en remplaçant `bmi` par `bmi_wins` (BMI écrêté aux 2,5ᵉ et 97,5ᵉ percentiles).
 
 ```{r}
-#| label: modele-sensibilite-bmi
+#| label: comparaison-sensibilite-bmi
 
+# Modèle de sensibilité
 modele_bmi_wins <- glm(
   stroke ~ age + gender + hypertension + heart_disease + ever_married +
-    work_type + Residence_type + avg_glucose_level + bmi_wins + smoking_status,
+    work_type + Residence_type + glucose_10 + bmi_wins + smoking_status,
   data = donnees_adultes,
   family = binomial(link = "logit")
 )
 
-tbl_regression(
+# Résultats du modèle principal
+res_principal <- tidy(
+  modele_principal,
+  exponentiate = TRUE,
+  conf.int = TRUE
+) |>
+  filter(term %in% c(
+    "age", "hypertensionOui", "glucose_10", "bmi"
+  )) |>
+  mutate(
+    Variable = case_when(
+      term == "age" ~ "Âge (par année)",
+      term == "hypertensionOui" ~ "Hypertension (Oui vs Non)",
+      term == "glucose_10" ~ "Glycémie moyenne (par +10 mg/dL)",
+      term == "bmi" ~ "IMC"
+    ),
+    principal = sprintf(
+      "%.2f [%.2f–%.2f]",
+      estimate, conf.low, conf.high
+    )
+  ) |>
+  select(Variable, principal)
+
+# Résultats du modèle de sensibilité
+res_sensibilite <- tidy(
   modele_bmi_wins,
   exponentiate = TRUE,
-  label = list(
-    age               ~ "Âge (années)",
-    gender            ~ "Sexe",
-    hypertension      ~ "Hypertension",
-    heart_disease     ~ "Maladie cardiaque",
-    ever_married      ~ "Déjà marié(e)",
-    work_type         ~ "Type d'emploi",
-    Residence_type    ~ "Lieu de résidence",
-    avg_glucose_level ~ "Glycémie moyenne (mg/dL)",
-    bmi_wins          ~ "IMC écrêté (kg/m²)",
-    smoking_status    ~ "Statut tabagique"
-  )
+  conf.int = TRUE
 ) |>
-  modify_column_merge(
-    pattern = "[{conf.low} - {conf.high}]",
-    rows = !is.na(conf.low)
+  filter(term %in% c(
+    "age", "hypertensionOui", "glucose_10", "bmi_wins"
+  )) |>
+  mutate(
+    Variable = case_when(
+      term == "age" ~ "Âge (par année)",
+      term == "hypertensionOui" ~ "Hypertension (Oui vs Non)",
+      term == "glucose_10" ~ "Glycémie moyenne (par +10 mg/dL)",
+      term == "bmi_wins" ~ "IMC"
+    ),
+    sensibilite = sprintf(
+      "%.2f [%.2f–%.2f]",
+      estimate, conf.low, conf.high
+    )
   ) |>
-  modify_header(
-    label    ~ "**Variable**",
-    estimate ~ "**OR**",
-    conf.low ~ "**IC 95 %**",
-    p.value  ~ "**p**"
+  select(Variable, sensibilite)
+
+# Tableau comparatif
+left_join(
+  res_principal,
+  res_sensibilite,
+  by = "Variable"
+) |>
+  gt::gt() |>
+  gt::cols_label(
+    Variable = "Variable",
+    principal = "Analyse principale",
+    sensibilite = "Analyse de sensibilité"
   ) |>
-  modify_caption("**Tableau 3.** Modèle avec IMC écrêté (analyse de sensibilité)")
+  gt::tab_header(
+    title = gt::md(
+      "**Tableau 3. Comparaison du modèle principal et de l’analyse de sensibilité**"
+    )
+  )
 ```
 
 ```{r}
