@@ -266,7 +266,31 @@ donnees_adultes <- donnees_adultes |>
     ),
     stroke        = factor(stroke, levels = c(0, 1), labels = c("Non", "Oui")),
     hypertension  = factor(hypertension, levels = c(0, 1), labels = c("Non", "Oui")),
-    heart_disease = factor(heart_disease, levels = c(0, 1), labels = c("Non", "Oui"))
+    heart_disease = factor(heart_disease, levels = c(0, 1), labels = c("Non", "Oui")),
+
+gender = fct_recode(gender,
+      "Femme" = "Female",
+      "Homme" = "Male"
+    ),
+    ever_married = fct_recode(as.factor(ever_married),
+      "Non" = "No",
+      "Oui" = "Yes"
+    ),
+    work_type = fct_recode(work_type,
+      "Fonction publique" = "Govt_job",
+      "Secteur privé"     = "Private",
+      "Indépendant"       = "Self-employed"
+    ),
+    Residence_type = fct_recode(as.factor(Residence_type),
+      "Rurale" = "Rural",
+      "Urbaine" = "Urban"
+    ),
+    smoking_status = fct_recode(as.factor(smoking_status),
+      "Ancien fumeur" = "formerly smoked",
+      "Jamais fumé"   = "never smoked",
+      "Fumeur actuel" = "smokes",
+      "Inconnu"       = "Unknown"
+    )
   )
 ```
 
@@ -274,13 +298,13 @@ donnees_adultes <- donnees_adultes |>
 
 L'association entre chaque facteur et la survenue d'un AVC est d'abord décrite en analyse univariée (tableau 1), puis évaluée par régression logistique multivariée, l'AVC (oui/non) étant la variable dépendante. Les résultats sont exprimés en *odds ratios* (OR) ajustés avec leur intervalle de confiance à 95 %. Le seuil de significativité est fixé à 0,05.
 
-Les variables d'ajustement ont été choisies a priori, en particulier au regard du rôle de confusion potentiel de l'âge (voir schéma ci-dessous). Deux analyses de sensibilité sont réalisées : l'une sur le BMI écrêté aux 2,5ᵉ et 97,5ᵉ percentiles (par opposition au BMI non écrêté du modèle principal), l'autre en exprimant la glycémie moyenne par tranche de 10 mg/dL plutôt que par unité.
+Le modèle multivarié inclut l'ensemble des variables décrites au tableau 1, afin de décrire les associations conjointes avec l'AVC dans cet échantillon. Cette sélection n'est pas dérivée d'un DAG : les coefficients ne sont pas interprétés comme des effets causaux, et chaque OR est lu comme une association ajustée sur les autres covariables. Deux analyses de sensibilité sont réalisées : l'une sur le BMI écrêté aux 2,5ᵉ et 97,5ᵉ percentiles (par opposition au BMI non écrêté du modèle principal), l'autre en exprimant la glycémie moyenne par tranche de 10 mg/dL plutôt que par unité.
 
 Toutes les analyses sont réalisées avec R, à l'aide des packages `tidyverse`, `gtsummary` et `broom`.
 
 ## Représentation conceptuelle des relations hypothétiques (DAG)
 
-Le DAG est utilisé ici comme cadre conceptuel pour représenter les relations hypothétiques entre les variables et identifier notamment le rôle central de l’âge. Il n’est pas utilisé pour estimer un effet causal spécifique ni pour définir un ensemble minimal d’ajustement.
+Le schéma ci-dessous est un support conceptuel, présenté à titre illustratif. Il représente des relations hypothétiques, fondées sur des connaissances générales et non sur une revue systématique de la littérature, et sert uniquement à illustrer le rôle central de l'âge. Il n'a pas servi à sélectionner les covariables du modèle, ni à estimer un effet causal, ni à définir un ensemble minimal d'ajustement. Le statut marital et le type d'emploi y figurent comme variables corrélées à l'âge, sans flèche vers l'AVC : ils sont conservés dans le modèle dans un but descriptif, par cohérence avec le tableau 1.
 
 ```{r}
 #| label: dag-hypotheses
@@ -294,13 +318,14 @@ coords <- list(
         bmi = 4, stroke = 5),
   y = c(age = 3, hypertension = 4, heart_disease = 5, ever_married = 2,
         work_type = 1, gender = 0, smoking = 0.5, avg_glucose_level = 3.5,
-        bmi = 2.5, stroke = 3)
-)
+        bmi = 2.5, stroke = 3))
 
 dag_avc <- dagify(
   stroke ~ age + hypertension + heart_disease + avg_glucose_level + bmi + smoking + gender,
-  hypertension ~ age,
+  hypertension ~ age + bmi + avg_glucose_level,
   heart_disease ~ age,
+  avg_glucose_level ~ age + bmi,
+  bmi ~ age,
   ever_married ~ age,
   work_type ~ age,
   smoking ~ gender,
@@ -454,18 +479,18 @@ Les estimations obtenues avec le BMI écrêté sont comparables à celles du mod
 
 etiquettes <- c(
   age  = "Âge",
-  genderMale  = "Sexe : Homme",
+  genderHomme = "Sexe : Homme",
   hypertensionOui = "Hypertension",
   heart_diseaseOui = "Maladie cardiaque",
-  ever_marriedYes = "Déjà marié(e)",
-  work_typePrivate = "Emploi : Privé",
-  `work_typeSelf-employed` = "Emploi : Indépendant",
-  Residence_typeUrban = "Résidence : Urbaine",
+  ever_marriedOui = "Déjà marié(e)",
+  `work_typeSecteur privé` = "Emploi : Privé",
+  work_typeIndépendant = "Emploi : Indépendant",
+  Residence_typeUrbaine = "Résidence : Urbaine",
   avg_glucose_level = "Glycémie moyenne",
   bmi   = "IMC",
-  `smoking_statusnever smoked` = "Tabac : jamais fumé",
-  smoking_statussmokes  = "Tabac : fumeur actuel",
-  smoking_statusUnknown  = "Tabac : inconnu"
+  `smoking_statusJamais fumé` = "Tabac : jamais fumé",
+  `smoking_statusFumeur actuel` = "Tabac : fumeur actuel",
+  smoking_statusInconnu = "Tabac : inconnu"
 )
 
 resultats_modele <- tidy(modele_principal, exponentiate = TRUE, conf.int = TRUE) |>
@@ -484,8 +509,7 @@ ggplot(resultats_modele, aes(x = estimate, y = fct_reorder(term, estimate))) +
   theme_minimal()
 ```
 
-
-Ce graphe formalise le raisonnement qui a guidé la sélection des variables d'ajustement : l'âge est traité comme un facteur de confusion central, susceptible d'expliquer une partie des associations brutes observées pour l'hypertension, la maladie cardiaque, le statut marital et le type d'emploi. Les résultats du modèle ajusté (tableau 2) sont cohérents avec cette structure : les association fortement atténuée après ajustement, notamment pour l’âge (statut marital, type d'emploi) disparaissent après ajustement, tandis que au moins partiellement.
+Le schéma conceptuel met l'âge au centre des relations hypothétiques. Les résultats du modèle ajusté (tableau 2) sont compatibles avec cette lecture : les associations observées en analyse brute pour la maladie cardiaque et le statut marital sont fortement atténuées après ajustement, et aucune association n'est retrouvée pour le type d'emploi, tandis que celle de l'hypertension persiste de façon atténuée. Cette lecture reste descriptive : elle ne démontre pas que l'âge est un facteur de confusion au sens causal, et ne permet pas d'interpréter les autres coefficients comme des effets.
 
 # Discussion
 ## Confrontation aux hypothèses
