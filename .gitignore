@@ -53,3 +53,4 @@ rsconnect/
 docs/search.json
 docs/*_files/
 docs/site_libs/
+.DS_Store
