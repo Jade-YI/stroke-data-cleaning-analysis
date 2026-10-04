@@ -228,4 +228,18 @@ Cette analyse permettra notamment d’identifier d’éventuelles associations n
 
 **Statut :** Prévue
 
-⸻
+---
+
+## DEC-014 — 2026-10-04
+
+**Étape :** Présentation de avg_glucose_level
+
+**Décision :**
+La comparaison entre la glycémie exprimée par 1 mg/dL et par 10 mg/dL est retirée des analyses de sensibilité. La glycémie sera présentée par augmentation de 10 mg/dL dans le modèle principal.
+
+**Justification :**
+Le passage de 1 à 10 mg/dL modifie uniquement l’unité de présentation de l’OR, sans modifier le modèle ni les résultats statistiques. Il ne constitue donc pas une analyse de sensibilité.
+
+**Statut :** Retenue
+
+---

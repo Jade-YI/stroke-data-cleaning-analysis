@@ -140,5 +140,4 @@ Ce document recense les principales utilisations de l’IA dans le projet. L’I
 **Décision :** Recalcul de l’OR pour une augmentation de 10 mg/dL afin d’obtenir une mesure plus interprétable, sans modifier le modèle sous-jacent.
 **Preuve :** docs/stroke_multivariable_analysis.qmd
 **Leçon :** L’unité d’une variable continue doit être choisie de façon à produire une mesure d’association interprétable.
-
 ---
