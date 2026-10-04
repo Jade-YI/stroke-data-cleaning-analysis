@@ -161,7 +161,7 @@ donnees |>
   mutate(Statistique = c("Min", "Q1", "Médiane", "Q3", "Max"), .before = 1) |>
   knitr::kable(digits = 1)
 ```
-L’examen de la distribution des variables quantitatives ne révèle pas de valeur impossible évidente ne révèle pas de valeur impossible évidente (âge négatif, BMI ou glycémie nul, etc.). Deux points méritent toutefois d'être signalés :
+L’examen de la distribution des variables quantitatives ne révèle pas de valeur impossible évidente (âge négatif, BMI ou glycémie nul, etc.). Deux points méritent toutefois d'être signalés :
 
 - **Âges non entiers.** `r sum(donnees$age != round(donnees$age))` individus ont un âge non entier, tous âgés de moins de 2 ans. Il s'agit vraisemblablement d'un encodage de l'âge en fraction d'année chez les nourrissons, et non d'une erreur de saisie.
 - **BMI extrême.** La valeur maximale de BMI (`r max(donnees$bmi, na.rm = TRUE)`) est cliniquement très élevée. Cette valeur sera examinée individuellement lors de la préparation des données, sans être exclue à ce stade.
@@ -300,7 +300,7 @@ gender = fct_recode(gender,
 
 L'association entre chaque facteur et la survenue d'un AVC est d'abord décrite en analyse univariée (tableau 1), puis évaluée par régression logistique multivariée, l'AVC (oui/non) étant la variable dépendante. Les résultats sont exprimés en *odds ratios* (OR) ajustés avec leur intervalle de confiance à 95 %. Le seuil de significativité est fixé à 0,05.
 
-Le modèle multivarié inclut l'ensemble des variables décrites au tableau 1, afin de décrire les associations conjointes avec l'AVC dans cet échantillon. Cette sélection n'est pas dérivée d'un DAG : les coefficients ne sont pas interprétés comme des effets causaux, et chaque OR est lu comme une association ajustée sur les autres covariables. Deux analyses de sensibilité sont réalisées : l'une sur le BMI écrêté aux 2,5ᵉ et 97,5ᵉ percentiles (par opposition au BMI non écrêté du modèle principal), l'autre en exprimant la glycémie moyenne par tranche de 10 mg/dL plutôt que par unité.
+Le modèle multivarié inclut l'ensemble des variables décrites au tableau 1, afin de décrire les associations conjointes avec l'AVC dans cet échantillon. Cette sélection n'est pas dérivée d'un DAG : les coefficients ne sont pas interprétés comme des effets causaux, et chaque OR est lu comme une association ajustée sur les autres covariables. Une analyse de sensibilité est réalisée sur le BMI : le modèle principal (BMI non écrêté) est comparé à un modèle utilisant le BMI écrêté aux 2,5ᵉ et 97,5ᵉ percentiles, afin d'évaluer l'influence des valeurs extrêmes. La glycémie moyenne est exprimée par tranche de 10 mg/dL dans toutes les analyses, y compris le modèle principal : ce choix ne modifie que l'unité de lecture de l'*odds ratio* et ne constitue pas une analyse de sensibilité.
 
 Toutes les analyses sont réalisées avec R, à l'aide des packages `tidyverse`, `gtsummary` et `broom`.
 
@@ -736,7 +736,7 @@ La figure X présente graphiquement les OR ajustés et leurs IC à 95 %. Les est
 
 La confrontation porte principalement sur les associations entre chaque variable et l’antécédent d’AVC. Les autres relations représentées dans le schéma conceptuel n’ont pas été spécifiquement évaluées.
 
-**Âge (H1).** Âge (H1). L’association attendue est observée : dans le modèle principal avec une spécification linéaire de l’âge, chaque année supplémentaire est associée à des odds plus élevées d’antécédent d’AVC (OR = 1,08 ; IC95 % : 1,07–1,09).
+**Âge (H1).** L’association attendue est observée : dans le modèle principal avec une spécification linéaire de l’âge, chaque année supplémentaire est associée à des odds plus élevées d’antécédent d’AVC (OR = 1,08 ; IC95 % : 1,07–1,09).
 
 **Hypertension (H2).** L’association attendue est observée : l’hypertension est associée à des odds plus élevées de présenter un antécédent d’AVC après ajustement sur les autres variables du modèle (OR = 1,49 ; IC95 % : 1,07–2,05). 
 
