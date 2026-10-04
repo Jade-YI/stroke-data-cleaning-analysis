@@ -151,7 +151,7 @@ Cette méthode ne tient pas compte de l’incertitude liée aux valeurs imputée
 **Statut :** Retenue
 
 ---
-##DEC-009 — 2026-10-01
+## DEC-009 — 2026-10-01
 
 **Étape : **Répartition de l’AVC dans le fichier brut
 
@@ -164,7 +164,7 @@ Cette section décrit la composition du fichier et non une estimation de la pré
 **Statut :** Retenue
 
 ---
-##DEC-010 — 2026-10-01
+## DEC-010 — 2026-10-01
 
 **Étape:** Prévalence de l’AVC chez les adultes
 
@@ -180,7 +180,7 @@ Cette distinction permet de séparer la composition du fichier brut de celle de 
 **Statut : ** Retenue
 
 ---
-##DEC-011 — 2026-10-02
+## DEC-011 — 2026-10-02
 
 **Étape :** Traitement des valeurs extrêmes de bmi
 
@@ -198,7 +198,7 @@ L’analyse de sensibilité permettra de vérifier si les valeurs extrêmes infl
 
 ---
 
-##DEC-012 — 2026-10-03
+## DEC-012 — 2026-10-03
 
 **Étape :** Interprétation du DAG
 
@@ -213,3 +213,19 @@ Ces limites ne permettent pas de soutenir une interprétation causale robuste.
 **Statut :** Retenue
 
 ---
+
+## DEC-013 — 2026-10-04
+
+**Étape :** Vérification de la forme des associations continues
+
+**Décision :**
+Une analyse par splines sera ajoutée pour age, bmi et avg_glucose_level, en complément du modèle logistique principal.
+
+**Justification :**
+Le modèle principal suppose une relation linéaire entre chaque variable continue et le log-odds d’AVC. Cette hypothèse sera vérifiée en comparant la forme linéaire aux modèles avec splines.
+
+Cette analyse permettra notamment d’identifier d’éventuelles associations non linéaires qui pourraient être masquées par un OR unique.
+
+**Statut :** Prévue
+
+⸻
