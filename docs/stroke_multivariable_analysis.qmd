@@ -49,6 +49,7 @@ library(tidyverse)
 library(gtsummary)
 library(broom)
 library(ggdag)
+library(splines)
 ```
 Les données proviennent du jeu de données public *Stroke Prediction Dataset*, diffusé sur la plateforme Kaggle (fichier `healthcare-dataset-stroke-data.csv`). Chaque ligne correspond à un individu, décrit par :
 
@@ -400,6 +401,148 @@ Les variables continues sont présentées en moyenne (écart-type) et comparées
 
 ## Modèle multivarié
 
+### Linéarité des variables continues sur l’échelle du logit
+
+Le modèle logistique principal suppose une relation linéaire entre les variables continues et le log-odds d’AVC. Cette hypothèse a été examinée pour l’âge, l’IMC et la glycémie moyenne en comparant, pour chaque variable, le modèle linéaire à un modèle utilisant un spline naturel à trois degrés de liberté. Les modèles ont été comparés par un test du rapport de vraisemblance.
+
+```{r}
+#| label: linearite-variables-continues
+#| output: false
+
+modele_principal <- glm(
+  stroke ~ age + gender + hypertension + heart_disease + ever_married +
+    work_type + Residence_type + glucose_10 + bmi + smoking_status,
+  data = donnees_adultes,
+  family = binomial(link = "logit"))
+
+modele_age_spline <- glm(stroke ~ ns(age, df = 3) + gender + hypertension + heart_disease +ever_married + work_type + Residence_type +glucose_10 + bmi + smoking_status,
+data = donnees_adultes,family = binomial(link = "logit"))
+
+modele_bmi_spline <- glm(stroke ~ age + gender + hypertension + heart_disease +ever_married + work_type + Residence_type +glucose_10 + ns(bmi, df = 3) + smoking_status,data = donnees_adultes,family = binomial(link = "logit"))
+
+modele_glucose_spline <- glm(
+stroke ~ age + gender + hypertension + heart_disease +ever_married + work_type + Residence_type +ns(glucose_10, df = 3) + bmi + smoking_status,data = donnees_adultes,family = binomial(link = "logit"))
+
+anova(modele_principal, modele_age_spline, test = "LRT")
+
+anova(modele_principal, modele_bmi_spline, test = "LRT")
+
+anova(modele_principal, modele_glucose_spline, test = "LRT")
+```
+Le modèle logistique principal suppose une relation linéaire entre les variables continues et le log-odds d’AVC. Cette hypothèse a été examinée pour l’âge, l’IMC et la glycémie moyenne en comparant, pour chaque variable, le modèle linéaire à un modèle utilisant un spline naturel à trois degrés de liberté. Les modèles ont été comparés par un test du rapport de vraisemblance. Une amélioration de l’ajustement a été observée pour l’âge (p = 0,012), mais pas pour l’IMC (p = 0,264) ni pour la glycémie moyenne (p = 0,678). L’exploration de la forme fonctionnelle a donc été poursuivie pour l’âge.
+
+```{r}
+#| label: spline-age-plot
+#| fig-cap: "Comparaison des formes linéaire et spline pour l'âge"
+
+age_seq <- seq(
+  min(donnees_adultes$age, na.rm = TRUE),
+  max(donnees_adultes$age, na.rm = TRUE),
+  length.out = 200)
+
+newdata_age <- data.frame(age = age_seq,gender = factor("Femme",
+    levels = levels(donnees_adultes$gender)),
+
+  hypertension = factor("Non",levels = levels(donnees_adultes$hypertension)),
+
+  heart_disease = factor("Non",levels = levels(donnees_adultes$heart_disease) ),
+
+  ever_married = factor("Oui",levels =levels(donnees_adultes$ever_married)),
+
+  work_type = factor( "Secteur privé", levels = levels(donnees_adultes$work_type) ),
+
+  Residence_type = factor("Urbaine",levels = levels(donnees_adultes$Residence_type)
+  ),
+
+  glucose_10 = median(donnees_adultes$glucose_10,na.rm = TRUE),
+
+  bmi = median(donnees_adultes$bmi,na.rm = TRUE),
+
+  smoking_status = factor("Jamais fumé",levels = levels(donnees_adultes$smoking_status)))
+
+newdata_age$lineaire <- predict(modele_principal,newdata = newdata_age,type = "response")
+
+newdata_age$spline <- predict(modele_age_spline,newdata = newdata_age,type = "response")
+
+newdata_age |>
+  select(age, lineaire, spline) |>
+  pivot_longer(cols = c(lineaire, spline),names_to = "modele",
+    values_to = "probabilite") |>
+  ggplot(aes(x = age,y = probabilite,linetype = modele)) +
+  geom_line(linewidth = 1) +scale_linetype_manual(
+    values = c( "lineaire" = "dashed","spline" = "solid"),
+    labels = c( "lineaire" = "Linéaire","spline" = "Spline" ) ) +
+  labs( x = "Âge (années)",y = "Probabilité prédite d'AVC",
+    linetype = "Modèle") +theme_minimal()
+
+```
+
+Sur l’échelle des probabilités prédites, les deux modèles donnent des courbes globalement proches. Les différences sont surtout visibles aux âges les plus jeunes, tandis que les prédictions deviennent très similaires aux âges plus élevés.
+
+La linéarité étant une hypothèse portant sur l’échelle du logit, la comparaison a également été représentée sur cette échelle.
+
+```{r}
+newdata_age$lineaire_logit <- predict(
+  modele_principal,
+  newdata = newdata_age,
+  type = "link"
+)
+
+newdata_age$spline_logit <- predict( modele_age_spline,newdata = newdata_age,type = "link")
+
+newdata_age |>
+  select(age, lineaire_logit, spline_logit) |>
+  pivot_longer(cols = c(lineaire_logit, spline_logit),names_to = "modele",values_to = "log_odds") |>
+  ggplot(aes(x = age,y = log_odds,linetype = modele)) +
+  geom_line(linewidth = 1) +scale_linetype_manual(values = c("lineaire_logit" = "dashed","spline_logit" = "solid"),
+    labels = c("lineaire_logit" = "Linéaire",
+  "spline_logit" = "Spline")) +
+  labs(x = "Âge (années)", y = "Log-odds prédits d'AVC",
+    linetype = "Modèle") +theme_minimal()
+
+```
+Sur l’échelle du logit, l’écart entre les deux spécifications est plus visible aux âges les plus jeunes. Au-delà d’environ 40 ans, les deux courbes se rapprochent progressivement.
+
+La répartition des événements par groupe d’âge a ensuite été examinée pour interpréter cette déviation dans le contexte des données observées.
+
+```{r}
+donnees_adultes |>
+  mutate(
+    age_group = cut(
+      age,
+      breaks = c(18, 30, 40, 50, 60, 70, 80, Inf),
+      right = FALSE
+    )
+  ) |>
+  count(age_group, stroke) |>
+  tidyr::pivot_wider(
+    names_from = stroke,
+    values_from = n,
+    values_fill = 0
+  )
+```
+
+Aucun AVC n’est observé parmi les 653 participants âgés de 18 à 29 ans, et seuls 6 événements sont observés entre 30 et 39 ans. La déviation observée aux âges les plus jeunes concerne donc une partie de l’échantillon où les événements sont très rares.  
+
+Enfin, les estimations des autres variables ont été comparées entre le modèle principal et le modèle utilisant un spline pour l’âge, afin d’évaluer si cette modification de la forme fonctionnelle de l’âge influençait les associations estimées.
+
+```{r}
+#| output: false
+
+tbl_merge(tbls = list(tbl_regression(modele_principal,
+      exponentiate = TRUE),
+    tbl_regression(modele_age_spline,exponentiate = TRUE)),
+  tab_spanner = c(
+    "**Âge linéaire**",
+    "**Âge avec spline**" ))
+
+```
+Les estimations des autres variables restent globalement stables lorsque l’âge est modélisé par spline. Les résultats concernant notamment l’hypertension, la glycémie moyenne, l’IMC et les maladies cardiaques sont très proches de ceux du modèle linéaire.
+
+Compte tenu de cette stabilité et afin de conserver une interprétation simple de l’association avec l’âge, la spécification linéaire est conservée dans l’analyse principale. L’analyse par spline est considérée comme une analyse complémentaire de la forme fonctionnelle de l’âge.    
+        
+### Modèle logistique multivarié    
+
 Un modèle de régression logistique multivariée est ajusté, avec la survenue d'un AVC comme variable dépendante. Les covariables incluses sont l'âge, le sexe, l'hypertension, la maladie cardiaque, le statut marital, le type d'emploi, le lieu de résidence, la glycémie moyenne, l'IMC (non écrêté, après imputation par la médiane) et le statut tabagique — soit l'ensemble des variables décrites au tableau 1.
 
 ```{r}
@@ -593,7 +736,7 @@ La figure X présente graphiquement les OR ajustés et leurs IC à 95 %. Les est
 
 La confrontation porte principalement sur les associations entre chaque variable et l’antécédent d’AVC. Les autres relations représentées dans le schéma conceptuel n’ont pas été spécifiquement évaluées.
 
-**Âge (H1).**  L’association attendue est observée : l’âge est positivement associé à la présence d’un antécédent d’AVC après ajustement sur les autres variables du modèle (OR = 1,08 par année ; IC95 % : 1,07–1,09).
+**Âge (H1).** Âge (H1). L’association attendue est observée : dans le modèle principal avec une spécification linéaire de l’âge, chaque année supplémentaire est associée à des odds plus élevées d’antécédent d’AVC (OR = 1,08 ; IC95 % : 1,07–1,09).
 
 **Hypertension (H2).** L’association attendue est observée : l’hypertension est associée à des odds plus élevées de présenter un antécédent d’AVC après ajustement sur les autres variables du modèle (OR = 1,49 ; IC95 % : 1,07–2,05). 
 
