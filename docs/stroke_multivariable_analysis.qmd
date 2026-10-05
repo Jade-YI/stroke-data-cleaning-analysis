@@ -401,8 +401,17 @@ modele_glucose_spline <- update(modele_principal, . ~ . - glucose_10 + ns(glucos
 lrt_age <-anova(modele_principal, modele_age_spline, test = "LRT")
 lrt_bmi <-anova(modele_principal, modele_bmi_spline, test = "LRT")
 lrt_glucose <-anova(modele_principal, modele_glucose_spline, test = "LRT")
+p_age     <- lrt_age[2, "Pr(>Chi)"]
+p_bmi     <- lrt_bmi[2, "Pr(>Chi)"]
+p_glucose <- lrt_glucose[2, "Pr(>Chi)"]
+
+fmt_p <- function(p) {
+  ifelse(p < 0.001, "p < 0,001",
+         paste0("p = ", formatC(p, format = "f", digits = 3, decimal.mark = ",")))
+}
 ```
-Une amélioration de l'ajustement a été observée pour l'âge (p = 0,012), mais pas pour l'IMC (p = 0,264) ni pour la glycémie moyenne (p = 0,678). L'exploration de la forme fonctionnelle a donc été poursuivie pour l'âge.
+
+Une amélioration de l’ajustement a été observée pour l’âge (`r fmt_p(p_age)`), mais pas pour l’IMC (`r fmt_p(p_bmi)`) ni pour la glycémie moyenne (`r fmt_p(p_glucose)`). L’exploration de la forme fonctionnelle a donc été poursuivie pour l’âge.
 
 ```{r}
 #| label: spline-age-plot
@@ -544,7 +553,7 @@ tbl_regression(
   modify_header(
     label    ~ "**Variable**",
     estimate ~ "**OR**",
-    conf.low ~ "**IC 95 %**",
+    conf.low ~ "**IC à 95 %**",
     p.value  ~ "**p**"
   ) |>
   remove_abbreviation() |>
@@ -655,7 +664,7 @@ L'OR de l'IMC est de `r round(or_brut, 3)` dans le modèle principal (BMI brut) 
 
 ```{r}
 #| label: foret-modele-principal
-#| fig-cap: "Odds ratios ajustés (IC 95 %) du modèle principal"
+#| fig-cap: "Odds ratios ajustés (IC à 95 %) du modèle principal"
 #| fig-width: 7
 #| fig-height: 6
 
@@ -700,25 +709,25 @@ La figure ci-dessus récapitule les OR ajustés du modèle principal (Tableau 2)
 
 La confrontation porte principalement sur les associations entre chaque variable et l'antécédent d'AVC. Les autres relations représentées dans le schéma conceptuel n'ont pas été spécifiquement évaluées.
 
-**Âge (H1).** L'association attendue est observée : dans le modèle principal avec une spécification linéaire de l'âge, chaque année supplémentaire est associée à des odds plus élevées d'antécédent d'AVC (OR = 1,08 ; IC95 % : 1,07–1,09).
+**Âge (H1).** L'association attendue est observée : dans le modèle principal avec une spécification linéaire de l'âge, chaque année supplémentaire est associée à des odds plus élevées d'antécédent d'AVC (OR = 1,08 ; IC à 95 % : 1,07–1,09).
 
-**Hypertension (H2).** L'association attendue est observée : l'hypertension est associée à des odds plus élevées de présenter un antécédent d'AVC après ajustement sur les autres variables du modèle (OR = 1,49 ; IC95 % : 1,07–2,05). 
+**Hypertension (H2).** L'association attendue est observée : l'hypertension est associée à des odds plus élevées de présenter un antécédent d'AVC après ajustement sur les autres variables du modèle (OR = 1,49 ; IC à 95 % : 1,07–2,05). 
 
-**Glycémie moyenne (H3).** L'association attendue est observée : une glycémie moyenne plus élevée est associée à des odds plus élevées de présenter un antécédent d'AVC après ajustement sur les autres variables du modèle (OR = 1,04 par + de 10 mg/dL ; IC95 % : 1,02–1,07).
+**Glycémie moyenne (H3).** L'association attendue est observée : une glycémie moyenne plus élevée est associée à des odds plus élevées de présenter un antécédent d'AVC après ajustement sur les autres variables du modèle (OR = 1,04 par + de 10 mg/dL ; IC à 95 % : 1,02–1,07).
 
 **IMC (H4).** Contrairement à l'association attendue, aucune association entre l'IMC et la présence d'un antécédent d'AVC n'est statistiquement mise en évidence dans le modèle ajusté (OR = 1.00 par kg/m²; IC95% :	0.98 - 1.02). Les estimations sont très proches avec l'IMC non écrêté dans l'analyse principale et l'IMC écrêté dans l'analyse de sensibilité. Une éventuelle relation non linéaire, envisagée dans l'hypothèse initiale, n'a pas été explorée et ne peut donc pas être exclue.
 
-**Tabagisme (H5).** Contrairement à l'association attendue, aucune association entre le statut tabagique et la présence d'un antécédent d'AVC n'est statistiquement mise en évidence après ajustement. Par rapport aux anciens fumeurs, les estimations pour les personnes n'ayant jamais fumé (OR = 0,82 ; IC95 % : 0,58–1,16) et les fumeurs actuels (OR = 1,12 ; IC95 % : 0,73–1,70) sont imprécises et compatibles avec une absence d'association.
+**Tabagisme (H5).** Contrairement à l'association attendue, aucune association entre le statut tabagique et la présence d'un antécédent d'AVC n'est statistiquement mise en évidence après ajustement. Par rapport aux anciens fumeurs, les estimations pour les personnes n'ayant jamais fumé (OR = 0,82 ; IC à 95 % : 0,58–1,16) et les fumeurs actuels (OR = 1,12 ; IC à 95 % : 0,73–1,70) sont imprécises et compatibles avec une absence d'association.
 
-**Type d'emploi (H6).** Conformément à l'hypothèse formulée, aucune association entre le type d'emploi et la présence d'un antécédent d'AVC n'est statistiquement mise en évidence après ajustement. Par rapport à la fonction publique, les estimations pour le secteur privé (OR = 1,16 ; IC95 % : 0,78–1,76) et le travail indépendant (OR = 0,79 ; IC95 % : 0,51–1,27) présentent des intervalles de confiance incluant 1.
+**Type d'emploi (H6).** Conformément à l'hypothèse formulée, aucune association entre le type d'emploi et la présence d'un antécédent d'AVC n'est statistiquement mise en évidence après ajustement. Par rapport à la fonction publique, les estimations pour le secteur privé (OR = 1,16 ; IC à 95 % : 0,78–1,76) et le travail indépendant (OR = 0,79 ; IC à 95 % : 0,51–1,27) présentent des intervalles de confiance incluant 1.
 
-**Lieu de résidence (H7).** Conformément à l'hypothèse formulée, aucune association entre le lieu de résidence et la présence d'un antécédent d'AVC n'est statistiquement mise en évidence après ajustement (OR = 1,09 pour une résidence urbaine par rapport à une résidence rurale ; IC95 % : 0,83–1,43).
+**Lieu de résidence (H7).** Conformément à l'hypothèse formulée, aucune association entre le lieu de résidence et la présence d'un antécédent d'AVC n'est statistiquement mise en évidence après ajustement (OR = 1,09 pour une résidence urbaine par rapport à une résidence rurale ; IC à 95 % : 0,83–1,43).
 
-**Statut matrimonial (H8).** Conformément à l'hypothèse formulée, l'association observée en analyse univariée n'est plus mise en évidence après ajustement sur les autres variables du modèle (OR = 0,82 pour les personnes déjà mariées par rapport aux personnes jamais mariées ; IC95 % : 0,53–1,30). Cette atténuation est compatible avec l'hypothèse d'un rôle de l'âge dans l'association observée en analyse univariée, sans permettre de l'attribuer spécifiquement à celui-ci.
+**Statut matrimonial (H8).** Conformément à l'hypothèse formulée, l'association observée en analyse univariée n'est plus mise en évidence après ajustement sur les autres variables du modèle (OR = 0,82 pour les personnes déjà mariées par rapport aux personnes jamais mariées ; IC à 95 % : 0,53–1,30). Cette atténuation est compatible avec l'hypothèse d'un rôle de l'âge dans l'association observée en analyse univariée, sans permettre de l'attribuer spécifiquement à celui-ci.
 
-**Maladie cardiaque (H9).** Contrairement à l'hypothèse formulée, l'association entre la maladie cardiaque et la présence d'un antécédent d'AVC n'est plus statistiquement mise en évidence après ajustement sur les autres variables du modèle (OR = 1,32 ; IC95 % : 0,90–1,90). L'estimation reste toutefois orientée vers des odds plus élevées d'antécédent d'AVC chez les personnes présentant une maladie cardiaque, mais avec une incertitude importante. L'atténuation par rapport à l'analyse univariée est compatible avec le rôle de l'âge envisagé dans le schéma conceptuel, sans permettre d'attribuer spécifiquement cette variation à l'âge.
+**Maladie cardiaque (H9).** Contrairement à l'hypothèse formulée, l'association entre la maladie cardiaque et la présence d'un antécédent d'AVC n'est plus statistiquement mise en évidence après ajustement sur les autres variables du modèle (OR = 1,32 ; IC à 95 % : 0,90–1,90). L'estimation reste toutefois orientée vers des odds plus élevées d'antécédent d'AVC chez les personnes présentant une maladie cardiaque, mais avec une incertitude importante. L'atténuation par rapport à l'analyse univariée est compatible avec le rôle de l'âge envisagé dans le schéma conceptuel, sans permettre d'attribuer spécifiquement cette variation à l'âge.
 
-**Sexe (H10).** Contrairement à l'association attendue, aucune association entre le sexe et la présence d'un antécédent d'AVC n'est statistiquement mise en évidence après ajustement (OR = 1,04 pour les hommes par rapport aux femmes ; IC95 % : 0,78–1,38). Le rôle hypothétique du tabagisme dans cette relation n'a pas été spécifiquement évalué ; aucune analyse de médiation n'a été réalisée, compte tenu notamment de l'incertitude sur la temporalité des variables.
+**Sexe (H10).** Contrairement à l'association attendue, aucune association entre le sexe et la présence d'un antécédent d'AVC n'est statistiquement mise en évidence après ajustement (OR = 1,04 pour les hommes par rapport aux femmes ; IC à 95 % : 0,78–1,38). Le rôle hypothétique du tabagisme dans cette relation n'a pas été spécifiquement évalué ; aucune analyse de médiation n'a été réalisée, compte tenu notamment de l'incertitude sur la temporalité des variables.
 
 ## Limites
 
