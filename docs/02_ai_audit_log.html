@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jade YI">
 
-<title>Facteurs associés à l’AVC chez les adultes – Stroke Data Analysis</title>
+<title>Journal de revue de l’utilisation de l’IA – Stroke Data Analysis</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,41 +25,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -131,7 +95,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Accueil</span></a>
   </li>  
   <li class="nav-item">
@@ -147,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Journal des décisions</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./02_ai_audit_log.html"> 
+    <a class="nav-link active" href="./02_ai_audit_log.html" aria-current="page"> 
 <span class="menu-text">Revue IA</span></a>
   </li>  
 </ul>
@@ -166,11 +130,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#project-overview" id="toc-project-overview" class="nav-link active" data-scroll-target="#project-overview">Project overview</a></li>
-  <li><a href="#question-de-recherche" id="toc-question-de-recherche" class="nav-link" data-scroll-target="#question-de-recherche">Question de recherche</a></li>
-  <li><a href="#principaux-résultats" id="toc-principaux-résultats" class="nav-link" data-scroll-target="#principaux-résultats">Principaux résultats</a></li>
-  <li><a href="#interprétation" id="toc-interprétation" class="nav-link" data-scroll-target="#interprétation">Interprétation</a></li>
-  <li><a href="#reproducibility-check" id="toc-reproducibility-check" class="nav-link" data-scroll-target="#reproducibility-check">Reproducibility check</a></li>
+  <li><a href="#journal-daudit-de-lutilisation-de-lia" id="toc-journal-daudit-de-lutilisation-de-lia" class="nav-link active" data-scroll-target="#journal-daudit-de-lutilisation-de-lia">Journal d’audit de l’utilisation de l’IA</a>
+  <ul class="collapse">
+  <li><a href="#ai-001-2026-09-19-organisation-rédaction" id="toc-ai-001-2026-09-19-organisation-rédaction" class="nav-link" data-scroll-target="#ai-001-2026-09-19-organisation-rédaction">AI-001 · 2026-09-19 · Organisation / rédaction</a></li>
+  <li><a href="#ai-002-2026-09-20-méthode-interprétation-rédaction" id="toc-ai-002-2026-09-20-méthode-interprétation-rédaction" class="nav-link" data-scroll-target="#ai-002-2026-09-20-méthode-interprétation-rédaction">AI-002 · 2026-09-20 · Méthode / interprétation / rédaction</a></li>
+  <li><a href="#ai-003-2026-09-22-code-visualisation" id="toc-ai-003-2026-09-22-code-visualisation" class="nav-link" data-scroll-target="#ai-003-2026-09-22-code-visualisation">AI-003 · 2026-09-22 · Code / visualisation</a></li>
+  <li><a href="#ai-004-2026-09-22-type-code-présentation" id="toc-ai-004-2026-09-22-type-code-présentation" class="nav-link" data-scroll-target="#ai-004-2026-09-22-type-code-présentation">AI-004 · 2026-09-22 · Type : code / présentation</a></li>
+  <li><a href="#ai-005-2026-09-26-code-visualisation" id="toc-ai-005-2026-09-26-code-visualisation" class="nav-link" data-scroll-target="#ai-005-2026-09-26-code-visualisation">AI-005 · 2026-09-26 · Code / visualisation</a></li>
+  <li><a href="#ai-006-2026-09-27-code-exploration-des-données" id="toc-ai-006-2026-09-27-code-exploration-des-données" class="nav-link" data-scroll-target="#ai-006-2026-09-27-code-exploration-des-données">AI-006 · 2026-09-27 · Code / exploration des données</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -179,20 +147,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Facteurs associés à l’AVC chez les adultes</h1>
-<p class="subtitle lead">Analyse multivariée reproductible du Stroke Prediction Dataset</p>
+<h1 class="title">Journal de revue de l’utilisation de l’IA</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jade YI </p>
-          </div>
-  </div>
     
   
     
@@ -203,44 +164,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="project-overview" class="level2">
-<h2 class="anchored" data-anchor-id="project-overview">Project overview</h2>
-<p>Ce projet examine les facteurs démographiques, cliniques et comportementaux associés à la présence d’un antécédent d’AVC chez les adultes du Stroke Prediction Dataset.</p>
-<p>L’analyse repose sur une démarche reproductible réalisée avec R et Quarto : évaluation de la qualité des données, définition de la population analytique, description de la population et régression logistique multivariée.</p>
-<p>Les hypothèses de linéarité des variables continues sont examinées à l’aide de splines naturels et de tests du rapport de vraisemblance. Une analyse de sensibilité par winsorisation de l’IMC évalue également l’influence des valeurs extrêmes.</p>
-<p>Le projet ne vise ni à développer un modèle prédictif ni à estimer des effets causaux. Les résultats sont interprétés comme des associations observées dans cet échantillon.</p>
+<section id="journal-daudit-de-lutilisation-de-lia" class="level1">
+<h1>Journal d’audit de l’utilisation de l’IA</h1>
+<p>Ce document recense les principales utilisations de l’IA dans le projet. L’IA sert d’aide à l’organisation, à la rédaction, au code et à la méthode. Les hypothèses, les choix analytiques et l’interprétation finale restent sous la responsabilité de l’autrice.</p>
+<hr>
+<section id="ai-001-2026-09-19-organisation-rédaction" class="level2">
+<h2 class="anchored" data-anchor-id="ai-001-2026-09-19-organisation-rédaction">AI-001 · 2026-09-19 · Organisation / rédaction</h2>
+<p><strong>Source :</strong> ChatGPT — organisation du projet et rédaction du <code>README.md</code>. <strong>Demande :</strong> Créer une structure de dossiers et de fichiers adaptée au projet, puis rédiger le <code>README.md</code>. <strong>Réponse :</strong> Proposition d’une arborescence séparant données, code, figures et documentation. <strong>Vérification :</strong> Contrôle des fichiers, des chemins et de leur cohérence dans le dépôt local et sur GitHub. <strong>Constat :</strong> ✅ Structure globalement adaptée, avec quelques ajustements. <strong>Impact :</strong> Léger, limité à l’organisation du projet. <strong>Décision :</strong> Structure générale conservée et adaptée aux besoins réels. <strong>Preuve :</strong> Arborescence du dépôt, <code>README.md</code> et historique Git. <strong>Leçon :</strong> Une structure proposée par l’IA doit être adaptée au projet réel.</p>
+<hr>
 </section>
-<section id="question-de-recherche" class="level2">
-<h2 class="anchored" data-anchor-id="question-de-recherche">Question de recherche</h2>
-<p>Quels facteurs démographiques, cliniques et comportementaux sont associés à la présence d’un antécédent d’AVC chez les adultes de ce jeu de données ?</p>
+<section id="ai-002-2026-09-20-méthode-interprétation-rédaction" class="level2">
+<h2 class="anchored" data-anchor-id="ai-002-2026-09-20-méthode-interprétation-rédaction">AI-002 · 2026-09-20 · Méthode / interprétation / rédaction</h2>
+<p><strong>Source :</strong> ChatGPT — vérification méthodologique des hypothèses. <strong>Demande :</strong> Vérifier la formulation de mes hypothèses et les reformuler en français sans en modifier le contenu. <strong>Réponse :</strong> Prudence recommandée pour <code>smoking_status = "Unknown"</code>. L’IA a aussi proposé que le tabagisme puisse être un médiateur entre le genre et l’AVC plutôt qu’un facteur de confusion. <strong>Vérification :</strong> Comparaison avec la définition des variables et les notions de confusion et de médiation vues en cours. <strong>Constat :</strong> ⚠️ La remarque sur <code>"Unknown"</code> est pertinente. Le rôle du tabagisme dépend toutefois du modèle causal retenu. <strong>Impact :</strong> Léger à modéré sur la formulation, sans effet sur l’origine des hypothèses. <strong>Décision :</strong> Prudence conservée pour <code>"Unknown"</code>. Le rôle du tabagisme reste à vérifier. Les hypothèses et les qualificatifs « forte », « modérée » ou « faible » restent les miens. <strong>Preuve :</strong> Document des hypothèses et décisions <code>DEC-001</code> et <code>DEC-002</code>. <strong>Leçon :</strong> Une suggestion causale de l’IA doit être vérifiée avant d’être retenue.</p>
+<hr>
 </section>
-<section id="principaux-résultats" class="level2">
-<h2 class="anchored" data-anchor-id="principaux-résultats">Principaux résultats</h2>
-<p>Après ajustement, l’âge (OR = 1,08 par année ; IC à 95 % : 1,07–1,09), l’hypertension (OR = 1,49 ; IC à 95 % : 1,07–2,05) et la glycémie moyenne (OR = 1,04 par +10 mg/dL ; IC à 95 % : 1,02–1,07) sont associés à la présence d’un antécédent d’AVC.</p>
-<p>Les différences descriptives observées pour la maladie cardiaque et le statut marital s’atténuent après ajustement. Les résultats de l’analyse de sensibilité concernant l’IMC sont très proches de ceux du modèle principal.</p>
-<p>L’analyse de la forme fonctionnelle suggère une non-linéarité de l’association avec l’âge, principalement aux âges les plus jeunes, où les événements sont rares. Le modèle linéaire est conservé comme modèle principal afin de fournir une mesure synthétique de l’association avec l’âge, tandis que le modèle avec spline est présenté comme analyse complémentaire.</p>
+<section id="ai-003-2026-09-22-code-visualisation" class="level2">
+<h2 class="anchored" data-anchor-id="ai-003-2026-09-22-code-visualisation">AI-003 · 2026-09-22 · Code / visualisation</h2>
+<p><strong>Source :</strong> Claude — code décrivant la proportion d’AVC dans la population. <strong>Demande :</strong> Calculer la répartition des individus avec ou sans AVC et la représenter graphiquement. <strong>Réponse :</strong> Diagramme en barres avec les effectifs sur l’axe des y. <strong>Vérification :</strong> Comparaison du graphique avec l’objectif, qui était de montrer la proportion d’AVC dans la population. <strong>Constat :</strong> ⚠️ Le graphique était correct, mais les effectifs répondaient moins bien à cet objectif. <strong>Impact :</strong> Léger, limité à la présentation. <strong>Décision :</strong> Remplacement des effectifs par des proportions, avec un axe des y allant de 0 à 1. * <strong>Preuve :</strong> Code et graphique dans le document Quarto. * <strong>Leçon :</strong> Un graphique correct doit aussi être adapté au message présenté.</p>
+<hr>
 </section>
-<section id="interprétation" class="level2">
-<h2 class="anchored" data-anchor-id="interprétation">Interprétation</h2>
-<p>La population source, le mode d’échantillonnage et la temporalité des mesures ne sont pas documentés. La proportion d’AVC observée dans le fichier ne constitue donc pas une estimation de prévalence en population générale.</p>
-<p>En particulier, la date de survenue de l’AVC par rapport à la mesure de l’hypertension, de la glycémie, de l’IMC ou du statut tabagique est inconnue. Les associations observées ne permettent donc pas d’établir de relation causale.</p>
+<section id="ai-004-2026-09-22-type-code-présentation" class="level2">
+<h2 class="anchored" data-anchor-id="ai-004-2026-09-22-type-code-présentation">AI-004 · 2026-09-22 · Type : code / présentation</h2>
+<p><strong>Source :</strong> GPT — analyse des valeurs manquantes. <strong>Ce que j’ai demandé / l’IA a fait :</strong> Générer le code pour résumer les valeurs manquantes. <strong>Réponse de l’IA :</strong> Résultat présenté horizontalement (<code>gender | age | hypertension | bmi | ...</code>), avec une lisibilité limitée. <strong>Vérification / constat :</strong> ✅ Les résultats étaient exploitables, mais le format peu lisible. <strong>Impact :</strong> Aucun sur les résultats ; uniquement sur la présentation. <strong>Traitement final :</strong> J’ai ajouté <code>pivot_longer()</code> pour obtenir un format long plus lisible. <strong>Preuve :</strong> <code>docs/stroke_multivariable_analysis.qmd</code> <strong>Leçon :</strong> Vérifier aussi la lisibilité des sorties générées par l’IA.</p>
+<hr>
 </section>
-<section id="reproducibility-check" class="level2">
-<h2 class="anchored" data-anchor-id="reproducibility-check">Reproducibility check</h2>
-<p>L’ensemble de la préparation des données et des analyses est réalisé dans R. Les versions des packages sont enregistrées avec renv, et le rapport est généré avec Quarto.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260919</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>R.version.string</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "R version 4.5.3 (2026-03-11)"</code></pre>
-</div>
-</div>
+<section id="ai-005-2026-09-26-code-visualisation" class="level2">
+<h2 class="anchored" data-anchor-id="ai-005-2026-09-26-code-visualisation">AI-005 · 2026-09-26 · Code / visualisation</h2>
+<p><strong>Source :</strong> GPT — génération du DAG. <strong>Demande :</strong> Générer le code pour représenter le DAG des hypothèses. <strong>Réponse :</strong> Utilisation de ggdag() avec text = FALSE. <strong>Vérification :</strong> Le graphique affichait de gros points noirs qui masquaient les variables. Après vérification, text = FALSE ne supprime pas les nœuds dessinés par défaut avec geom_dag_point(). <strong>Constat :</strong> ⚠️ Le code fonctionnait, mais la visualisation était incorrecte. <strong>Impact :</strong> Aucun sur l’analyse ; uniquement sur la présentation. <strong>Décision :</strong> Remplacement de ggdag() par ggplot() + geom_dag_edges() + geom_dag_label_repel() afin de conserver uniquement les étiquettes et les flèches. <strong>Preuve :</strong> docs/stroke_multivariable_analysis.qmd <strong>Leçon :</strong> Vérifier les couches graphiques ajoutées par défaut par les fonctions utilisées.</p>
+<hr>
+</section>
+<section id="ai-006-2026-09-27-code-exploration-des-données" class="level2">
+<h2 class="anchored" data-anchor-id="ai-006-2026-09-27-code-exploration-des-données">AI-006 · 2026-09-27 · Code / exploration des données</h2>
+<p><strong>Source :</strong> GPT — vérification des valeurs incohérentes ou improbables. <strong>Demande :</strong> Générer un code pour examiner les valeurs potentiellement incohérentes. <strong>Réponse :</strong> Vérification basée uniquement sur le minimum et le maximum. <strong>Vérification :</strong> Le minimum et le maximum ne permettent pas d’évaluer la distribution globale des variables. <strong>Constat :</strong> ⚠️ Analyse correcte mais incomplète. <strong>Impact :</strong> Léger, sur l’exploration des données. <strong>Décision :</strong> Ajout de la médiane et des quartiles pour mieux décrire la distribution. <strong>Preuve :</strong> docs/stroke_multivariable_analysis.qmd <strong>Leçon :</strong> Les valeurs extrêmes seules ne suffisent pas pour décrire une distribution.</p>
+<hr>
+<p>##AI-007 · 2026-10-03 · Code / présentation</p>
+<p><strong>Source :</strong> Claude — tableau de la population analytique. <strong>Demande :</strong> Générer le code résumant les étapes de sélection de la population analytique. <strong>Réponse :</strong> Tableau avec une seule colonne “Nombre exclus / retenu” regroupant les effectifs exclus et l’effectif final. <strong>Vérification :</strong> Le code était correct, mais cette colonne mélangeait deux informations différentes et rendait la lecture ambiguë. <strong>Constat :</strong> ⚠️ Résultat correct mais présentation peu claire. <strong>Impact :</strong> Aucun sur l’analyse ; uniquement sur la présentation. <strong>Décision :</strong> Séparation en deux colonnes, “Nombre exclu” et “Effectif restant”, avec ajout de l’effectif initial pour rendre les étapes de sélection plus lisibles. <strong>Preuve :</strong> docs/stroke_multivariable_analysis.qmd <strong>Leçon :</strong> Vérifier que la structure d’un tableau distingue clairement les informations présentées.</p>
+<hr>
+<p>##AI-008 · 2026-10-03 · Code / présentation</p>
+<p><strong>Source :</strong> Claude — génération du code pour les graphiques descriptifs. <strong>Demande :</strong> Générer le code des graphiques pour l’analyse descriptive. <strong>Réponse :</strong> Les modalités des variables catégorielles ont été reprises directement depuis le jeu de données. <strong>Vérification :</strong> Lors de la relecture, j’ai constaté que certains libellés restaient en anglais alors que le document est rédigé en français. <strong>Constat :</strong> ⚠️ Résultats corrects, mais présentation linguistique incohérente. <strong>Impact :</strong> Aucun sur les résultats ; uniquement sur la présentation. <strong>Décision :</strong> Traduction des modalités affichées dans les graphiques afin d’harmoniser la langue du document. <strong>Preuve :</strong> docs/stroke_multivariable_analysis.qmd <strong>Leçon :</strong> Vérifier les libellés générés automatiquement à partir des données.</p>
+<hr>
+<p>##AI-009 · 2026-10-03 · Code / présentation</p>
+<p><strong>Source :</strong> Claude — génération du Tableau 1. <strong>Demande :</strong> Générer le code du tableau descriptif selon le statut d’AVC. <strong>Réponse :</strong> Les deux modalités “Oui” et “Non” étaient affichées pour les variables binaires comme l’hypertension et la maladie cardiaque. <strong>Vérification :</strong> Pour ces variables binaires, afficher les deux modalités était redondant et alourdissait le tableau. <strong>Constat :</strong> ⚠️ Résultats corrects, mais présentation trop détaillée. <strong>Impact :</strong> Aucun sur les résultats ; uniquement sur la présentation. <strong>Décision :</strong> Affichage uniquement de la modalité “Oui” avec value = list(hypertension ~ “Oui”, heart_disease ~ “Oui”). <strong>Preuve :</strong> docs/stroke_multivariable_analysis.qmd <strong>Leçon :</strong> Pour une variable binaire, une seule modalité peut suffire lorsque l’autre est directement déductible.</p>
+<hr>
+<p>##AI-010 · 2026-10-03 · Méthode / interprétation</p>
+<p><strong>Source :</strong> Claude — interprétation du modèle de régression logistique. <strong>Demande :</strong> Vérifier l’interprétation des résultats du modèle glm. <strong>Réponse :</strong> Pour avg_glucose_level, l’OR était calculé pour une augmentation de 1 mg/dL (OR = 1,00 ; IC 95 % 1,00–1,01 ; p &lt; 0,001), une unité trop faible pour rendre l’association facilement interprétable. <strong>Vérification :</strong> Une variation de 1 mg/dL est cliniquement faible et conduit à un OR arrondi très proche de 1, malgré une association statistiquement significative. <strong>Constat :</strong> ⚠️ Le modèle était correct, mais l’échelle utilisée limitait fortement l’interprétation du résultat. <strong>Impact :</strong> Modéré. L’échelle initiale rendait le résultat du Tableau 2 peu informatif et affectait son interprétation dans la suite de l’analyse. <strong>Décision :</strong> Recalcul de l’OR pour une augmentation de 10 mg/dL afin d’obtenir une mesure plus interprétable, sans modifier le modèle sous-jacent. <strong>Preuve :</strong> docs/stroke_multivariable_analysis.qmd <strong>Leçon :</strong> L’unité d’une variable continue doit être choisie de façon à produire une mesure d’association interprétable. —</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

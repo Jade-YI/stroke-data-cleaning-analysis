@@ -1,10 +1,14 @@
+---
+title: "Journal des décisions méthodologiques"
+---
+
 # Journal des décisions analytiques
 
 Ce document enregistre les principales décisions prises au cours du projet, leur justification et leur impact potentiel sur l’analyse.
 
 Les décisions sont enregistrées au moment où elles sont prises. Si une décision est modifiée ultérieurement, l’entrée initiale ne sera pas supprimée : une nouvelle entrée expliquera la modification.
 
----
+****
 
 ## DEC-001 — 2026-09-20
 
@@ -23,7 +27,7 @@ Les résultats seront présentés comme des associations statistiques. Les terme
 
 **Entrée AI associée :** AI-001
 
----
+****
 
 ## DEC-002 — 2026-09-20
 
@@ -42,7 +46,7 @@ Les hypothèses originales seront conservées même si elles ne sont pas confirm
 
 **Entrée AI associée :** AI-001
 
----
+****
 
 ## DEC-003 — 2026-09-21
 
@@ -67,7 +71,7 @@ Les décisions concernant l’exclusion d’observations, le traitement des donn
 
 **Statut :** Adoptée
 
----
+****
 
 ## DEC-004 — 2026-09-21
 
@@ -86,7 +90,7 @@ Le modèle définitif ne sera établi qu’après l’évaluation de la qualité
 
 **Statut :** Prévue — à confirmer après l’évaluation de la qualité des données
 
----
+****
 
 ## DEC-005 — 2026-09-22
 
@@ -104,7 +108,7 @@ Les mineurs seront exclus de l’analyse principale.
 
 **Statut :** Prévue — à confirmer avant l’analyse multivariable.
 
----
+****
 
 ## DEC-006 — 2026-09-26
 
@@ -118,7 +122,7 @@ Compte tenu de la grande taille de l’échantillon, le test t est relativement 
 
 **Statut :** Retenue
 
----
+****
 ## DEC-007 — 2026-09-26
 
 **Étape :** Modèle multivariable — variable work_type
@@ -134,7 +138,7 @@ Le modèle principal est ajusté après exclusion de ces 5 observations.
 
 **Statut :** Retenue
 
----
+****
 ## DEC-008 — 2026-09-27
 
 **Étape :** Traitement des valeurs manquantes de bmi
@@ -150,7 +154,7 @@ Cette méthode ne tient pas compte de l’incertitude liée aux valeurs imputée
 
 **Statut :** Retenue
 
----
+****
 ## DEC-009 — 2026-10-01
 
 **Étape : **Répartition de l’AVC dans le fichier brut
@@ -163,7 +167,7 @@ Cette section décrit la composition du fichier et non une estimation de la pré
 
 **Statut :** Retenue
 
----
+****
 ## DEC-010 — 2026-10-01
 
 **Étape:** Prévalence de l’AVC chez les adultes
@@ -179,7 +183,7 @@ Cette distinction permet de séparer la composition du fichier brut de celle de 
 
 **Statut : ** Retenue
 
----
+****
 ## DEC-011 — 2026-10-02
 
 **Étape :** Traitement des valeurs extrêmes de bmi
@@ -196,7 +200,7 @@ L’analyse de sensibilité permettra de vérifier si les valeurs extrêmes infl
 
 **Statut :** Retenue — remplace la stratégie précédente utilisant le BMI winsorisé dans l’analyse principale.
 
----
+****
 
 ## DEC-012 — 2026-10-03
 
@@ -212,7 +216,7 @@ Ces limites ne permettent pas de soutenir une interprétation causale robuste.
 
 **Statut :** Retenue
 
----
+****
 
 ## DEC-013 — 2026-10-04
 
@@ -228,7 +232,7 @@ Cette analyse permettra notamment d’identifier d’éventuelles associations n
 
 **Statut :** Prévue
 
----
+****
 
 ## DEC-014 — 2026-10-04
 
@@ -242,4 +246,4 @@ Le passage de 1 à 10 mg/dL modifie uniquement l’unité de présentation de l�
 
 **Statut :** Retenue
 
----
+****

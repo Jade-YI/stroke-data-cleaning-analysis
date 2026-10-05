@@ -1,3 +1,6 @@
+---
+title: "Hypothèses a priori"
+---
 # Hypothèses et prédictions avant l’analyse
 
 ## 1. Question de recherche

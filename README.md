@@ -13,7 +13,7 @@ Ce projet documente une démarche complète et transparente, de la vérification
 - description de la population selon le statut AVC ;
 - régression logistique multivariée, résultats exprimés en *odds ratios* (OR) ajustés avec IC à 95 % ;
 - vérification de la linéarité des variables continues (splines naturels, test du rapport de vraisemblance) ;
-- analyses de sensibilité sur le traitement de l'IMC (valeurs manquantes et valeurs extrêmes).
+- analyse de sensibilité évaluant l’influence des valeurs extrêmes de l’IMC par winsorisation.
 
 Le rapport suit les recommandations STROBE. Le projet ne vise ni la prédiction (pas de modèle d'apprentissage automatique) ni l'estimation d'effets causaux.
 
@@ -34,7 +34,7 @@ Analyse restreinte aux adultes (âge ≥ 18 ans). Sont également exclus l'uniqu
 
 ## Principaux résultats
 
-Après ajustement, l'âge (OR = 1,08 par année), l'hypertension (OR = 1,49) et la glycémie moyenne (OR = 1,04 par +10 mg/dL) restent associés au statut AVC. Les associations observées en analyse univariée pour la maladie cardiaque et le statut marital s'atténuent après ajustement. Ces résultats sont des associations internes à l'échantillon, non des effets causaux. Voir le rapport pour les intervalles de confiance et les analyses de sensibilité.
+Après ajustement, l’âge (OR = 1,08 par année ; IC à 95 % : 1,07–1,09), l’hypertension (OR = 1,49 ; IC à 95 % : 1,07–2,05) et la glycémie moyenne (OR = 1,04 par +10 mg/dL ; IC à 95 % : 1,02–1,07) restent associés au statut AVC.
 
 ## Limites d'interprétation
 
@@ -49,17 +49,23 @@ En conséquence, l'analyse ne permet d'estimer ni une incidence ni une prévalen
 
 ## Structure du dépôt
 
-```
+```text
 stroke-data-cleaning-analysis/
 ├── data/
-│   ├── raw/                # données brutes (inchangées) et documentation de provenance
-│   └── processed/          # jeux de données générés par le code de nettoyage
-├── R/                      # scripts de traitement et d'analyse
-├── docs/                   # site généré (GitHub Pages)
-├── figures/                # figures exportées hors du rapport
-├── index.qmd               # rapport principal (code et texte)
-├── _quarto.yml             # configuration du site Quarto
-├── renv.lock               # versions des packages R
+│   ├── raw/                         # données brutes et documentation de provenance
+│   └── processed/                   # jeux de données générés par le code
+├── R/                               # scripts de traitement et d'analyse
+├── figures/                         # figures exportées hors du rapport
+├── docs/                            # site généré pour GitHub Pages
+├── index.qmd                        # page d'accueil du site
+├── stroke_multivariable_analysis.qmd # rapport d'analyse principal
+├── 00_hypotheses.md                 # hypothèses formulées avant l'analyse
+├── 01_decision_log.md               # journal des décisions méthodologiques
+├── 02_ai_audit_log.md               # journal de revue de l'utilisation de l'IA
+├── references.bib
+├── _quarto.yml                      # configuration du site Quarto
+├── renv/
+├── renv.lock                        # versions des packages R
 ├── stroke-data-cleaning-analysis.Rproj
 ├── LICENSE
 └── README.md
@@ -96,11 +102,11 @@ Des outils d'IA générative ont été utilisés comme aide au projet. Les choix
 
 ## Outils
 
-R, Quarto, Git/GitHub, `renv`. Principaux packages : `tidyverse`, `gtsummary`, `broom`, `gt`, `splines`, `ggdag`, `mice`. La liste exacte et les versions figurent dans `renv.lock`.
+R, Quarto, Git/GitHub, `renv`. Principaux packages : `tidyverse`, `gtsummary`, `broom`, `gt`, `splines`, `ggdag`. La liste exacte et les versions figurent dans `renv.lock`.
 
 ## Statut
 
-Version de travail : rapport en cours de révision.
+Version de travail : Analyse principale terminée ; documentation et présentation du dépôt en cours de finalisation.
 
 ## Auteure
 

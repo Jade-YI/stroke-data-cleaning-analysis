@@ -1,3 +1,6 @@
+---
+title: "Journal de revue de l'utilisation de l'IA"
+---
 # Journal d’audit de l’utilisation de l’IA
 
 Ce document recense les principales utilisations de l’IA dans le projet. L’IA sert d’aide à l’organisation, à la rédaction, au code et à la méthode. Les hypothèses, les choix analytiques et l’interprétation finale restent sous la responsabilité de l’autrice.
@@ -87,7 +90,7 @@ Ce document recense les principales utilisations de l’IA dans le projet. L’I
 
 ---
 
-##AI-007 · 2026-10-03 · Code / présentation
+## AI-007 · 2026-10-03 · Code / présentation
 
 **Source :** Claude — tableau de la population analytique.
 **Demande :** Générer le code résumant les étapes de sélection de la population analytique.
@@ -101,7 +104,7 @@ Ce document recense les principales utilisations de l’IA dans le projet. L’I
 
 ---
 
-##AI-008 · 2026-10-03 · Code / présentation
+## AI-008 · 2026-10-03 · Code / présentation
 
 **Source :** Claude — génération du code pour les graphiques descriptifs.
 **Demande :** Générer le code des graphiques pour l’analyse descriptive.
@@ -115,7 +118,7 @@ Ce document recense les principales utilisations de l’IA dans le projet. L’I
 
 ---
 
-##AI-009 · 2026-10-03 · Code / présentation
+## AI-009 · 2026-10-03 · Code / présentation
 
 **Source :** Claude — génération du Tableau 1.
 **Demande :** Générer le code du tableau descriptif selon le statut d’AVC.
@@ -129,7 +132,7 @@ Ce document recense les principales utilisations de l’IA dans le projet. L’I
 
 ---
 
-##AI-010 · 2026-10-03 · Méthode / interprétation
+## AI-010 · 2026-10-03 · Méthode / interprétation
 
 **Source :** Claude — interprétation du modèle de régression logistique.
 **Demande :** Vérifier l’interprétation des résultats du modèle glm.

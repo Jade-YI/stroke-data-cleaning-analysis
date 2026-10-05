@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jade YI">
 
-<title>Facteurs associés à l’AVC chez les adultes – Stroke Data Analysis</title>
+<title>Hypothèses a priori – Stroke Data Analysis</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,41 +25,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -131,7 +95,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Accueil</span></a>
   </li>  
   <li class="nav-item">
@@ -139,7 +103,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Analyse</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./00_hypotheses.html"> 
+    <a class="nav-link active" href="./00_hypotheses.html" aria-current="page"> 
 <span class="menu-text">Hypothèses</span></a>
   </li>  
   <li class="nav-item">
@@ -166,11 +130,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#project-overview" id="toc-project-overview" class="nav-link active" data-scroll-target="#project-overview">Project overview</a></li>
-  <li><a href="#question-de-recherche" id="toc-question-de-recherche" class="nav-link" data-scroll-target="#question-de-recherche">Question de recherche</a></li>
-  <li><a href="#principaux-résultats" id="toc-principaux-résultats" class="nav-link" data-scroll-target="#principaux-résultats">Principaux résultats</a></li>
-  <li><a href="#interprétation" id="toc-interprétation" class="nav-link" data-scroll-target="#interprétation">Interprétation</a></li>
-  <li><a href="#reproducibility-check" id="toc-reproducibility-check" class="nav-link" data-scroll-target="#reproducibility-check">Reproducibility check</a></li>
+  <li><a href="#hypothèses-et-prédictions-avant-lanalyse" id="toc-hypothèses-et-prédictions-avant-lanalyse" class="nav-link active" data-scroll-target="#hypothèses-et-prédictions-avant-lanalyse">Hypothèses et prédictions avant l’analyse</a>
+  <ul class="collapse">
+  <li><a href="#question-de-recherche" id="toc-question-de-recherche" class="nav-link" data-scroll-target="#question-de-recherche">1. Question de recherche</a></li>
+  <li><a href="#prédiction-générale" id="toc-prédiction-générale" class="nav-link" data-scroll-target="#prédiction-générale">2. Prédiction générale</a></li>
+  <li><a href="#hypothèses-spécifiques" id="toc-hypothèses-spécifiques" class="nav-link" data-scroll-target="#hypothèses-spécifiques">3. Hypothèses spécifiques</a>
+  <ul class="collapse">
+  <li><a href="#h1-âge" id="toc-h1-âge" class="nav-link" data-scroll-target="#h1-âge">H1 — Âge</a></li>
+  <li><a href="#h2-hypertension" id="toc-h2-hypertension" class="nav-link" data-scroll-target="#h2-hypertension">H2 — Hypertension</a></li>
+  <li><a href="#h3-niveau-moyen-de-glucose" id="toc-h3-niveau-moyen-de-glucose" class="nav-link" data-scroll-target="#h3-niveau-moyen-de-glucose">H3 — Niveau moyen de glucose</a></li>
+  <li><a href="#h4-indice-de-masse-corporelle" id="toc-h4-indice-de-masse-corporelle" class="nav-link" data-scroll-target="#h4-indice-de-masse-corporelle">H4 — Indice de masse corporelle</a></li>
+  <li><a href="#h5-tabagisme" id="toc-h5-tabagisme" class="nav-link" data-scroll-target="#h5-tabagisme">H5 — Tabagisme</a></li>
+  <li><a href="#h6-type-demploi" id="toc-h6-type-demploi" class="nav-link" data-scroll-target="#h6-type-demploi">H6 — Type d’emploi</a></li>
+  <li><a href="#h7-type-de-résidence" id="toc-h7-type-de-résidence" class="nav-link" data-scroll-target="#h7-type-de-résidence">H7 — Type de résidence</a></li>
+  <li><a href="#h8-statut-matrimonial" id="toc-h8-statut-matrimonial" class="nav-link" data-scroll-target="#h8-statut-matrimonial">H8 — Statut matrimonial</a></li>
+  <li><a href="#h10-genre" id="toc-h10-genre" class="nav-link" data-scroll-target="#h10-genre">H10 — Genre</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -179,20 +155,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Facteurs associés à l’AVC chez les adultes</h1>
-<p class="subtitle lead">Analyse multivariée reproductible du Stroke Prediction Dataset</p>
+<h1 class="title">Hypothèses a priori</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jade YI </p>
-          </div>
-  </div>
     
   
     
@@ -203,44 +172,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="project-overview" class="level2">
-<h2 class="anchored" data-anchor-id="project-overview">Project overview</h2>
-<p>Ce projet examine les facteurs démographiques, cliniques et comportementaux associés à la présence d’un antécédent d’AVC chez les adultes du Stroke Prediction Dataset.</p>
-<p>L’analyse repose sur une démarche reproductible réalisée avec R et Quarto : évaluation de la qualité des données, définition de la population analytique, description de la population et régression logistique multivariée.</p>
-<p>Les hypothèses de linéarité des variables continues sont examinées à l’aide de splines naturels et de tests du rapport de vraisemblance. Une analyse de sensibilité par winsorisation de l’IMC évalue également l’influence des valeurs extrêmes.</p>
-<p>Le projet ne vise ni à développer un modèle prédictif ni à estimer des effets causaux. Les résultats sont interprétés comme des associations observées dans cet échantillon.</p>
-</section>
+<section id="hypothèses-et-prédictions-avant-lanalyse" class="level1">
+<h1>Hypothèses et prédictions avant l’analyse</h1>
 <section id="question-de-recherche" class="level2">
-<h2 class="anchored" data-anchor-id="question-de-recherche">Question de recherche</h2>
-<p>Quels facteurs démographiques, cliniques et comportementaux sont associés à la présence d’un antécédent d’AVC chez les adultes de ce jeu de données ?</p>
+<h2 class="anchored" data-anchor-id="question-de-recherche">1. Question de recherche</h2>
+<p>Dans cet échantillon, quels facteurs démographiques, cliniques et comportementaux sont associés à la présence d’un accident vasculaire cérébral (AVC) ?</p>
+<p>L’objectif est de comparer les associations entre plusieurs facteurs de risque potentiels et la variable <code>stroke</code>, puis d’examiner si ces associations persistent après ajustement sur d’autres caractéristiques des individus.</p>
+<p>Cette étude est observationnelle. Les résultats seront donc interprétés comme des associations statistiques et non comme des relations causales.</p>
 </section>
-<section id="principaux-résultats" class="level2">
-<h2 class="anchored" data-anchor-id="principaux-résultats">Principaux résultats</h2>
-<p>Après ajustement, l’âge (OR = 1,08 par année ; IC à 95 % : 1,07–1,09), l’hypertension (OR = 1,49 ; IC à 95 % : 1,07–2,05) et la glycémie moyenne (OR = 1,04 par +10 mg/dL ; IC à 95 % : 1,02–1,07) sont associés à la présence d’un antécédent d’AVC.</p>
-<p>Les différences descriptives observées pour la maladie cardiaque et le statut marital s’atténuent après ajustement. Les résultats de l’analyse de sensibilité concernant l’IMC sont très proches de ceux du modèle principal.</p>
-<p>L’analyse de la forme fonctionnelle suggère une non-linéarité de l’association avec l’âge, principalement aux âges les plus jeunes, où les événements sont rares. Le modèle linéaire est conservé comme modèle principal afin de fournir une mesure synthétique de l’association avec l’âge, tandis que le modèle avec spline est présenté comme analyse complémentaire.</p>
+<section id="prédiction-générale" class="level2">
+<h2 class="anchored" data-anchor-id="prédiction-générale">2. Prédiction générale</h2>
+<p>Avant d’examiner les données, je prévois que l’âge élevé, l’hypertension, les maladies cardiaques, une glycémie moyenne élevée, un IMC élevé et le tabagisme seront associés à une probabilité plus élevée d’AVC.</p>
+<p>Je prévois également que certaines associations observées dans l’analyse brute diminueront après ajustement, notamment après la prise en compte de l’âge. ## 2. Prédictions générales</p>
+<p>Avant d’examiner les résultats, je prévois que l’âge, l’hypertension, un niveau moyen de glucose élevé, un IMC élevé et le tabagisme seront associés à une probabilité plus élevée d’AVC.</p>
+<p>Je prévois également que certaines associations observées dans l’analyse brute diminueront après ajustement sur l’âge et sur les autres caractéristiques des individus.</p>
+<p>Les prédictions ci-dessous ont été formulées avant l’analyse statistique. Elles ne seront pas modifiées en fonction des résultats obtenus.</p>
 </section>
-<section id="interprétation" class="level2">
-<h2 class="anchored" data-anchor-id="interprétation">Interprétation</h2>
-<p>La population source, le mode d’échantillonnage et la temporalité des mesures ne sont pas documentés. La proportion d’AVC observée dans le fichier ne constitue donc pas une estimation de prévalence en population générale.</p>
-<p>En particulier, la date de survenue de l’AVC par rapport à la mesure de l’hypertension, de la glycémie, de l’IMC ou du statut tabagique est inconnue. Les associations observées ne permettent donc pas d’établir de relation causale.</p>
+<section id="hypothèses-spécifiques" class="level2">
+<h2 class="anchored" data-anchor-id="hypothèses-spécifiques">3. Hypothèses spécifiques</h2>
+<section id="h1-âge" class="level3">
+<h3 class="anchored" data-anchor-id="h1-âge">H1 — Âge</h3>
+<p>Je prévois une association positive forte entre l’âge et la présence d’un AVC. Plus l’âge augmente, plus la probabilité d’avoir eu un AVC devrait être élevée.</p>
+<p>Je m’attends à ce que cette association reste importante après ajustement sur les autres variables.</p>
 </section>
-<section id="reproducibility-check" class="level2">
-<h2 class="anchored" data-anchor-id="reproducibility-check">Reproducibility check</h2>
-<p>L’ensemble de la préparation des données et des analyses est réalisé dans R. Les versions des packages sont enregistrées avec renv, et le rapport est généré avec Quarto.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260919</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>R.version.string</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "R version 4.5.3 (2026-03-11)"</code></pre>
-</div>
-</div>
+<section id="h2-hypertension" class="level3">
+<h3 class="anchored" data-anchor-id="h2-hypertension">H2 — Hypertension</h3>
+<p>Je prévois que les personnes ayant des antécédents d’hypertension présenteront une probabilité d’AVC plus élevée que les personnes sans hypertension.</p>
+<p>Je m’attends à une association relativement forte dans l’analyse brute. Cette association pourrait toutefois diminuer dans le modèle ajusté, notamment en raison des relations de l’hypertension avec l’âge, l’IMC et le niveau moyen de glucose.</p>
+<p>Je prévois néanmoins que l’hypertension restera associée à la présence d’un AVC après ajustement sur les autres caractéristiques incluses dans le modèle.</p>
+</section>
+<section id="h3-niveau-moyen-de-glucose" class="level3">
+<h3 class="anchored" data-anchor-id="h3-niveau-moyen-de-glucose">H3 — Niveau moyen de glucose</h3>
+<p>Je prévois qu’un niveau moyen de glucose plus élevé sera associé à une probabilité plus élevée d’AVC.</p>
+<p>Je m’attends à une association d’intensité modérée. Une partie de cette association pourrait être liée à l’âge, à l’IMC, à l’hypertension ou à d’autres caractéristiques de santé.</p>
+</section>
+<section id="h4-indice-de-masse-corporelle" class="level3">
+<h3 class="anchored" data-anchor-id="h4-indice-de-masse-corporelle">H4 — Indice de masse corporelle</h3>
+<p>Je prévois qu’un IMC plus élevé sera associé à une probabilité plus élevée d’AVC, avec une association relativement forte.</p>
+<p>Cependant, cette association pourrait diminuer après ajustement sur l’âge, l’hypertension et le niveau moyen de glucose.</p>
+<p>Il est également possible que la relation entre l’IMC et l’AVC ne soit pas strictement linéaire.</p>
+</section>
+<section id="h5-tabagisme" class="level3">
+<h3 class="anchored" data-anchor-id="h5-tabagisme">H5 — Tabagisme</h3>
+<p>Je prévois que les personnes qui fument actuellement ou qui ont fumé dans le passé présenteront une probabilité d’AVC plus élevée que les personnes n’ayant jamais fumé.</p>
+<p>Je m’attends à une association relativement forte. Toutefois, elle pourrait être partiellement expliquée par des différences d’âge et d’état de santé entre les catégories de tabagisme.</p>
+<p>La catégorie <code>Unknown</code> devra être interprétée avec prudence, car elle indique une information manquante plutôt qu’un comportement tabagique particulier.</p>
+</section>
+<section id="h6-type-demploi" class="level3">
+<h3 class="anchored" data-anchor-id="h6-type-demploi">H6 — Type d’emploi</h3>
+<p>Je ne prévois pas de relation directe forte entre le type d’emploi et l’AVC.</p>
+<p>Des différences pourraient néanmoins apparaître dans l’analyse brute, car les catégories professionnelles peuvent avoir des compositions différentes en matière d’âge et d’état de santé. Je prévois donc que ces différences diminueront après ajustement sur l’âge et les variables cliniques.</p>
+<p>Cette variable sera principalement considérée comme exploratoire.</p>
+</section>
+<section id="h7-type-de-résidence" class="level3">
+<h3 class="anchored" data-anchor-id="h7-type-de-résidence">H7 — Type de résidence</h3>
+<p>Je prévois une association faible, voire inexistante, entre le fait de résider en zone urbaine ou rurale et la présence d’un AVC.</p>
+<p>Si une différence est observée, elle pourrait être liée à d’autres caractéristiques des individus plutôt qu’au type de résidence lui-même.</p>
+</section>
+<section id="h8-statut-matrimonial" class="level3">
+<h3 class="anchored" data-anchor-id="h8-statut-matrimonial">H8 — Statut matrimonial</h3>
+<p>Je prévois une association brute d’intensité modérée entre le fait d’avoir déjà été marié et la présence d’un AVC.</p>
+<p>Les personnes ayant déjà été mariées pourraient présenter une fréquence d’AVC plus élevée, principalement parce qu’elles sont en moyenne plus âgées que les personnes n’ayant jamais été mariées.</p>
+<p>Je prévois donc que cette association diminuera fortement, voire disparaîtra, après ajustement sur l’âge. Le statut matrimonial pourrait ainsi produire une association trompeuse si l’âge n’est pas pris en compte. ### H9 — Maladie cardiaque</p>
+<p>Je prévois une association positive forte entre les antécédents de maladie cardiaque et la présence d’un AVC.</p>
+<p>Les personnes ayant une maladie cardiaque devraient présenter une probabilité d’AVC plus élevée que les personnes sans maladie cardiaque.</p>
+<p>Je prévois que cette association diminuera partiellement après ajustement sur l’âge, l’hypertension, le niveau moyen de glucose et le tabagisme, mais qu’elle restera néanmoins importante.</p>
+</section>
+<section id="h10-genre" class="level3">
+<h3 class="anchored" data-anchor-id="h10-genre">H10 — Genre</h3>
+<p>Je prévois que les hommes présenteront une probabilité d’AVC plus élevée que les femmes dans l’analyse brute.</p>
+<p>Une explication possible serait une fréquence plus élevée du tabagisme chez les hommes. Dans ce cas, le tabagisme pourrait constituer un mécanisme intermédiaire entre le genre et l’AVC plutôt qu’un facteur de confusion.</p>
+<p>Je prévois donc que l’association entre le genre masculin et l’AVC pourrait diminuer après ajustement sur le tabagisme. Cette comparaison devra également prendre en compte l’âge et les autres caractéristiques cliniques.</p>
+<p>La variable disponible dans le jeu de données est nommée <code>gender</code>. En l’absence d’informations supplémentaires sur sa définition, elle sera interprétée uniquement selon les catégories enregistrées dans le jeu de données.</p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->

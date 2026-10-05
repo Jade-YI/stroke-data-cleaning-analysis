@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jade YI">
 
-<title>Facteurs associés à l’AVC chez les adultes – Stroke Data Analysis</title>
+<title>Journal des décisions méthodologiques – Stroke Data Analysis</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,41 +25,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -131,7 +95,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Accueil</span></a>
   </li>  
   <li class="nav-item">
@@ -143,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Hypothèses</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./01_decision_log.html"> 
+    <a class="nav-link active" href="./01_decision_log.html" aria-current="page"> 
 <span class="menu-text">Journal des décisions</span></a>
   </li>  
   <li class="nav-item">
@@ -166,11 +130,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#project-overview" id="toc-project-overview" class="nav-link active" data-scroll-target="#project-overview">Project overview</a></li>
-  <li><a href="#question-de-recherche" id="toc-question-de-recherche" class="nav-link" data-scroll-target="#question-de-recherche">Question de recherche</a></li>
-  <li><a href="#principaux-résultats" id="toc-principaux-résultats" class="nav-link" data-scroll-target="#principaux-résultats">Principaux résultats</a></li>
-  <li><a href="#interprétation" id="toc-interprétation" class="nav-link" data-scroll-target="#interprétation">Interprétation</a></li>
-  <li><a href="#reproducibility-check" id="toc-reproducibility-check" class="nav-link" data-scroll-target="#reproducibility-check">Reproducibility check</a></li>
+  <li><a href="#journal-des-décisions-analytiques" id="toc-journal-des-décisions-analytiques" class="nav-link active" data-scroll-target="#journal-des-décisions-analytiques">Journal des décisions analytiques</a>
+  <ul class="collapse">
+  <li><a href="#dec-001-2026-09-20" id="toc-dec-001-2026-09-20" class="nav-link" data-scroll-target="#dec-001-2026-09-20">DEC-001 — 2026-09-20</a></li>
+  <li><a href="#dec-002-2026-09-20" id="toc-dec-002-2026-09-20" class="nav-link" data-scroll-target="#dec-002-2026-09-20">DEC-002 — 2026-09-20</a></li>
+  <li><a href="#dec-003-2026-09-21" id="toc-dec-003-2026-09-21" class="nav-link" data-scroll-target="#dec-003-2026-09-21">DEC-003 — 2026-09-21</a></li>
+  <li><a href="#dec-004-2026-09-21" id="toc-dec-004-2026-09-21" class="nav-link" data-scroll-target="#dec-004-2026-09-21">DEC-004 — 2026-09-21</a></li>
+  <li><a href="#dec-005-2026-09-22" id="toc-dec-005-2026-09-22" class="nav-link" data-scroll-target="#dec-005-2026-09-22">DEC-005 — 2026-09-22</a></li>
+  <li><a href="#dec-006-2026-09-26" id="toc-dec-006-2026-09-26" class="nav-link" data-scroll-target="#dec-006-2026-09-26">DEC-006 — 2026-09-26</a></li>
+  <li><a href="#dec-007-2026-09-26" id="toc-dec-007-2026-09-26" class="nav-link" data-scroll-target="#dec-007-2026-09-26">DEC-007 — 2026-09-26</a></li>
+  <li><a href="#dec-008-2026-09-27" id="toc-dec-008-2026-09-27" class="nav-link" data-scroll-target="#dec-008-2026-09-27">DEC-008 — 2026-09-27</a></li>
+  <li><a href="#dec-009-2026-10-01" id="toc-dec-009-2026-10-01" class="nav-link" data-scroll-target="#dec-009-2026-10-01">DEC-009 — 2026-10-01</a></li>
+  <li><a href="#dec-010-2026-10-01" id="toc-dec-010-2026-10-01" class="nav-link" data-scroll-target="#dec-010-2026-10-01">DEC-010 — 2026-10-01</a></li>
+  <li><a href="#dec-011-2026-10-02" id="toc-dec-011-2026-10-02" class="nav-link" data-scroll-target="#dec-011-2026-10-02">DEC-011 — 2026-10-02</a></li>
+  <li><a href="#dec-012-2026-10-03" id="toc-dec-012-2026-10-03" class="nav-link" data-scroll-target="#dec-012-2026-10-03">DEC-012 — 2026-10-03</a></li>
+  <li><a href="#dec-013-2026-10-04" id="toc-dec-013-2026-10-04" class="nav-link" data-scroll-target="#dec-013-2026-10-04">DEC-013 — 2026-10-04</a></li>
+  <li><a href="#dec-014-2026-10-04" id="toc-dec-014-2026-10-04" class="nav-link" data-scroll-target="#dec-014-2026-10-04">DEC-014 — 2026-10-04</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -179,20 +155,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Facteurs associés à l’AVC chez les adultes</h1>
-<p class="subtitle lead">Analyse multivariée reproductible du Stroke Prediction Dataset</p>
+<h1 class="title">Journal des décisions méthodologiques</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jade YI </p>
-          </div>
-  </div>
     
   
     
@@ -203,44 +172,164 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="project-overview" class="level2">
-<h2 class="anchored" data-anchor-id="project-overview">Project overview</h2>
-<p>Ce projet examine les facteurs démographiques, cliniques et comportementaux associés à la présence d’un antécédent d’AVC chez les adultes du Stroke Prediction Dataset.</p>
-<p>L’analyse repose sur une démarche reproductible réalisée avec R et Quarto : évaluation de la qualité des données, définition de la population analytique, description de la population et régression logistique multivariée.</p>
-<p>Les hypothèses de linéarité des variables continues sont examinées à l’aide de splines naturels et de tests du rapport de vraisemblance. Une analyse de sensibilité par winsorisation de l’IMC évalue également l’influence des valeurs extrêmes.</p>
-<p>Le projet ne vise ni à développer un modèle prédictif ni à estimer des effets causaux. Les résultats sont interprétés comme des associations observées dans cet échantillon.</p>
+<section id="journal-des-décisions-analytiques" class="level1">
+<h1>Journal des décisions analytiques</h1>
+<p>Ce document enregistre les principales décisions prises au cours du projet, leur justification et leur impact potentiel sur l’analyse.</p>
+<p>Les décisions sont enregistrées au moment où elles sont prises. Si une décision est modifiée ultérieurement, l’entrée initiale ne sera pas supprimée : une nouvelle entrée expliquera la modification.</p>
+<hr>
+<section id="dec-001-2026-09-20" class="level2">
+<h2 class="anchored" data-anchor-id="dec-001-2026-09-20">DEC-001 — 2026-09-20</h2>
+<p><strong>Étape :</strong> Pré-analyse</p>
+<p><strong>Décision :</strong><br>
+L’objectif principal du projet est de comparer les associations entre plusieurs facteurs de risque potentiels et la présence d’un AVC.</p>
+<p><strong>Justification :</strong><br>
+Le jeu de données est observationnel et ne fournit pas suffisamment d’informations sur la temporalité des variables. Il n’est donc pas possible d’interpréter directement les associations observées comme des relations causales.</p>
+<p><strong>Conséquence pour l’analyse :</strong><br>
+Les résultats seront présentés comme des associations statistiques. Les termes tels que « cause », « effet causal » ou « provoque » seront évités.</p>
+<p><strong>Statut :</strong> Adoptée</p>
+<p><strong>Entrée AI associée :</strong> AI-001</p>
+<hr>
 </section>
-<section id="question-de-recherche" class="level2">
-<h2 class="anchored" data-anchor-id="question-de-recherche">Question de recherche</h2>
-<p>Quels facteurs démographiques, cliniques et comportementaux sont associés à la présence d’un antécédent d’AVC chez les adultes de ce jeu de données ?</p>
+<section id="dec-002-2026-09-20" class="level2">
+<h2 class="anchored" data-anchor-id="dec-002-2026-09-20">DEC-002 — 2026-09-20</h2>
+<p><strong>Étape :</strong> Pré-analyse</p>
+<p><strong>Décision :</strong><br>
+Les hypothèses concernant l’âge, l’hypertension, les maladies cardiaques, le niveau moyen de glucose, l’IMC, le tabagisme, le genre, le statut matrimonial, le type d’emploi et le type de résidence ont été formulées avant l’analyse statistique.</p>
+<p><strong>Justification :</strong><br>
+Cette démarche permet de comparer les prédictions initiales aux résultats obtenus et de réduire le risque d’interpréter rétrospectivement les résultats comme s’ils avaient été prévus.</p>
+<p><strong>Conséquence pour l’analyse :</strong><br>
+Les hypothèses originales seront conservées même si elles ne sont pas confirmées par les données.</p>
+<p><strong>Statut :</strong> Adoptée</p>
+<p><strong>Entrée AI associée :</strong> AI-001</p>
+<hr>
 </section>
-<section id="principaux-résultats" class="level2">
-<h2 class="anchored" data-anchor-id="principaux-résultats">Principaux résultats</h2>
-<p>Après ajustement, l’âge (OR = 1,08 par année ; IC à 95 % : 1,07–1,09), l’hypertension (OR = 1,49 ; IC à 95 % : 1,07–2,05) et la glycémie moyenne (OR = 1,04 par +10 mg/dL ; IC à 95 % : 1,02–1,07) sont associés à la présence d’un antécédent d’AVC.</p>
-<p>Les différences descriptives observées pour la maladie cardiaque et le statut marital s’atténuent après ajustement. Les résultats de l’analyse de sensibilité concernant l’IMC sont très proches de ceux du modèle principal.</p>
-<p>L’analyse de la forme fonctionnelle suggère une non-linéarité de l’association avec l’âge, principalement aux âges les plus jeunes, où les événements sont rares. Le modèle linéaire est conservé comme modèle principal afin de fournir une mesure synthétique de l’association avec l’âge, tandis que le modèle avec spline est présenté comme analyse complémentaire.</p>
+<section id="dec-003-2026-09-21" class="level2">
+<h2 class="anchored" data-anchor-id="dec-003-2026-09-21">DEC-003 — 2026-09-21</h2>
+<p><strong>Étape :</strong> Évaluation initiale de la qualité des données</p>
+<p><strong>Décision :</strong><br>
+Une évaluation systématique de la qualité des données sera réalisée avant toute analyse statistique ou modélisation.</p>
+<p>Cette évaluation comprendra les éléments suivants :</p>
+<ol type="1">
+<li>la source et la provenance des données ;</li>
+<li>la structure initiale du jeu de données, notamment le nombre d’observations, le nombre de variables, les types de variables et la présence éventuelle de doublons ;</li>
+<li>la distribution de la variable <code>stroke</code>, notamment le nombre et la proportion de personnes avec et sans AVC ;</li>
+<li>les valeurs manquantes ;</li>
+<li>les valeurs incohérentes, impossibles ou improbables.</li>
+</ol>
+<p><strong>Justification :</strong><br>
+La qualité des données peut influencer le choix des méthodes statistiques et la validité des résultats. En particulier, une faible proportion d’AVC pourrait entraîner un déséquilibre de la variable dépendante et limiter le nombre de paramètres pouvant être estimés dans le modèle.</p>
+<p><strong>Conséquence pour l’analyse :</strong><br>
+Les décisions concernant l’exclusion d’observations, le traitement des données manquantes, le regroupement de catégories et la spécification du modèle seront prises après cette évaluation. Chaque modification importante fera l’objet d’une nouvelle entrée dans le journal des décisions.</p>
+<p><strong>Statut :</strong> Adoptée</p>
+<hr>
 </section>
-<section id="interprétation" class="level2">
-<h2 class="anchored" data-anchor-id="interprétation">Interprétation</h2>
-<p>La population source, le mode d’échantillonnage et la temporalité des mesures ne sont pas documentés. La proportion d’AVC observée dans le fichier ne constitue donc pas une estimation de prévalence en population générale.</p>
-<p>En particulier, la date de survenue de l’AVC par rapport à la mesure de l’hypertension, de la glycémie, de l’IMC ou du statut tabagique est inconnue. Les associations observées ne permettent donc pas d’établir de relation causale.</p>
+<section id="dec-004-2026-09-21" class="level2">
+<h2 class="anchored" data-anchor-id="dec-004-2026-09-21">DEC-004 — 2026-09-21</h2>
+<p><strong>Étape :</strong> Planification de l’analyse multivariable</p>
+<p><strong>Décision prévue :</strong><br>
+Une régression logistique multivariable est envisagée pour étudier les associations entre les facteurs de risque potentiels et la présence d’un AVC.</p>
+<p>La variable dépendante sera <code>stroke</code>, codée comme une variable binaire. Les résultats seront principalement présentés sous forme d’odds ratios ajustés accompagnés de leurs intervalles de confiance à 95 %.</p>
+<p><strong>Justification :</strong><br>
+La régression logistique est adaptée à une variable dépendante binaire et permet d’estimer l’association entre chaque variable explicative et l’AVC tout en tenant compte simultanément des autres variables incluses dans le modèle.</p>
+<p><strong>Conséquence pour l’analyse :</strong><br>
+Le modèle définitif ne sera établi qu’après l’évaluation de la qualité des données. Les variables ne seront pas sélectionnées uniquement en fonction de leur significativité statistique.</p>
+<p><strong>Statut :</strong> Prévue — à confirmer après l’évaluation de la qualité des données</p>
+<hr>
 </section>
-<section id="reproducibility-check" class="level2">
-<h2 class="anchored" data-anchor-id="reproducibility-check">Reproducibility check</h2>
-<p>L’ensemble de la préparation des données et des analyses est réalisé dans R. Les versions des packages sont enregistrées avec renv, et le rapport est généré avec Quarto.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260919</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>R.version.string</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "R version 4.5.3 (2026-03-11)"</code></pre>
-</div>
-</div>
+<section id="dec-005-2026-09-22" class="level2">
+<h2 class="anchored" data-anchor-id="dec-005-2026-09-22">DEC-005 — 2026-09-22</h2>
+<p><strong>Étape :</strong> Traitement des valeurs manquantes et extrêmes</p>
+<p><strong>Décision :</strong> Les NA de bmi sont conservés pour le moment, sans imputation.</p>
+<p>Les valeurs extrêmes de bmi seront d’abord conservées. Une analyse de sensibilité sera ensuite réalisée en excluant les valeurs hors des percentiles 2,5–97,5 %.</p>
+<p>Les mineurs seront exclus de l’analyse principale.</p>
+<p><strong>Justification :</strong> Éviter de supprimer ou modifier des données avant d’évaluer leur impact. L’analyse principale sera limitée aux adultes ; la justification de ce choix reste à préciser.</p>
+<p><strong>Statut :</strong> Prévue — à confirmer avant l’analyse multivariable.</p>
+<hr>
+</section>
+<section id="dec-006-2026-09-26" class="level2">
+<h2 class="anchored" data-anchor-id="dec-006-2026-09-26">DEC-006 — 2026-09-26</h2>
+<p><strong>Étape :</strong> Tableau descriptif — comparaison selon l’AVC</p>
+<p><strong>Décision :</strong> add_p() utilise par défaut le test de Wilcoxon pour les variables continues. Le test t de Student a été choisi à la place, en conservant la présentation en moyenne (ET).</p>
+<p><strong>Justification :</strong> Compte tenu de la grande taille de l’échantillon, le test t est relativement robuste aux écarts à la normalité. Ce choix est également cohérent avec la présentation des variables continues et leur utilisation dans le modèle de régression.</p>
+<p><strong>Statut :</strong> Retenue</p>
+<hr>
+</section>
+<section id="dec-007-2026-09-26" class="level2">
+<h2 class="anchored" data-anchor-id="dec-007-2026-09-26">DEC-007 — 2026-09-26</h2>
+<p><strong>Étape :</strong> Modèle multivariable — variable work_type</p>
+<p><strong>Décision :</strong> Les 5 individus de la catégorie Never_worked ont été exclus de l’analyse.</p>
+<p><strong>Justification :</strong> Cette catégorie ne contient que 5 individus et conduit à une estimation instable (OR = 0,00, IC non estimable). Son effectif est insuffisant pour obtenir une estimation interprétable.</p>
+<p><strong>Conséquence :</strong> Le modèle principal est ajusté après exclusion de ces 5 observations.</p>
+<p><strong>Statut :</strong> Retenue</p>
+<hr>
+</section>
+<section id="dec-008-2026-09-27" class="level2">
+<h2 class="anchored" data-anchor-id="dec-008-2026-09-27">DEC-008 — 2026-09-27</h2>
+<p><strong>Étape :</strong> Traitement des valeurs manquantes de bmi</p>
+<p><strong>Décision :</strong> L’imputation multiple initialement envisagée est abandonnée. Les valeurs manquantes de bmi seront remplacées par la médiane.</p>
+<p><strong>Justification :</strong> L’imputation multiple nécessite des choix méthodologiques et une validation plus avancés. Compte tenu du cadre de ce projet, une méthode plus simple et facilement reproductible a été retenue. L’imputation médiane permet de conserver les observations tout en limitant l’influence des valeurs extrêmes.</p>
+<p><strong>Limite :</strong> Cette méthode ne tient pas compte de l’incertitude liée aux valeurs imputées et peut réduire artificiellement la variabilité de bmi.</p>
+<p><strong>Statut :</strong> Retenue</p>
+<hr>
+</section>
+<section id="dec-009-2026-10-01" class="level2">
+<h2 class="anchored" data-anchor-id="dec-009-2026-10-01">DEC-009 — 2026-10-01</h2>
+<p><strong>Étape : </strong>Répartition de l’AVC dans le fichier brut</p>
+<p><strong>Décision :</strong> L’IC à 95 % autour de la prévalence a été supprimé. Seule la proportion d’AVC observée dans l’échantillon est présentée.</p>
+<p><strong>Justification :</strong> Cette section décrit la composition du fichier et non une estimation de la prévalence dans la population générale. Un IC à 95 % pourrait suggérer une inférence qui n’est pas justifiée par ce jeu de données.</p>
+<p><strong>Statut :</strong> Retenue</p>
+<hr>
+</section>
+<section id="dec-010-2026-10-01" class="level2">
+<h2 class="anchored" data-anchor-id="dec-010-2026-10-01">DEC-010 — 2026-10-01</h2>
+<p><strong>Étape:</strong> Prévalence de l’AVC chez les adultes</p>
+<p><strong>Décision :</strong> Deux populations sont distinguées pour le calcul de la prévalence :</p>
+<ul>
+<li>brut : tous les individus adultes du fichier initial ;</li>
+<li>donnees_adultes : population analytique finale, après exclusion de gender = “Other” et work_type = “Never_worked”.</li>
+</ul>
+<p><strong>Justification :</strong> Cette distinction permet de séparer la composition du fichier brut de celle de la population effectivement utilisée dans les analyses.</p>
+<p><strong>Statut : </strong> Retenue</p>
+<hr>
+</section>
+<section id="dec-011-2026-10-02" class="level2">
+<h2 class="anchored" data-anchor-id="dec-011-2026-10-02">DEC-011 — 2026-10-02</h2>
+<p><strong>Étape :</strong> Traitement des valeurs extrêmes de bmi</p>
+<p><strong>Décision :</strong> L’analyse principale utilisera les valeurs originales de bmi, avec imputation médiane uniquement pour les valeurs manquantes.</p>
+<p>La version winsorisée aux percentiles 2,5 % et 97,5 % sera utilisée uniquement en analyse de sensibilité.</p>
+<p><strong>Justification :</strong> Les valeurs élevées de bmi peuvent correspondre à une obésité réelle et potentiellement associée à l’AVC. Elles ne doivent donc pas être considérées automatiquement comme des valeurs aberrantes.</p>
+<p>L’analyse de sensibilité permettra de vérifier si les valeurs extrêmes influencent les résultats.</p>
+<p><strong>Statut :</strong> Retenue — remplace la stratégie précédente utilisant le BMI winsorisé dans l’analyse principale.</p>
+<hr>
+</section>
+<section id="dec-012-2026-10-03" class="level2">
+<h2 class="anchored" data-anchor-id="dec-012-2026-10-03">DEC-012 — 2026-10-03</h2>
+<p><strong>Étape :</strong> Interprétation du DAG</p>
+<p><strong>Décision :</strong> Le DAG ne sera pas utilisé comme outil d’identification causale. Il sera présenté comme une représentation conceptuelle des relations hypothétiques entre les variables.</p>
+<p><strong>Justification :</strong> La temporalité des données n’est pas connue : l’AVC correspond à un antécédent, tandis que le BMI, la glycémie, le tabagisme ou l’hypertension peuvent avoir été mesurés après l’AVC. De plus, la proportion d’AVC est élevée par rapport aux données françaises, suggérant une possible sélection de l’échantillon, et les valeurs manquantes de bmi sont fréquentes.</p>
+<p>Ces limites ne permettent pas de soutenir une interprétation causale robuste.</p>
+<p><strong>Statut :</strong> Retenue</p>
+<hr>
+</section>
+<section id="dec-013-2026-10-04" class="level2">
+<h2 class="anchored" data-anchor-id="dec-013-2026-10-04">DEC-013 — 2026-10-04</h2>
+<p><strong>Étape :</strong> Vérification de la forme des associations continues</p>
+<p><strong>Décision :</strong> Une analyse par splines sera ajoutée pour age, bmi et avg_glucose_level, en complément du modèle logistique principal.</p>
+<p><strong>Justification :</strong> Le modèle principal suppose une relation linéaire entre chaque variable continue et le log-odds d’AVC. Cette hypothèse sera vérifiée en comparant la forme linéaire aux modèles avec splines.</p>
+<p>Cette analyse permettra notamment d’identifier d’éventuelles associations non linéaires qui pourraient être masquées par un OR unique.</p>
+<p><strong>Statut :</strong> Prévue</p>
+<hr>
+</section>
+<section id="dec-014-2026-10-04" class="level2">
+<h2 class="anchored" data-anchor-id="dec-014-2026-10-04">DEC-014 — 2026-10-04</h2>
+<p><strong>Étape :</strong> Présentation de avg_glucose_level</p>
+<p><strong>Décision :</strong> La comparaison entre la glycémie exprimée par 1 mg/dL et par 10 mg/dL est retirée des analyses de sensibilité. La glycémie sera présentée par augmentation de 10 mg/dL dans le modèle principal.</p>
+<p><strong>Justification :</strong> Le passage de 1 à 10 mg/dL modifie uniquement l’unité de présentation de l’OR, sans modifier le modèle ni les résultats statistiques. Il ne constitue donc pas une analyse de sensibilité.</p>
+<p><strong>Statut :</strong> Retenue</p>
+<hr>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

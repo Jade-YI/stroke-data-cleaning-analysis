@@ -7,7 +7,15 @@ website:
   navbar:
     left:
       - href: index.qmd
-        text: Analysis
+        text: Accueil
+      - href: stroke_multivariable_analysis.qmd
+        text: Analyse
+      - href: 00_hypotheses.md
+        text: Hypothèses
+      - href: 01_decision_log.md
+        text: Journal des décisions
+      - href: 02_ai_audit_log.md
+        text: Revue IA
 
 format:
   html:
