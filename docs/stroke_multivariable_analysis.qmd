@@ -36,9 +36,7 @@ L'objectif principal est d'étudier les facteurs associés à la présence d'un 
 
 ## Méthode
 
-L'analyse repose sur une régression logistique multivariée standard, avec l'AVC (oui/non) comme variable dépendante. Les résultats seront exprimés sous forme d'*odds ratios* (OR) ajustés, accompagnés de leur intervalle de confiance à 95 %.
-
-Il s'agit d'une analyse observationnelle : les associations mises en évidence ne permettent pas, à elles seules, de conclure à un lien causal.
+L'analyse repose sur une régression logistique multivariée (voir la section Méthodes statistiques). Il s'agit d'une analyse observationnelle : les associations mises en évidence ne permettent pas, à elles seules, de conclure à un lien causal.
 
 # Source des données
 ```{r}
@@ -115,8 +113,6 @@ donnees |>
 Dans le fichier brut, `r n_avc` individus sur `r n_total`
 présentent un statut AVC positif, soit
 `r scales::percent(prop_avc, accuracy = 0.1)`.
-Le rapport est d'environ `r round(n_non / n_avc, 1)` individus
-sans AVC pour un individu avec AVC.
 
 Cette proportion décrit uniquement la composition du jeu de données
 brut et ne constitue pas une estimation de la prévalence de l'AVC
@@ -140,7 +136,7 @@ donnees |>
 
 Seule la variable `bmi` comporte des valeurs manquantes au sens strict (codées `NA`). Les autres variables ne présentent aucune valeur manquante déclarée.
 
-**Cas particulier de `smoking_status`.** Cette variable comporte une modalité `"Unknown"`, qui correspond fonctionnellement à une information manquante mais qui n'est pas codée comme `NA` dans le fichier source. Cette modalité n'est pas traitée dans cette section ; elle sera examinée séparément lors de la préparation des données pour la modélisation.
+**Cas particulier de `smoking_status`.** Cette variable comporte une modalité `"Unknown"`, qui correspond fonctionnellement à une information manquante mais qui n'est pas codée comme `NA` dans le fichier source. Elle est conservée comme catégorie à part entière dans le modèle.
 
 ## Valeurs incohérentes ou improbables
 
@@ -180,11 +176,11 @@ La variable `gender` ne compte qu'une seule observation `"Other"`, effectif insu
 
 Aucune incohérence supplémentaire évidente n'a été identifiée lors de l'examen des combinaisons âge/statut marital et âge/type d'emploi.
 
-**Stratégie retenue.** Le BMI maximal reste cliniquement possible : aucune modification n'est appliquée à ce stade. L'analyse sera d'abord réalisée sur les données non écrêté après imputation médiane, puis en analyse de sensibilité après écrêtement (*winsorizing*) du BMI aux 2,5ᵉ et 97,5ᵉ percentiles. Les deux résultats seront comparés.
+**Stratégie retenue.** Le BMI maximal reste cliniquement possible : aucune modification n'est appliquée à ce stade (voir la section sur la préparation des variables).
 
 # Définition de la population analytique et préparation des données
 
-L'analyse porte uniquement sur les adultes : les individus âgés de moins de 18 ans sont exclus, car le mécanisme et les facteurs de risque de l'AVC diffèrent fortement chez l'enfant, et plusieurs variables (`work_type`, `ever_married`) n'ont pas de sens pour cette population. L'unique observation `gender = "Other"` est également exclue, son effectif étant insuffisant pour être traitée comme catégorie à part entière.
+L'analyse porte uniquement sur les adultes : les individus âgés de moins de 18 ans sont exclus, car le mécanisme et les facteurs de risque de l'AVC diffèrent fortement chez l'enfant, et plusieurs variables (`work_type`, `ever_married`) n'ont pas de sens pour cette population. 
 
 La modalité Never_worked de work_type ne comprend que cinq individus dans la population adulte et aucun cas d'AVC. Cette configuration entraîne une estimation instable du coefficient correspondant dans la régression logistique en raison d'un phénomène de séparation. Compte tenu de cet effectif extrêmement faible, ces cinq observations sont exclues de l'analyse principale.
 
@@ -221,27 +217,12 @@ tibble::tibble(
     format.args = list(big.mark = " ")
   )
 ```
-Sur les `r nrow(donnees)` individus du fichier initial, `r n_exclus_age` sont exclus en raison d'un âge inférieur à 18 ans, `r n_exclus_gender` en raison de la modalité `gender = "Other"` et `r n_exclus_never_worked` en raison de la modalité très rare `work_type = "Never_worked"`, soit une population analytique finale de `r n_analyse` individus.
-
-Parmi les `r n_adultes` individus âgés de 18 ans ou plus,
-`r n_avc_adultes` présentent un statut AVC positif, soit
-`r scales::percent(prop_avc_adultes, accuracy = 0.1)`.
 
 ### Mise en perspective avec les données françaises
 
-À titre de repère externe, Santé publique France estime qu'environ
-2,0 % de la population adulte française avait un antécédent d'AVC
-au 1er janvier 2023 [@spf2025avc].
+À titre de repère externe, Santé publique France estime qu'environ 2,0 % de la population adulte française avait un antécédent d'AVC au 1er janvier 2023 [@spf2025avc]. Dans le présent jeu de données, la proportion d'adultes avec un statut AVC positif est de `r scales::percent(prop_avc_adultes, accuracy = 0.1)`.
 
-Dans le présent jeu de données, la proportion d'individus adultes
-présentant un statut AVC positif est de
-`r scales::percent(prop_avc_adultes, accuracy = 0.1)`.
-
-Ces deux valeurs ne sont toutefois pas directement comparables. L'estimation de Santé publique France concerne une population nationale définie, tandis que le mode de constitution, la population source et la représentativité du jeu de données utilisé ici ne sont pas documentés.
-
-La définition et la temporalité de la variable `stroke` ne permettent pas non plus de l'assimiler sans réserve à l'indicateur utilisé par Santé publique France. Cet écart souligne principalement que la proportion observée dans ce jeu de données ne peut pas être directement transposée à la population adulte française.
-
-En l'absence d'informations sur l'échantillonnage, il n'est pas possible d'évaluer formellement la représentativité externe du jeu de données.
+Ces valeurs ne sont pas comparables : l'estimation de Santé publique France concerne une population nationale définie, alors que la population source, le mode de constitution et la représentativité du jeu de données sont inconnus (voir la section Limites).
 
 ### Préparation des variables
 
@@ -304,7 +285,7 @@ Toutes les analyses sont réalisées avec R, à l'aide des packages `tidyverse`,
 
 ## Représentation conceptuelle des relations hypothétiques (DAG)
 
-Le schéma ci-dessous est un support conceptuel, présenté à titre illustratif. Il représente des relations hypothétiques, fondées sur des connaissances générales et non sur une revue systématique de la littérature, et sert uniquement à illustrer le rôle central de l'âge. Il n'a pas servi à sélectionner les covariables du modèle, ni à estimer un effet causal, ni à définir un ensemble minimal d'ajustement. Le statut marital et le type d'emploi y figurent comme variables corrélées à l'âge, sans flèche vers l'AVC : ils sont conservés dans le modèle dans un but descriptif, par cohérence avec le tableau 1.
+Le schéma ci-dessous est un support conceptuel illustratif : il représente des relations hypothétiques fondées sur des connaissances générales (et non sur une revue systématique de la littérature) et sert à illustrer le rôle central de l'âge. Il n'a pas servi à sélectionner les covariables ni à estimer un effet causal. Le statut marital et le type d'emploi y figurent comme variables corrélées à l'âge, sans flèche vers l'AVC ; ils sont conservés dans le modèle dans un but descriptif.
 
 ```{r}
 #| label: dag-hypotheses
@@ -541,7 +522,7 @@ Compte tenu de cette stabilité et afin de conserver une interprétation simple 
         
 ### Modèle logistique multivarié    
 
-Un modèle de régression logistique multivariée est ajusté, avec la survenue d'un AVC comme variable dépendante. Les covariables incluses sont l'âge, le sexe, l'hypertension, la maladie cardiaque, le statut marital, le type d'emploi, le lieu de résidence, la glycémie moyenne, l'IMC (non écrêté, après imputation par la médiane) et le statut tabagique — soit l'ensemble des variables décrites au tableau 1.
+Un modèle de régression logistique multivariée est ajusté, avec le statut AVC comme variable dépendante et l'ensemble des variables du tableau 1 comme covariables.
 
 ```{r}
 #| label: modele-principal
@@ -717,7 +698,7 @@ ggplot(resultats_modele, aes(x = estimate, y = fct_reorder(term, estimate))) +
   theme_minimal()
 ```
 
-La figure X présente graphiquement les OR ajustés et leurs IC à 95 %. Les estimations concernant l'âge, l'hypertension et la glycémie moyenne se situent au-dessus de 1 avec des intervalles de confiance n'incluant pas 1, tandis que les IC des autres covariables incluent 1.
+La figure ci-dessus récapitule les OR ajustés du modèle principal (Tableau 2).
 
 # Discussion
 
