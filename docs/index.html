@@ -166,11 +166,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#project-overview" id="toc-project-overview" class="nav-link active" data-scroll-target="#project-overview">Project overview</a></li>
+  <li><a href="#présentation-du-projet" id="toc-présentation-du-projet" class="nav-link active" data-scroll-target="#présentation-du-projet">Présentation du projet</a></li>
   <li><a href="#question-de-recherche" id="toc-question-de-recherche" class="nav-link" data-scroll-target="#question-de-recherche">Question de recherche</a></li>
   <li><a href="#principaux-résultats" id="toc-principaux-résultats" class="nav-link" data-scroll-target="#principaux-résultats">Principaux résultats</a></li>
   <li><a href="#interprétation" id="toc-interprétation" class="nav-link" data-scroll-target="#interprétation">Interprétation</a></li>
-  <li><a href="#reproducibility-check" id="toc-reproducibility-check" class="nav-link" data-scroll-target="#reproducibility-check">Reproducibility check</a></li>
+  <li><a href="#reproductibilité" id="toc-reproductibilité" class="nav-link" data-scroll-target="#reproductibilité">Reproductibilité</a></li>
   </ul>
 </nav>
     </div>
@@ -203,8 +203,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="project-overview" class="level2">
-<h2 class="anchored" data-anchor-id="project-overview">Project overview</h2>
+<section id="présentation-du-projet" class="level2">
+<h2 class="anchored" data-anchor-id="présentation-du-projet">Présentation du projet</h2>
 <p>Ce projet examine les facteurs démographiques, cliniques et comportementaux associés à la présence d’un antécédent d’AVC chez les adultes du Stroke Prediction Dataset.</p>
 <p>L’analyse repose sur une démarche reproductible réalisée avec R et Quarto : évaluation de la qualité des données, définition de la population analytique, description de la population et régression logistique multivariée.</p>
 <p>Les hypothèses de linéarité des variables continues sont examinées à l’aide de splines naturels et de tests du rapport de vraisemblance. Une analyse de sensibilité par winsorisation de l’IMC évalue également l’influence des valeurs extrêmes.</p>
@@ -225,8 +225,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>La population source, le mode d’échantillonnage et la temporalité des mesures ne sont pas documentés. La proportion d’AVC observée dans le fichier ne constitue donc pas une estimation de prévalence en population générale.</p>
 <p>En particulier, la date de survenue de l’AVC par rapport à la mesure de l’hypertension, de la glycémie, de l’IMC ou du statut tabagique est inconnue. Les associations observées ne permettent donc pas d’établir de relation causale.</p>
 </section>
-<section id="reproducibility-check" class="level2">
-<h2 class="anchored" data-anchor-id="reproducibility-check">Reproducibility check</h2>
+<section id="reproductibilité" class="level2">
+<h2 class="anchored" data-anchor-id="reproductibilité">Reproductibilité</h2>
 <p>L’ensemble de la préparation des données et des analyses est réalisé dans R. Les versions des packages sont enregistrées avec renv, et le rapport est généré avec Quarto.</p>
 <div class="cell">
 <details class="code-fold">

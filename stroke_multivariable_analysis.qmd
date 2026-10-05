@@ -43,14 +43,23 @@ L'analyse repose sur une régression logistique multivariée (voir la section M�
 Les hypothèses ont été formulées avant l'analyse statistique.^[Texte intégral : [`00_hypotheses.md`]]
 
 **H1 (âge).** Association positive forte avec l'AVC, qui devrait rester importante après ajustement.
+
 **H2 (hypertension).** Association positive relativement forte en analyse brute. Elle pourrait diminuer après ajustement (âge, IMC, glycémie), mais l'hypertension devrait rester associée à l'AVC.
+
 **H3 (glycémie moyenne).** Association positive d'intensité modérée, en partie liée à l'âge, à l'IMC et à l'hypertension.
+
 **H4 (IMC).** Association positive relativement forte, susceptible de diminuer après ajustement sur l'âge, l'hypertension et la glycémie. Une relation non strictement linéaire est possible.
+
 **H5 (tabagisme).** Probabilité d'AVC plus élevée chez les fumeurs actuels et anciens que chez les personnes n'ayant jamais fumé (association relativement forte), en partie expliquée par l'âge et l'état de santé. La modalité « Inconnu » est à interpréter avec prudence.
+
 **H6 (type d'emploi).** Pas de relation directe forte. Des différences brutes pourraient apparaître et diminuer après ajustement. Variable considérée comme exploratoire.
+
 **H7 (lieu de résidence).** Association faible, voire inexistante.
+
 **H8 (statut marital).** Association brute modérée, avec davantage d'AVC chez les personnes déjà mariées, principalement parce qu'elles sont plus âgées. Elle devrait diminuer fortement, voire disparaître, après ajustement sur l'âge.
+
 **H9 (maladie cardiaque).** Association positive forte, qui devrait diminuer partiellement après ajustement (âge, hypertension, glycémie, tabagisme) tout en restant importante.
+
 **H10 (genre).** Probabilité d'AVC plus élevée chez les hommes en analyse brute. Le tabagisme pourrait être un médiateur plutôt qu'un facteur de confusion, de sorte que l'association pourrait diminuer après ajustement sur le tabagisme.
 
 # Source des données

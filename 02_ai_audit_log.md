@@ -144,3 +144,16 @@ Ce document recense les principales utilisations de l’IA dans le projet. L’I
 **Preuve :** docs/stroke_multivariable_analysis.qmd
 **Leçon :** L’unité d’une variable continue doit être choisie de façon à produire une mesure d’association interprétable.
 ---
+
+## AI-011 · 2026-10-05 · Méthode / visualisation
+
+**Source :** GPT — analyse de la linéarité des variables continues sur l’échelle du logit.
+**Demande :** Examiner la non-linéarité détectée pour l’âge après comparaison du modèle linéaire et du modèle avec spline.
+**Réponse :** GPT a proposé un graphique des probabilités prédites afin de comparer visuellement les formes obtenues avec le modèle linéaire et le spline.
+**Raison :** Le LRT indiquait une non-linéarité pour l’âge. J’ai donc examiné les courbes sur l’échelle du logit et constaté que l’écart avec la relation linéaire concernait surtout les sujets jeunes. Or, les AVC étaient très rares dans cette tranche d’âge. J’ai ensuite vérifié si l’utilisation du spline modifiait les autres coefficients du modèle : ceux-ci restaient globalement stables. Dans ce contexte, le graphique des probabilités prédites n’apportait pas d’information supplémentaire utile à la décision.
+**Constat :** ⚠️ Le graphique de probabilités proposé était possible, mais n’apportait pas d’élément décisif supplémentaire pour le choix du modèle principal.
+**Impact :** Modéré, car cette vérification a participé au choix de conserver l’âge sous forme linéaire dans le modèle principal malgré le LRT significatif.
+**Décision :** Suppression du graphique de probabilités. La non-linéarité est présentée directement par la comparaison des courbes linéaire et spline sur l’échelle du logit, avec interprétation de l’écart observé chez les sujets jeunes. Le modèle principal conserve l’âge sous forme linéaire.
+**Preuve :** docs/stroke_multivariable_analysis.qmd
+
+---
