@@ -32,7 +32,7 @@ recommandations STROBE [@vonElm2007strobe].
 
 ## Objectifs de l'analyse
 
-L’objectif principal est d’étudier les facteurs associés à la présence d’un antécédent d’AVC chez les adultes de ce jeu de données.
+L'objectif principal est d'étudier les facteurs associés à la présence d'un antécédent d'AVC chez les adultes de ce jeu de données.
 
 ## Méthode
 
@@ -56,7 +56,7 @@ Les données proviennent du jeu de données public *Stroke Prediction Dataset*, 
 - des caractéristiques démographiques (âge, sexe, statut marital, type d'emploi, lieu de résidence) ;
 - des caractéristiques cliniques (hypertension, maladie cardiaque, glycémie moyenne, indice de masse corporelle) ;
 - un comportement (statut tabagique) ;
-- la présence ou non d’un antécédent d’AVC.
+- la présence ou non d'un antécédent d'AVC.
 ```{r}
 #| label: import-donnees
 
@@ -142,8 +142,6 @@ Seule la variable `bmi` comporte des valeurs manquantes au sens strict (codées 
 
 **Cas particulier de `smoking_status`.** Cette variable comporte une modalité `"Unknown"`, qui correspond fonctionnellement à une information manquante mais qui n'est pas codée comme `NA` dans le fichier source. Cette modalité n'est pas traitée dans cette section ; elle sera examinée séparément lors de la préparation des données pour la modélisation.
 
-À ce stade, nous nous limitons à documenter l'ampleur des valeurs manquantes de `bmi`. Leur traitement (exclusion ou imputation simple) sera décidé dans la section consacrée à la préparation des données pour la modélisation, en fonction de la stratégie retenue pour l'analyse multivariée.
-
 ## Valeurs incohérentes ou improbables
 
 ```{r}
@@ -161,7 +159,7 @@ donnees |>
   mutate(Statistique = c("Min", "Q1", "Médiane", "Q3", "Max"), .before = 1) |>
   knitr::kable(digits = 1)
 ```
-L’examen de la distribution des variables quantitatives ne révèle pas de valeur impossible évidente (âge négatif, BMI ou glycémie nul, etc.). Deux points méritent toutefois d'être signalés :
+L'examen de la distribution des variables quantitatives ne révèle pas de valeur impossible évidente (âge négatif, BMI ou glycémie nul, etc.). Deux points méritent toutefois d'être signalés :
 
 - **Âges non entiers.** `r sum(donnees$age != round(donnees$age))` individus ont un âge non entier, tous âgés de moins de 2 ans. Il s'agit vraisemblablement d'un encodage de l'âge en fraction d'année chez les nourrissons, et non d'une erreur de saisie.
 - **BMI extrême.** La valeur maximale de BMI (`r max(donnees$bmi, na.rm = TRUE)`) est cliniquement très élevée. Cette valeur sera examinée individuellement lors de la préparation des données, sans être exclue à ce stade.
@@ -180,7 +178,7 @@ donnees |>
 
 La variable `gender` ne compte qu'une seule observation `"Other"`, effectif insuffisant pour l'analyse ; cette observation sera exclue.
 
-Aucune incohérence supplémentaire évidente n’a été identifiée lors de l’examen des combinaisons âge/statut marital et âge/type d’emploi.
+Aucune incohérence supplémentaire évidente n'a été identifiée lors de l'examen des combinaisons âge/statut marital et âge/type d'emploi.
 
 **Stratégie retenue.** Le BMI maximal reste cliniquement possible : aucune modification n'est appliquée à ce stade. L'analyse sera d'abord réalisée sur les données non écrêté après imputation médiane, puis en analyse de sensibilité après écrêtement (*winsorizing*) du BMI aux 2,5ᵉ et 97,5ᵉ percentiles. Les deux résultats seront comparés.
 
@@ -188,7 +186,7 @@ Aucune incohérence supplémentaire évidente n’a été identifiée lors de l�
 
 L'analyse porte uniquement sur les adultes : les individus âgés de moins de 18 ans sont exclus, car le mécanisme et les facteurs de risque de l'AVC diffèrent fortement chez l'enfant, et plusieurs variables (`work_type`, `ever_married`) n'ont pas de sens pour cette population. L'unique observation `gender = "Other"` est également exclue, son effectif étant insuffisant pour être traitée comme catégorie à part entière.
 
-La modalité Never_worked de work_type ne comprend que cinq individus dans la population adulte et aucun cas d’AVC. Cette configuration entraîne une estimation instable du coefficient correspondant dans la régression logistique en raison d’un phénomène de séparation. Compte tenu de cet effectif extrêmement faible, ces cinq observations sont exclues de l’analyse principale.
+La modalité Never_worked de work_type ne comprend que cinq individus dans la population adulte et aucun cas d'AVC. Cette configuration entraîne une estimation instable du coefficient correspondant dans la régression logistique en raison d'un phénomène de séparation. Compte tenu de cet effectif extrêmement faible, ces cinq observations sont exclues de l'analyse principale.
 
 ```{r}
 #| label: population-analytique
@@ -243,11 +241,11 @@ Ces deux valeurs ne sont toutefois pas directement comparables. L'estimation de 
 
 La définition et la temporalité de la variable `stroke` ne permettent pas non plus de l'assimiler sans réserve à l'indicateur utilisé par Santé publique France. Cet écart souligne principalement que la proportion observée dans ce jeu de données ne peut pas être directement transposée à la population adulte française.
 
-En l’absence d’informations sur l’échantillonnage, il n’est pas possible d’évaluer formellement la représentativité externe du jeu de données.
+En l'absence d'informations sur l'échantillonnage, il n'est pas possible d'évaluer formellement la représentativité externe du jeu de données.
 
 ### Préparation des variables
 
-Analyse principale et analyse de sensibilité. Le BMI non écrêté, après imputation des valeurs manquantes par la médiane, sera utilisé dans l’analyse principale. Une analyse de sensibilité sera réalisée avec une version écrêtée du BMI aux 2,5ᵉ et 97,5ᵉ percentiles afin d’évaluer si les estimations sont sensibles aux valeurs extrêmes.
+Analyse principale et analyse de sensibilité. Le BMI non écrêté, après imputation des valeurs manquantes par la médiane, sera utilisé dans l'analyse principale. Une analyse de sensibilité sera réalisée avec une version écrêtée du BMI aux 2,5ᵉ et 97,5ᵉ percentiles afin d'évaluer si les estimations sont sensibles aux valeurs extrêmes.
 
 ```{r}
 #| label: preparation-variables
@@ -401,9 +399,9 @@ Les variables continues sont présentées en moyenne (écart-type) et comparées
 
 ## Modèle multivarié
 
-### Linéarité des variables continues sur l’échelle du logit
+### Linéarité des variables continues sur l'échelle du logit
 
-Le modèle logistique principal suppose une relation linéaire entre les variables continues et le log-odds d’AVC. Cette hypothèse a été examinée pour l’âge, l’IMC et la glycémie moyenne en comparant, pour chaque variable, le modèle linéaire à un modèle utilisant un spline naturel à trois degrés de liberté. Les modèles ont été comparés par un test du rapport de vraisemblance.
+Le modèle logistique principal suppose une relation linéaire entre les variables continues et le log-odds d'AVC. Cette hypothèse a été examinée pour l'âge, l'IMC et la glycémie moyenne en comparant, pour chaque variable, le modèle linéaire à un modèle utilisant un spline naturel à trois degrés de liberté. Les modèles ont été comparés par un test du rapport de vraisemblance.
 
 ```{r}
 #| label: linearite-variables-continues
@@ -429,7 +427,7 @@ anova(modele_principal, modele_bmi_spline, test = "LRT")
 
 anova(modele_principal, modele_glucose_spline, test = "LRT")
 ```
-Le modèle logistique principal suppose une relation linéaire entre les variables continues et le log-odds d’AVC. Cette hypothèse a été examinée pour l’âge, l’IMC et la glycémie moyenne en comparant, pour chaque variable, le modèle linéaire à un modèle utilisant un spline naturel à trois degrés de liberté. Les modèles ont été comparés par un test du rapport de vraisemblance. Une amélioration de l’ajustement a été observée pour l’âge (p = 0,012), mais pas pour l’IMC (p = 0,264) ni pour la glycémie moyenne (p = 0,678). L’exploration de la forme fonctionnelle a donc été poursuivie pour l’âge.
+Une amélioration de l'ajustement a été observée pour l'âge (p = 0,012), mais pas pour l'IMC (p = 0,264) ni pour la glycémie moyenne (p = 0,678). L'exploration de la forme fonctionnelle a donc été poursuivie pour l'âge.
 
 ```{r}
 #| label: spline-age-plot
@@ -477,9 +475,9 @@ newdata_age |>
 
 ```
 
-Sur l’échelle des probabilités prédites, les deux modèles donnent des courbes globalement proches. Les différences sont surtout visibles aux âges les plus jeunes, tandis que les prédictions deviennent très similaires aux âges plus élevés.
+Sur l'échelle des probabilités prédites, les deux modèles donnent des courbes globalement proches. Les différences sont surtout visibles aux âges les plus jeunes, tandis que les prédictions deviennent très similaires aux âges plus élevés.
 
-La linéarité étant une hypothèse portant sur l’échelle du logit, la comparaison a également été représentée sur cette échelle.
+La linéarité étant une hypothèse portant sur l'échelle du logit, la comparaison a également été représentée sur cette échelle.
 
 ```{r}
 newdata_age$lineaire_logit <- predict(
@@ -501,9 +499,9 @@ newdata_age |>
     linetype = "Modèle") +theme_minimal()
 
 ```
-Sur l’échelle du logit, l’écart entre les deux spécifications est plus visible aux âges les plus jeunes. Au-delà d’environ 40 ans, les deux courbes se rapprochent progressivement.
+Sur l'échelle du logit, l'écart entre les deux spécifications est plus visible aux âges les plus jeunes. Au-delà d'environ 40 ans, les deux courbes se rapprochent progressivement.
 
-La répartition des événements par groupe d’âge a ensuite été examinée pour interpréter cette déviation dans le contexte des données observées.
+La répartition des événements par groupe d'âge a ensuite été examinée pour interpréter cette déviation dans le contexte des données observées.
 
 ```{r}
 donnees_adultes |>
@@ -522,9 +520,9 @@ donnees_adultes |>
   )
 ```
 
-Aucun AVC n’est observé parmi les 653 participants âgés de 18 à 29 ans, et seuls 6 événements sont observés entre 30 et 39 ans. La déviation observée aux âges les plus jeunes concerne donc une partie de l’échantillon où les événements sont très rares.  
+Aucun AVC n'est observé parmi les 653 participants âgés de 18 à 29 ans, et seuls 6 événements sont observés entre 30 et 39 ans. La déviation observée aux âges les plus jeunes concerne donc une partie de l'échantillon où les événements sont très rares.  
 
-Enfin, les estimations des autres variables ont été comparées entre le modèle principal et le modèle utilisant un spline pour l’âge, afin d’évaluer si cette modification de la forme fonctionnelle de l’âge influençait les associations estimées.
+Enfin, les estimations des autres variables ont été comparées entre le modèle principal et le modèle utilisant un spline pour l'âge, afin d'évaluer si cette modification de la forme fonctionnelle de l'âge influençait les associations estimées.
 
 ```{r}
 #| output: false
@@ -537,9 +535,9 @@ tbl_merge(tbls = list(tbl_regression(modele_principal,
     "**Âge avec spline**" ))
 
 ```
-Les estimations des autres variables restent globalement stables lorsque l’âge est modélisé par spline. Les résultats concernant notamment l’hypertension, la glycémie moyenne, l’IMC et les maladies cardiaques sont très proches de ceux du modèle linéaire.
+Les estimations des autres variables restent globalement stables lorsque l'âge est modélisé par spline. Les résultats concernant notamment l'hypertension, la glycémie moyenne, l'IMC et les maladies cardiaques sont très proches de ceux du modèle linéaire.
 
-Compte tenu de cette stabilité et afin de conserver une interprétation simple de l’association avec l’âge, la spécification linéaire est conservée dans l’analyse principale. L’analyse par spline est considérée comme une analyse complémentaire de la forme fonctionnelle de l’âge.    
+Compte tenu de cette stabilité et afin de conserver une interprétation simple de l'association avec l'âge, la spécification linéaire est conservée dans l'analyse principale. L'analyse par spline est considérée comme une analyse complémentaire de la forme fonctionnelle de l'âge.    
         
 ### Modèle logistique multivarié    
 
@@ -547,13 +545,6 @@ Un modèle de régression logistique multivariée est ajusté, avec la survenue 
 
 ```{r}
 #| label: modele-principal
-
-modele_principal <- glm(
-  stroke ~ age + gender + hypertension + heart_disease + ever_married +
-    work_type + Residence_type + glucose_10 + bmi + smoking_status,
-  data = donnees_adultes,
-  family = binomial(link = "logit")
-)
 
 tbl_regression(
   modele_principal,
@@ -592,9 +583,9 @@ tbl_regression(
   modify_caption("**Tableau 2.** Odds ratios ajustés (IC 95%) de l'association avec l'AVC")
 ```
 
-Après ajustement, l’âge (OR = 1,08 par année ; IC à 95 % : 1,07–1,09 ; p < 0,001), l’hypertension (OR = 1,49 ; IC à 95 % : 1,07–2,05 ; p = 0,015) et la glycémie moyenne (OR = 1,04 par augmentation de 10 mg/dL ; IC à 95 % : 1,02–1,07 ; p < 0,001) étaient significativement associés à la présence d’un antécédent d’AVC.
+Après ajustement, l'âge (OR = 1,08 par année ; IC à 95 % : 1,07–1,09 ; p < 0,001), l'hypertension (OR = 1,49 ; IC à 95 % : 1,07–2,05 ; p = 0,015) et la glycémie moyenne (OR = 1,04 par augmentation de 10 mg/dL ; IC à 95 % : 1,02–1,07 ; p < 0,001) étaient significativement associés à la présence d'un antécédent d'AVC.
 
-Aucune association statistiquement significative n’était observée pour les autres covariables. En particulier, l’association observée entre la maladie cardiaque et l’antécédent d’AVC dans les comparaisons bivariées n’était plus significative après ajustement (OR = 1,32 ; IC à 95 % : 0,90–1,90 ; p = 0,15).
+Aucune association statistiquement significative n'était observée pour les autres covariables. En particulier, l'association observée entre la maladie cardiaque et l'antécédent d'AVC dans les comparaisons bivariées n'était plus significative après ajustement (OR = 1,32 ; IC à 95 % : 0,90–1,90 ; p = 0,15).
 
 ## Analyse de sensibilité : écrêtement du BMI
 
@@ -671,7 +662,7 @@ left_join(
   ) |>
   gt::tab_header(
     title = gt::md(
-      "**Tableau 3. Comparaison du modèle principal et de l’analyse de sensibilité**"
+      "**Tableau 3. Comparaison du modèle principal et de l'analyse de sensibilité**"
     )
   )
 ```
@@ -684,8 +675,6 @@ or_wins <- exp(coef(modele_bmi_wins)["bmi_wins"])
 ```
 
 L'OR de l'IMC est de `r round(or_brut, 3)` dans le modèle principal (BMI brut) et de `r round(or_wins, 3)` avec le BMI écrêté. Les estimations des autres covariables sont comparables entre les deux modèles, ce qui suggère que les résultats sont peu sensibles aux valeurs extrêmes de cette variable.
-
-Les estimations obtenues avec le BMI écrêté sont comparables à celles du modèle principal utilisant le BMI non écrêté, ce qui suggère que les résultats sont peu sensibles aux valeurs extrêmes de cette variable.
 
 ## Représentation graphique des résultats
 
@@ -728,46 +717,46 @@ ggplot(resultats_modele, aes(x = estimate, y = fct_reorder(term, estimate))) +
   theme_minimal()
 ```
 
-La figure X présente graphiquement les OR ajustés et leurs IC à 95 %. Les estimations concernant l’âge, l’hypertension et la glycémie moyenne se situent au-dessus de 1 avec des intervalles de confiance n’incluant pas 1, tandis que les IC des autres covariables incluent 1.
+La figure X présente graphiquement les OR ajustés et leurs IC à 95 %. Les estimations concernant l'âge, l'hypertension et la glycémie moyenne se situent au-dessus de 1 avec des intervalles de confiance n'incluant pas 1, tandis que les IC des autres covariables incluent 1.
 
 # Discussion
 
 ## Confrontation aux hypothèses
 
-La confrontation porte principalement sur les associations entre chaque variable et l’antécédent d’AVC. Les autres relations représentées dans le schéma conceptuel n’ont pas été spécifiquement évaluées.
+La confrontation porte principalement sur les associations entre chaque variable et l'antécédent d'AVC. Les autres relations représentées dans le schéma conceptuel n'ont pas été spécifiquement évaluées.
 
-**Âge (H1).** L’association attendue est observée : dans le modèle principal avec une spécification linéaire de l’âge, chaque année supplémentaire est associée à des odds plus élevées d’antécédent d’AVC (OR = 1,08 ; IC95 % : 1,07–1,09).
+**Âge (H1).** L'association attendue est observée : dans le modèle principal avec une spécification linéaire de l'âge, chaque année supplémentaire est associée à des odds plus élevées d'antécédent d'AVC (OR = 1,08 ; IC95 % : 1,07–1,09).
 
-**Hypertension (H2).** L’association attendue est observée : l’hypertension est associée à des odds plus élevées de présenter un antécédent d’AVC après ajustement sur les autres variables du modèle (OR = 1,49 ; IC95 % : 1,07–2,05). 
+**Hypertension (H2).** L'association attendue est observée : l'hypertension est associée à des odds plus élevées de présenter un antécédent d'AVC après ajustement sur les autres variables du modèle (OR = 1,49 ; IC95 % : 1,07–2,05). 
 
-**Glycémie moyenne (H3).** L’association attendue est observée : une glycémie moyenne plus élevée est associée à des odds plus élevées de présenter un antécédent d’AVC après ajustement sur les autres variables du modèle (OR = 1,04 par + de 10 mg/dL ; IC95 % : 1,02–1,07).
+**Glycémie moyenne (H3).** L'association attendue est observée : une glycémie moyenne plus élevée est associée à des odds plus élevées de présenter un antécédent d'AVC après ajustement sur les autres variables du modèle (OR = 1,04 par + de 10 mg/dL ; IC95 % : 1,02–1,07).
 
-**IMC (H4).** Contrairement à l’association attendue, aucune association entre l’IMC et la présence d’un antécédent d’AVC n’est statistiquement mise en évidence dans le modèle ajusté (OR = 1.00 par kg/m²; IC95% :	0.98 - 1.02). Les estimations sont très proches avec l’IMC non écrêté dans l’analyse principale et l’IMC écrêté dans l’analyse de sensibilité. Une éventuelle relation non linéaire, envisagée dans l’hypothèse initiale, n’a pas été explorée et ne peut donc pas être exclue.
+**IMC (H4).** Contrairement à l'association attendue, aucune association entre l'IMC et la présence d'un antécédent d'AVC n'est statistiquement mise en évidence dans le modèle ajusté (OR = 1.00 par kg/m²; IC95% :	0.98 - 1.02). Les estimations sont très proches avec l'IMC non écrêté dans l'analyse principale et l'IMC écrêté dans l'analyse de sensibilité. Une éventuelle relation non linéaire, envisagée dans l'hypothèse initiale, n'a pas été explorée et ne peut donc pas être exclue.
 
-**Tabagisme (H5).** Contrairement à l’association attendue, aucune association entre le statut tabagique et la présence d’un antécédent d’AVC n’est statistiquement mise en évidence après ajustement. Par rapport aux anciens fumeurs, les estimations pour les personnes n’ayant jamais fumé (OR = 0,82 ; IC95 % : 0,58–1,16) et les fumeurs actuels (OR = 1,12 ; IC95 % : 0,73–1,70) sont imprécises et compatibles avec une absence d’association.
+**Tabagisme (H5).** Contrairement à l'association attendue, aucune association entre le statut tabagique et la présence d'un antécédent d'AVC n'est statistiquement mise en évidence après ajustement. Par rapport aux anciens fumeurs, les estimations pour les personnes n'ayant jamais fumé (OR = 0,82 ; IC95 % : 0,58–1,16) et les fumeurs actuels (OR = 1,12 ; IC95 % : 0,73–1,70) sont imprécises et compatibles avec une absence d'association.
 
-**Type d'emploi (H6).** Conformément à l’hypothèse formulée, aucune association entre le type d’emploi et la présence d’un antécédent d’AVC n’est statistiquement mise en évidence après ajustement. Par rapport à la fonction publique, les estimations pour le secteur privé (OR = 1,16 ; IC95 % : 0,78–1,76) et le travail indépendant (OR = 0,79 ; IC95 % : 0,51–1,27) présentent des intervalles de confiance incluant 1.
+**Type d'emploi (H6).** Conformément à l'hypothèse formulée, aucune association entre le type d'emploi et la présence d'un antécédent d'AVC n'est statistiquement mise en évidence après ajustement. Par rapport à la fonction publique, les estimations pour le secteur privé (OR = 1,16 ; IC95 % : 0,78–1,76) et le travail indépendant (OR = 0,79 ; IC95 % : 0,51–1,27) présentent des intervalles de confiance incluant 1.
 
-**Lieu de résidence (H7).** Conformément à l’hypothèse formulée, aucune association entre le lieu de résidence et la présence d’un antécédent d’AVC n’est statistiquement mise en évidence après ajustement (OR = 1,09 pour une résidence urbaine par rapport à une résidence rurale ; IC95 % : 0,83–1,43).
+**Lieu de résidence (H7).** Conformément à l'hypothèse formulée, aucune association entre le lieu de résidence et la présence d'un antécédent d'AVC n'est statistiquement mise en évidence après ajustement (OR = 1,09 pour une résidence urbaine par rapport à une résidence rurale ; IC95 % : 0,83–1,43).
 
-**Statut matrimonial (H8).** Conformément à l’hypothèse formulée, l’association observée en analyse univariée n’est plus mise en évidence après ajustement sur les autres variables du modèle (OR = 0,82 pour les personnes déjà mariées par rapport aux personnes jamais mariées ; IC95 % : 0,53–1,30). Cette atténuation est compatible avec l’hypothèse d’un rôle de l’âge dans l’association observée en analyse univariée, sans permettre de l’attribuer spécifiquement à celui-ci.
+**Statut matrimonial (H8).** Conformément à l'hypothèse formulée, l'association observée en analyse univariée n'est plus mise en évidence après ajustement sur les autres variables du modèle (OR = 0,82 pour les personnes déjà mariées par rapport aux personnes jamais mariées ; IC95 % : 0,53–1,30). Cette atténuation est compatible avec l'hypothèse d'un rôle de l'âge dans l'association observée en analyse univariée, sans permettre de l'attribuer spécifiquement à celui-ci.
 
-**Maladie cardiaque (H9).** Contrairement à l’hypothèse formulée, l’association entre la maladie cardiaque et la présence d’un antécédent d’AVC n’est plus statistiquement mise en évidence après ajustement sur les autres variables du modèle (OR = 1,32 ; IC95 % : 0,90–1,90). L’estimation reste toutefois orientée vers des odds plus élevées d’antécédent d’AVC chez les personnes présentant une maladie cardiaque, mais avec une incertitude importante. L’atténuation par rapport à l’analyse univariée est compatible avec le rôle de l’âge envisagé dans le schéma conceptuel, sans permettre d’attribuer spécifiquement cette variation à l’âge.
+**Maladie cardiaque (H9).** Contrairement à l'hypothèse formulée, l'association entre la maladie cardiaque et la présence d'un antécédent d'AVC n'est plus statistiquement mise en évidence après ajustement sur les autres variables du modèle (OR = 1,32 ; IC95 % : 0,90–1,90). L'estimation reste toutefois orientée vers des odds plus élevées d'antécédent d'AVC chez les personnes présentant une maladie cardiaque, mais avec une incertitude importante. L'atténuation par rapport à l'analyse univariée est compatible avec le rôle de l'âge envisagé dans le schéma conceptuel, sans permettre d'attribuer spécifiquement cette variation à l'âge.
 
-**Sexe (H10).** Contrairement à l’association attendue, aucune association entre le sexe et la présence d’un antécédent d’AVC n’est statistiquement mise en évidence après ajustement (OR = 1,04 pour les hommes par rapport aux femmes ; IC95 % : 0,78–1,38). Le rôle hypothétique du tabagisme dans cette relation n’a pas été spécifiquement évalué ; aucune analyse de médiation n’a été réalisée, compte tenu notamment de l’incertitude sur la temporalité des variables.
+**Sexe (H10).** Contrairement à l'association attendue, aucune association entre le sexe et la présence d'un antécédent d'AVC n'est statistiquement mise en évidence après ajustement (OR = 1,04 pour les hommes par rapport aux femmes ; IC95 % : 0,78–1,38). Le rôle hypothétique du tabagisme dans cette relation n'a pas été spécifiquement évalué ; aucune analyse de médiation n'a été réalisée, compte tenu notamment de l'incertitude sur la temporalité des variables.
 
 ## Limites
 
-**Temporalité des mesures** La date de survenue de l’AVC et le moment de mesure des autres variables ne sont pas renseignés. La séquence temporelle ne peut donc pas être établie, ce qui exclut toute interprétation causale.
+**Temporalité des mesures** La date de survenue de l'AVC et le moment de mesure des autres variables ne sont pas renseignés. La séquence temporelle ne peut donc pas être établie, ce qui exclut toute interprétation causale.
 
-**Définition et mesure des variables** Les modalités de définition ou de mesure de plusieurs variables, notamment l’AVC, l’hypertension, les maladies cardiaques et la glycémie, sont insuffisamment documentées. Des erreurs de classification ou de mesure ne peuvent donc pas être exclues.
+**Définition et mesure des variables** Les modalités de définition ou de mesure de plusieurs variables, notamment l'AVC, l'hypertension, les maladies cardiaques et la glycémie, sont insuffisamment documentées. Des erreurs de classification ou de mesure ne peuvent donc pas être exclues.
 
-**Représentativité de l’échantillon** La population source, le mode d’échantillonnage et les modalités de recrutement ne sont pas documentés. La proportion d’antécédents d’AVC ne peut donc pas être interprétée comme une prévalence en population générale, et la généralisation des résultats reste limitée.
+**Représentativité de l'échantillon** La population source, le mode d'échantillonnage et les modalités de recrutement ne sont pas documentés. La proportion d'antécédents d'AVC ne peut donc pas être interprétée comme une prévalence en population générale, et la généralisation des résultats reste limitée.
 
-**Données manquantes de l’IMC** Les valeurs manquantes ont été remplacées par la médiane, une méthode qui réduit artificiellement la variabilité et ne tient pas compte de l’incertitude liée à l’imputation. Les estimations concernant l’IMC peuvent donc en être affectées.
+**Données manquantes de l'IMC** Les valeurs manquantes ont été remplacées par la médiane, une méthode qui réduit artificiellement la variabilité et ne tient pas compte de l'incertitude liée à l'imputation. Les estimations concernant l'IMC peuvent donc en être affectées.
 
-**Confusion résiduelle** L’ajustement étant limité aux variables disponibles, l’influence de facteurs non mesurés ne peut pas être exclue.
+**Confusion résiduelle** L'ajustement étant limité aux variables disponibles, l'influence de facteurs non mesurés ne peut pas être exclue.
 
 # Conclusion
 
-Dans cet échantillon, l’âge, l’hypertension et la glycémie moyenne restent associés à la présence d’un antécédent d’AVC après ajustement sur les covariables incluses dans le modèle. Les associations observées pour la maladie cardiaque et le statut matrimonial dans les analyses descriptives sont fortement atténuées après ajustement sur les covariables incluses dans le modèle. Aucune association statistiquement mise en évidence n’est retrouvée pour l’IMC, le tabagisme, le type d’emploi, le lieu de résidence ou le sexe. Compte tenu du caractère transversal des données, de l’absence d’information sur l’échantillonnage et de la temporalité incertaine des variables, ces résultats doivent être interprétés comme des associations internes à cet échantillon et non comme des effets causaux ou des estimations directement généralisables à une population cible.
+Dans cet échantillon, l'âge, l'hypertension et la glycémie moyenne restent associés à la présence d'un antécédent d'AVC après ajustement sur les covariables incluses dans le modèle. Les associations observées pour la maladie cardiaque et le statut matrimonial dans les analyses descriptives sont fortement atténuées après ajustement sur les covariables incluses dans le modèle. Aucune association statistiquement mise en évidence n'est retrouvée pour l'IMC, le tabagisme, le type d'emploi, le lieu de résidence ou le sexe. Compte tenu du caractère transversal des données, de l'absence d'information sur l'échantillonnage et de la temporalité incertaine des variables, ces résultats doivent être interprétés comme des associations internes à cet échantillon et non comme des effets causaux ou des estimations directement généralisables à une population cible.
