@@ -394,19 +394,13 @@ modele_principal <- glm(
   data = donnees_adultes,
   family = binomial(link = "logit"))
 
-modele_age_spline <- glm(stroke ~ ns(age, df = 3) + gender + hypertension + heart_disease +ever_married + work_type + Residence_type +glucose_10 + bmi + smoking_status,
-data = donnees_adultes,family = binomial(link = "logit"))
+modele_age_spline     <- update(modele_principal, . ~ . - age + ns(age, df = 3))
+modele_bmi_spline     <- update(modele_principal, . ~ . - bmi + ns(bmi, df = 3))
+modele_glucose_spline <- update(modele_principal, . ~ . - glucose_10 + ns(glucose_10, df = 3))
 
-modele_bmi_spline <- glm(stroke ~ age + gender + hypertension + heart_disease +ever_married + work_type + Residence_type +glucose_10 + ns(bmi, df = 3) + smoking_status,data = donnees_adultes,family = binomial(link = "logit"))
-
-modele_glucose_spline <- glm(
-stroke ~ age + gender + hypertension + heart_disease +ever_married + work_type + Residence_type +ns(glucose_10, df = 3) + bmi + smoking_status,data = donnees_adultes,family = binomial(link = "logit"))
-
-anova(modele_principal, modele_age_spline, test = "LRT")
-
-anova(modele_principal, modele_bmi_spline, test = "LRT")
-
-anova(modele_principal, modele_glucose_spline, test = "LRT")
+lrt_age <-anova(modele_principal, modele_age_spline, test = "LRT")
+lrt_bmi <-anova(modele_principal, modele_bmi_spline, test = "LRT")
+lrt_glucose <-anova(modele_principal, modele_glucose_spline, test = "LRT")
 ```
 Une amélioration de l'ajustement a été observée pour l'âge (p = 0,012), mais pas pour l'IMC (p = 0,264) ni pour la glycémie moyenne (p = 0,678). L'exploration de la forme fonctionnelle a donc été poursuivie pour l'âge.
 
